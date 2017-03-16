@@ -1,4 +1,10 @@
-    
+CREATE TABLE Location (
+	ZipCode INTEGER,
+	City CHAR(20) NOT NULL,
+	State CHAR(20) NOT NULL,
+	
+    PRIMARY KEY (ZipCode) );  
+
 CREATE TABLE Person (
 	SSN INTEGER,
 	LastName CHAR(20) NOT NULL,
@@ -12,13 +18,6 @@ CREATE TABLE Person (
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 
-CREATE TABLE Location (
-	ZipCode INTEGER,
-	City CHAR(20) NOT NULL,
-	State CHAR(20) NOT NULL,
-	
-    PRIMARY KEY (ZipCode) );
-
 CREATE TABLE Employee (
 	ID INTEGER,
 	SSN INTEGER,
@@ -27,17 +26,6 @@ CREATE TABLE Employee (
 	
     PRIMARY KEY (ID),
     FOREIGN KEY (SSN) REFERENCES Person (SSN)
-		ON DELETE NO ACTION
-		ON UPDATE CASCADE );
-    
-    CREATE TABLE Account (
-	Id INTEGER,
-	DateOpened DATE,
-	Type CHAR(30),
-	Customer INTEGER,
-	
-    PRIMARY KEY (Id),
-	FOREIGN KEY (Customer) REFERENCES Customer (Id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 
@@ -51,6 +39,18 @@ CREATE TABLE Customer (
 	FOREIGN KEY (Id) REFERENCES Person (SSN)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
+
+CREATE TABLE Account (
+	Id INTEGER,
+	DateOpened DATE,
+	Type CHAR(30),
+	Customer INTEGER,
+	
+    PRIMARY KEY (Id),
+	FOREIGN KEY (Customer) REFERENCES Customer (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE );
+
 
 CREATE TABLE MovieOrder (
 	Id INTEGER,
@@ -82,7 +82,7 @@ CREATE TABLE Rental (
 	AccountId INTEGER,
 	CustRepId INTEGER,
 	OrderId INTEGER,
-	MovieId CHAR(20),
+	MovieId INTEGER,
 	
     PRIMARY KEY (AccountId, CustRepId, OrderId, MovieId),
 	FOREIGN KEY (AccountId) REFERENCES Account (Id)
