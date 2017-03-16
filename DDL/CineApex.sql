@@ -19,7 +19,7 @@ CREATE TABLE Person (
 		ON UPDATE CASCADE );
 
 CREATE TABLE Employee (
-	ID INTEGER,
+	Id INTEGER,
 	SSN INTEGER,
 	StartDate DATE,
 	HourlyRate INTEGER,
