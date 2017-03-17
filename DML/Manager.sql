@@ -13,35 +13,35 @@ WHERE Id = 1;
 --- Add, Edit and Delete information for an employee
 INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
                 VALUES
-                    (2, 123-45-6789, 2015-11-05, 60);
+                    (2, 123456789, 2015-11-05, 60);
 
 UPDATE Employee
 SET    HourlyRate = 65
-WHERE  Id = 2
+WHERE  Id = 2;
 
 DELETE FROM Employee
-WHERE       Id = 2
+WHERE       Id = 2;
 
 --- Obtain a sales report (i.e. the overall income from all active subscriptions) for a particular month
 
---- Produce a comprehensive listing of all movies
+--- Produce a comprehensive listing of all movies [ TESTED AND WORKING ]
 SELECT *
-FROM   Movie
+FROM   Movie;
 
 --- Produce a list of movie rentals by movie name, movie type or customer name
 
 SELECT  R.*
 FROM    Rental R, Movie M
-WHERE   R.MovieId = M.Id AND M.Name = “The GodFather”
+WHERE   R.MovieId = M.Id AND M.Name = "The GodFather";
 
 SELECT  R.*
 FROM    Rental R, Movie M
-WHERE   R.MovieId = M.Id AND M.Type = “Drama”
+WHERE   R.MovieId = M.Id AND M.Type = "Drama";
 
 SELECT  R.*
 FROM    Rental R, Customer C
-WHERE   R.AccountId = C.Id AND C.LastName = “Smith” AND       
-        C.FirstName = “John”
+WHERE   R.AccountId = C.Id AND C.LastName = "Smith" AND       
+        C.FirstName = "John";
 
 
 --- Determine which customer representative oversaw the most transactions (rentals)
@@ -49,16 +49,16 @@ WHERE   R.AccountId = C.Id AND C.LastName = “Smith” AND
 CREATE VIEW CustomerRepTransCount(Id, TransCount) AS
 	SELECT E.ID , COUNT(E.Id) 
     FROM   Rental R, Employee E
-    WHERE  E.Id = R.EmpID
+    WHERE  E.Id = R.EmpID;
 	
 SELECT Id, Max(TransCount)
-FROM   CustomerRepTransCount
+FROM   CustomerRepTransCount;
 
 --- Produce a list of most active customers
 
 SELECT  C.ID
 FROM    Customer C , Rental R
-WHERE  
+WHERE  ;
 
 --- Produce a list of most actively rented movies
 
