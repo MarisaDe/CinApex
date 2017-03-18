@@ -24,6 +24,15 @@ WHERE       Id = 2;
 
 --- Obtain a sales report (i.e. the overall income from all active subscriptions) for a particular month
 
+CREATE VIEW monthlyReport(Id, DistrFee) AS
+    SELECT  M.Id, M.DistrFee
+    FROM    Movie M, MovieOrder MO
+    WHERE   M.Id = MO.MovieId AND
+            MONTH(DataTime) = 3         --- MARCH
+
+SELECT SUM(DistrFee)
+FROM   monthlyReport
+
 
 
 --- Produce a comprehensive listing of all movies [ TESTED AND WORKING ]
@@ -49,7 +58,7 @@ WHERE   R.AccountId = C.Id AND C.LastName = "Smith" AND
 --- Determine which customer representative oversaw the most transactions (rentals)
 
 CREATE VIEW CustomerRepTransCount(Id, TransCount) AS
-	SELECT E.Id , COUNT(E.Id) 
+    SELECT E.Id , COUNT(E.Id) 
     FROM   Rental R, Employee E
     WHERE  E.Id = R.EmpID;
 	
