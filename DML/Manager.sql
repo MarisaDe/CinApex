@@ -11,9 +11,30 @@ DELETE FROM Movie
 WHERE Id = 1;
 
 --- Add, Edit and Delete information for an employee
+
+INSERT INTO Location(ZipCode, City, State)
+            VALUES
+            (11790, "Stony Brook", "NY");
+            
+INSERT INTO Person 
+    SET SSN = 123456789,
+    SET LastName = "Smith",
+    SET FirstName = "David",
+    SET ZipCode = (
+        SELECT
+    ),
+       id_teacher_fk = (
+       SELECT id_teacher
+         FROM tab_teacher
+        WHERE name_teacher = 'Dr. Smith')
+
+INSERT INTO Person(SSN, LastName, FirstName, Address, ZipCode, Telephone)
+                VALUES 
+                    (123456789, "Smith", "David", "123 College road, Stony Brook, NY", "11790", 5162152345);
+
 INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
                 VALUES
-                    (2, 123456789, 2015-11-05, 60);
+                    (2, 123456789, 20151105, 60);
 
 UPDATE Employee
 SET    HourlyRate = 65
@@ -28,7 +49,7 @@ CREATE VIEW monthlyReport(Id, DistrFee) AS
     SELECT  M.Id, M.DistrFee
     FROM    Movie M, MovieOrder MO
     WHERE   M.Id = MO.MovieId AND
-            MONTH(DataTime) = 3         --- MARCH
+            MONTH(DateTime) = 3         --- MARCH
 
 SELECT SUM(DistrFee)
 FROM   monthlyReport

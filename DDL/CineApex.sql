@@ -6,12 +6,12 @@ CREATE TABLE Location (
     PRIMARY KEY (ZipCode) );  
 
 CREATE TABLE Person (
-	SSN       INTEGER,
+	SSN       CHAR(15),
 	LastName  CHAR(20) NOT NULL,
 	FirstName CHAR(20) NOT NULL,
 	Address   CHAR(20),
 	ZipCode   INTEGER,
-	Telephone INTEGER,
+	Telephone CHAR(20),
 	
     PRIMARY KEY (SSN),
 	FOREIGN KEY (ZipCode) REFERENCES Location (ZipCode)
@@ -19,7 +19,7 @@ CREATE TABLE Person (
 		ON UPDATE CASCADE );
 
 CREATE TABLE Employee (
-	Id         INTEGER,
+	Id         CHAR(15),
 	SSN        INTEGER,
 	StartDate  DATE,
 	HourlyRate INTEGER,
@@ -30,10 +30,10 @@ CREATE TABLE Employee (
 		ON UPDATE CASCADE );
 
 CREATE TABLE Customer (
-	Id               INTEGER,
+	Id               CHAR(15),
 	Email            CHAR(32),
 	Rating           INTEGER,
-	CreditCardNumber INTEGER,
+	CreditCardNumber CHAR(20),
 	
     PRIMARY KEY (Id),
 	FOREIGN KEY (Id) REFERENCES Person (SSN)
@@ -41,7 +41,7 @@ CREATE TABLE Customer (
 		ON UPDATE CASCADE );
 
 CREATE TABLE Account (
-	Id         INTEGER,
+	Id         CHAR(15),
 	DateOpened DATE,
 	Type       CHAR(30),
 	Customer   INTEGER,
@@ -79,8 +79,8 @@ CREATE TABLE Actor (
     PRIMARY KEY (Id) );
 
 CREATE TABLE Rental (
-	AccountId INTEGER,
-	CustRepId INTEGER,
+	AccountId CHAR(15),
+	CustRepId CHAR(15),
 	OrderId   INTEGER,
 	MovieId   INTEGER,
 	
@@ -99,7 +99,7 @@ CREATE TABLE Rental (
 		ON UPDATE CASCADE );
 
 CREATE TABLE MovieQ(
-    AccountId INTEGER,
+    AccountId CHAR(15),
     MovieId   INTEGER,
     
     PRIMARY KEY (AccountId, MovieId),
