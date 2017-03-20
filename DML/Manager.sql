@@ -1,5 +1,5 @@
 --- Add, Edit and Delete movies  [ TESTED AND WORKING ]
-INSERT INTO Movie(Id, Name, Type, Rating, DistrFee, NumCpy )
+INSERT INTO Movie(Id, Name, Type, Rating, DistrFee, NumCopies )
             VALUES 
                  (1, "The GodFather", "Drama", 5, 10000, 3);
 
@@ -10,7 +10,7 @@ WHERE  Id = 1;
 DELETE FROM Movie
 WHERE Id = 1;
 
---- Add, Edit and Delete information for an employee
+--- Add, Edit and Delete information for an employee [TESTED AND WORKING]
 
 INSERT INTO Location(ZipCode, City, State)
             VALUES

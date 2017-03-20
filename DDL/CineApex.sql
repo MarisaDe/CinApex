@@ -41,8 +41,6 @@ CREATE TABLE Customer (
 		ON UPDATE CASCADE );
 
 
-
-
 CREATE TABLE MovieOrder (
 	Id         INTEGER,
 	DateTime   DATETIME,
