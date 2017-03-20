@@ -20,7 +20,7 @@ CREATE TABLE Person (
 
 CREATE TABLE Employee (
 	Id         CHAR(15),
-	SSN        INTEGER,
+	SSN        CHAR(15),
 	StartDate  DATE,
 	HourlyRate INTEGER,
 	
@@ -40,16 +40,7 @@ CREATE TABLE Customer (
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 
-CREATE TABLE Account (
-	Id         CHAR(15),
-	DateOpened DATE,
-	Type       CHAR(30),
-	Customer   INTEGER,
-	
-    PRIMARY KEY (Id),
-	FOREIGN KEY (Customer) REFERENCES Customer (Id)
-		ON DELETE NO ACTION
-		ON UPDATE CASCADE );
+
 
 
 CREATE TABLE MovieOrder (

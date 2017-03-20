@@ -15,26 +15,14 @@ WHERE Id = 1;
 INSERT INTO Location(ZipCode, City, State)
             VALUES
             (11790, "Stony Brook", "NY");
-            
-INSERT INTO Person 
-    SET SSN = 123456789,
-    SET LastName = "Smith",
-    SET FirstName = "David",
-    SET ZipCode = (
-        SELECT
-    ),
-       id_teacher_fk = (
-       SELECT id_teacher
-         FROM tab_teacher
-        WHERE name_teacher = 'Dr. Smith')
 
 INSERT INTO Person(SSN, LastName, FirstName, Address, ZipCode, Telephone)
                 VALUES 
-                    (123456789, "Smith", "David", "123 College road, Stony Brook, NY", "11790", 5162152345);
+                    ("123-45-6789", "Smith", "David", "123 College road", "11790", "516-2152-345");
 
 INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
                 VALUES
-                    (2, 123456789, 20151105, 60);
+                    (2, "123-45-6789", 20151105, 60);
 
 UPDATE Employee
 SET    HourlyRate = 65
