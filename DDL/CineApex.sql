@@ -18,6 +18,17 @@ CREATE TABLE Person (
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 
+CREATE TABLE Account (
+	Id         CHAR(15),
+	DateOpened DATE,
+	Type       CHAR(30),
+	Customer   INTEGER,
+	
+    PRIMARY KEY (Id),
+	FOREIGN KEY (Customer) REFERENCES Customer (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE );
+
 CREATE TABLE Employee (
 	Id         CHAR(15),
 	SSN        CHAR(15),

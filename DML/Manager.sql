@@ -50,15 +50,15 @@ FROM   Movie;
 
 --- Produce a list of movie rentals by movie name, movie type or customer name
 
-SELECT  R.*
+SELECT  *
 FROM    Rental R, Movie M
 WHERE   R.MovieId = M.Id AND M.Name = "The GodFather";
 
-SELECT  R.*
+SELECT  *
 FROM    Rental R, Movie M
 WHERE   R.MovieId = M.Id AND M.Type = "Drama";
 
-SELECT  R.*
+SELECT  *
 FROM    Rental R, Customer C
 WHERE   R.AccountId = C.Id AND C.LastName = "Smith" AND       
         C.FirstName = "John";
