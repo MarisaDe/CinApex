@@ -68,7 +68,7 @@ CREATE VIEW monthlyReport(Id, DistrFee) AS
     SELECT  M.Id, M.DistrFee
     FROM    Movie M, MovieOrder MO
     WHERE   M.Id = MO.Id AND
-            MONTH(DateTime) = 3;        --- MARCH
+            MONTH(DateNTime) = 11;        --- NOV
 
 SELECT SUM(DistrFee)
 FROM   monthlyReport;
@@ -95,10 +95,12 @@ WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Yang" AND
 
 
 --- Determine which customer representative oversaw the most transactions (rentals)
+--- [ TESTED AND WORKING ]
 
-SELECT  CustRepId, COUNT(CustRepId) totalCount
-FROM    Rental R, Employee E
-WHERE   E.Id = R.CustRepId
+SELECT  CustRepId, P.FirstName, P.LastName, COUNT(CustRepId) totalCount
+FROM    Rental R, Employee E, Person P
+WHERE   E.Id  = R.CustRepId AND
+        P.SSN = E.SSN
 GROUP BY CustRepId 
 HAVING  COUNT(CustRepId) =
 (
@@ -112,18 +114,13 @@ HAVING  COUNT(CustRepId) =
 
 --- Produce a list of most active customers
 
-CREATE VIEW CustomerRentalCnt(Id, RentCnt) AS
-    SELECT  C.Id, COUNT(R.AccountId)
-    FROM    Customer C, Rental R
-    WHERE   C.Id = R.AccountId
-    GROUP BY C.Id;
 
-SELECT Id
-FROM   CustomerRentalCnt
-WHERE  RentCnt > 4;     --- If customer rents more then 4 movie they are active
-
-SELECT Id
-FROM Customer C
+SELECT  R.AccountId, P.FirstName, P.LastName, COUNT(AccountId) totalCount
+FROM    Rental R, Person P, Account A
+WHERE   A.Id = R.AccountId AND
+        P.SSN = A.CustomerId
+GROUP BY AccountId
+HAVING totalCount > 1;
 
 --- Produce a list of most actively rented movies
 
