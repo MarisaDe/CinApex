@@ -96,31 +96,42 @@ WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Smith" AND
 
 --- Determine which customer representative oversaw the most transactions (rentals)
 
-CREATE VIEW CustomerRepTransCount(Id, TransCount) AS
-    SELECT E.Id , COUNT(E.Id) 
-    FROM   Rental R, Employee E
-    WHERE  E.Id = R.CustRepId;
-	
-SELECT Id, Max(TransCount) AS mostTrans
-FROM   CustomerRepTransCount;
+SELECT  CustRepId, COUNT(CustRepId) totalCount
+FROM    Rental R, Employee E
+WHERE   E.Id = R.CustRepId
+GROUP BY CustRepId 
+HAVING  COUNT(CustRepId) =
+(
+  SELECT  COUNT(CustRepId) totalCount
+  FROM    Rental R, Employee E 
+  WHERE   E.Id = R.CustRepId
+  GROUP BY CustRepId 
+  ORDER BY totalCount DESC
+  LIMIT 1  
+);
 
 --- Produce a list of most active customers
 
 CREATE VIEW CustomerRentalCnt(Id, RentCnt) AS
-    SELECT  C.Id, COUNT(*)
+    SELECT  C.Id, COUNT(R.AccountId)
     FROM    Customer C, Rental R
-    WHERE   C.Id = R.AccountId;
+    WHERE   C.Id = R.AccountId
+    GROUP BY C.Id;
 
 SELECT Id
 FROM   CustomerRentalCnt
 WHERE  RentCnt > 4;     --- If customer rents more then 4 movie they are active
 
+SELECT Id
+FROM Customer C
+
 --- Produce a list of most actively rented movies
 
 CREATE VIEW MovieRentalCnt(Id, RentCnt) AS
-    SELECT  M.Id, COUNT(*)
-    FROM    Movie M, Rental R
-    WHERE   M.Id = R.MovieId;
+    SELECT   M.Id, COUNT(R.MovieId)
+    FROM     Movie M, Rental R
+    WHERE    M.Id = R.MovieId
+    GROUP BY M.Id;
 
 SELECT   Id
 FROM     MovieRentalCnt
