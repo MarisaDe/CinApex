@@ -90,8 +90,8 @@ WHERE   R.MovieId = M.Id AND M.Type = "Drama";
 
 SELECT  *
 FROM    Rental R, Customer C, Person P
-WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Smith" AND       
-        P.FirstName = "John";
+WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Yang" AND       
+        P.FirstName = "Shang";
 
 
 --- Determine which customer representative oversaw the most transactions (rentals)
