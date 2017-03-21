@@ -6,7 +6,7 @@ VALUES(1, '1', 1, '2009-11-09 10:00', 20091114);
 
 INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId)
         VALUES
-            ('1', 2, 1,1);
+            ('1', '2', 1, 1);
 
 #Order 2
 INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
@@ -14,7 +14,7 @@ VALUES(2, '2', 3, '2009-11-09 18:15');
 
 INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId)
         VALUES
-            ('2', 2, 2,3);
+            ('2', '2', 2, 3);
 
 #Order 3
 INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
@@ -22,7 +22,7 @@ VALUES(3, '1', 3, '2009-11-12 9:30');
 
 INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId)
         VALUES
-            ('1', 1, 3,3);
+            ('1', '1', 3, 3);
 
 #Order 4
 INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
@@ -30,7 +30,7 @@ VALUES(4, '2', 2, '2009-11-21 22:22');
 
 INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId)
         VALUES
-            ('2', 2, 4,2);
+            ('2', '2', 4, 2);
 
 ###############################################################################
 #Add information for a customer -- Working --

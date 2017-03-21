@@ -113,24 +113,20 @@ HAVING  COUNT(CustRepId) =
 );
 
 --- Produce a list of most active customers
-
+--- [ WORKING AND TESTED ]
 
 SELECT  R.AccountId, P.FirstName, P.LastName, COUNT(AccountId) totalCount
 FROM    Rental R, Person P, Account A
 WHERE   A.Id = R.AccountId AND
         P.SSN = A.CustomerId
 GROUP BY AccountId
-HAVING totalCount > 1;
+HAVING totalCount >= 2;    -- If you have 2 or more rental you're an active user
 
 --- Produce a list of most actively rented movies
-
-CREATE VIEW MovieRentalCnt(Id, RentCnt) AS
-    SELECT   M.Id, COUNT(R.MovieId)
-    FROM     Movie M, Rental R
-    WHERE    M.Id = R.MovieId
-    GROUP BY M.Id;
-
-SELECT   Id
-FROM     MovieRentalCnt
-WHERE    RentCnt > 4       --- If actively rented if rented more then 4 times
-GROUP BY Id;
+--- [ WORKING AND TESTED 
+]
+SELECT   M.Name, COUNT(M.Id) totalCount
+FROM     Rental R, Movie M
+WHERE    M.Id = R.MovieId
+GROUP BY MovieId
+HAVING totalCount >= 2;    -- If a movie is rented 2 or more time then its actively rented
