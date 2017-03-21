@@ -48,10 +48,6 @@ CREATE TABLE Account (
 	Type       CHAR(30),
 	CustomerId CHAR(15),
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 1458ac6b3b877cafe20ce054afae168e0eb4f910
     PRIMARY KEY (Id),
 	FOREIGN KEY (CustomerId) REFERENCES Customer (Id)
 		ON DELETE NO ACTION
@@ -138,4 +134,18 @@ CREATE TABLE AppearedIn(
             ON DELETE NO ACTION
             ON UPDATE CASCADE
     
+);
+
+CREATE TABLE UserRatings(
+    CustomerId INTEGER,
+    MovieId INTEGER,
+    Rating INTEGER,
+    
+    PRIMARY KEY (CustomerId, MovieId),
+    FOREIGN KEY (Customer) REFERENCES Customer(Id)
+            ON DELETE NO ACTION
+            ON UPDATE CASCADE,
+    FOREIGN KEY (MovieId) REFERENCES Movie(Id)
+            ON DELETE NO ACTION
+            ON UPDATE CASCADE
 );
