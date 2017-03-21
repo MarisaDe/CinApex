@@ -62,6 +62,7 @@ INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
 -----
 
 --- Obtain a sales report (i.e. the overall income from all active subscriptions) for a particular month
+--- [ WORKING ]
 
 CREATE VIEW monthlyReport(Id, DistrFee) AS
     SELECT  M.Id, M.DistrFee
@@ -78,7 +79,7 @@ FROM   monthlyReport;
 SELECT *
 FROM   Movie;
 
---- Produce a list of movie rentals by movie name, movie type or customer name
+--- Produce a list of movie rentals by movie name, movie type or customer name [WORKING]
 
 SELECT  *
 FROM    Rental R, Movie M
@@ -91,7 +92,7 @@ WHERE   R.MovieId = M.Id AND M.Type = "Drama";
 SELECT  *
 FROM    Rental R, Customer C, Person P
 WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Smith" AND       
-        C.FirstName = "John";
+        P.FirstName = "John";
 
 
 --- Determine which customer representative oversaw the most transactions (rentals)
@@ -99,9 +100,9 @@ WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Smith" AND
 CREATE VIEW CustomerRepTransCount(Id, TransCount) AS
     SELECT E.Id , COUNT(E.Id) 
     FROM   Rental R, Employee E
-    WHERE  E.Id = R.EmpID;
+    WHERE  E.Id = R.CustRepId;
 	
-SELECT Id, Max(TransCount)
+SELECT Id, Max(TransCount) AS mostTrans
 FROM   CustomerRepTransCount;
 
 --- Produce a list of most active customers
