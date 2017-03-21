@@ -46,13 +46,13 @@ CREATE TABLE Account (
 	Id         CHAR(15),
 	DateOpened DATE,
 	Type       CHAR(30),
-	Customer   INTEGER,
+	CustomerId   CHAR(15),
 	
     PRIMARY KEY (Id),
 	FOREIGN KEY (Customer) REFERENCES Customer (Id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
-		
+
 CREATE TABLE MovieOrder (
 	Id         INTEGER,
 	DateTime   DATETIME,
