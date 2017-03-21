@@ -38,11 +38,17 @@ INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
                     (1, "123-45-6789", 20151105, 60);
 
 UPDATE Employee
-SET    HourlyRate = 65
+SET    HourlyRate = 50
 WHERE  Id = 1;
 
+-- DELETE EMPLOYEE
+
+UPDATE Rental
+SET    CustRepId = "-"
+WHERE  CustRepId = 1;
+
 DELETE FROM Employee
-WHERE       Id = 1;
+WHERE       Id = "-";
 
 ----- OTHER EMPLOYEE
 
