@@ -62,5 +62,13 @@ LIMIT 2;
 
 ---9.	Personalized movie suggestion list
 ---10.	Rate the movies they have rented
+INSERT INTO UserRatings(CustomerId, MovieId, Rating)
+	Values('111-11-1111', 3, 1);
+
+Select AVG(Rating) AS AvgRating
+FROM UserRatings
+WHERE MovieId=3;
+
 UPDATE Movie
-SET
+SET Rating=AvgRating
+WHERE MovieId=3;
