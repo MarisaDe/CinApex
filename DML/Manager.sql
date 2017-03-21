@@ -74,7 +74,6 @@ SELECT SUM(DistrFee)
 FROM   monthlyReport;
 
 
-
 --- Produce a comprehensive listing of all movies [ TESTED AND WORKING ]
 SELECT *
 FROM   Movie;
@@ -123,6 +122,7 @@ CREATE VIEW MovieRentalCnt(Id, RentCnt) AS
     FROM    Movie M, Rental R
     WHERE   M.Id = R.MovieId;
 
-SELECT Id
-FROM   MovieRentalCnt
-WHERE  RentCnt > 4;       --- If actively rented if rented more then 4 times
+SELECT   Id
+FROM     MovieRentalCnt
+WHERE    RentCnt > 4       --- If actively rented if rented more then 4 times
+GROUP BY Id;
