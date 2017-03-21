@@ -137,12 +137,12 @@ CREATE TABLE AppearedIn(
 );
 
 CREATE TABLE UserRatings(
-    CustomerId INTEGER,
+    CustomerId CHAR(15),
     MovieId INTEGER,
     Rating INTEGER,
     
     PRIMARY KEY (CustomerId, MovieId),
-    FOREIGN KEY (Customer) REFERENCES Customer(Id)
+    FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
             ON DELETE NO ACTION
             ON UPDATE CASCADE,
     FOREIGN KEY (MovieId) REFERENCES Movie(Id)
