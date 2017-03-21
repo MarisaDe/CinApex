@@ -50,16 +50,25 @@ CREATE TABLE Account (
 
 	
     PRIMARY KEY (Id),
-	FOREIGN KEY (Customer) REFERENCES Customer (Id)
+	FOREIGN KEY (CustomerId) REFERENCES Customer (Id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 		
 CREATE TABLE MovieOrder (
 	Id         INTEGER,
+	AccountId  CHAR(15),
+	MovieId    INTEGER,
 	DateTime   DATETIME,
 	ReturnDate DATE,
 	
-    PRIMARY KEY (Id) );
+    PRIMARY KEY (Id) ),
+	
+	FOREIGN KEY(MovieId) REFERENCES Movie(Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE,
+	FOREIGN KEY(AccountId) REFERENCES Account(Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE);
 
 CREATE TABLE Movie (
 	Id        INTEGER,
