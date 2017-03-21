@@ -5,16 +5,16 @@ INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate)
 VALUES(1, '1', 1, '2009-11-09 10:00', 20091114);
 
 #Order 2
-INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate)
-VALUES(2, '2', 3, '2009-11-09 18:15', NULL);
+INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
+VALUES(2, '2', 3, '2009-11-09 18:15');
 
 #Order 3
-INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate)
-VALUES(3, '1', 3, '2009-11-12 9:30', NULL);
+INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
+VALUES(3, '1', 3, '2009-11-12 9:30');
 
 #Order 4
-INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate)
-VALUES(4, '2', 2, '2009-11-21 22:22', NULL);
+INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime)
+VALUES(4, '2', 2, '2009-11-21 22:22');
 
 ###############################################################################
 #Add information for a customer -- Working --
