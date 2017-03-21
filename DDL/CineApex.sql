@@ -54,11 +54,11 @@ CREATE TABLE Account (
 		ON UPDATE CASCADE );
 		
 CREATE TABLE MovieOrder (
-	Id         INTEGER,
-	AccountId  CHAR(15),
-	MovieId    INTEGER,
-	DateAndTime   DATETIME,
-	ReturnDate DATE,
+	Id          INTEGER,
+	AccountId   CHAR(15),
+	MovieId     INTEGER,
+	DateAndTime DATETIME,
+	ReturnDate  DATE,
 	
     PRIMARY KEY (Id) ,
 	

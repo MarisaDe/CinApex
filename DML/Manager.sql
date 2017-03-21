@@ -68,9 +68,9 @@ CREATE VIEW monthlyReport(Id, DistrFee) AS
     SELECT  M.Id, M.DistrFee
     FROM    Movie M, MovieOrder MO
     WHERE   M.Id = MO.Id AND
-            MONTH(DateTime) = 3;        --- MARCH
+            MONTH(MO.DateAndTime) = 11;        --- NOV
 
-SELECT SUM(DistrFee)
+SELECT SUM(DistrFee) as totalSales
 FROM   monthlyReport;
 
 
@@ -95,45 +95,38 @@ WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Yang" AND
 
 
 --- Determine which customer representative oversaw the most transactions (rentals)
+--- [ TESTED AND WORKING ]
 
-SELECT  CustRepId, COUNT(CustRepId) totalCount
-FROM    Rental R, Employee E
-WHERE   E.Id = R.CustRepId
+SELECT   CustRepId, P.FirstName, P.LastName, COUNT(CustRepId) totalCount
+FROM     Rental R, Employee E, Person P
+WHERE    E.Id  = R.CustRepId AND
+         P.SSN = E.SSN
 GROUP BY CustRepId 
-HAVING  COUNT(CustRepId) =
+HAVING   COUNT(CustRepId) =
 (
-  SELECT  COUNT(CustRepId) totalCount
-  FROM    Rental R, Employee E 
-  WHERE   E.Id = R.CustRepId
+  SELECT   COUNT(CustRepId) totalCount
+  FROM     Rental R, Employee E 
+  WHERE    E.Id = R.CustRepId
   GROUP BY CustRepId 
   ORDER BY totalCount DESC
   LIMIT 1  
 );
 
 --- Produce a list of most active customers
+--- [ WORKING AND TESTED ]
 
-CREATE VIEW CustomerRentalCnt(Id, RentCnt) AS
-    SELECT  C.Id, COUNT(R.AccountId)
-    FROM    Customer C, Rental R
-    WHERE   C.Id = R.AccountId
-    GROUP BY C.Id;
-
-SELECT Id
-FROM   CustomerRentalCnt
-WHERE  RentCnt > 4;     --- If customer rents more then 4 movie they are active
-
-SELECT Id
-FROM Customer C
+SELECT   R.AccountId, P.FirstName, P.LastName, COUNT(AccountId) totalCount
+FROM     Rental R, Person P, Account A
+WHERE    A.Id = R.AccountId AND
+         P.SSN = A.CustomerId
+GROUP BY AccountId
+HAVING   totalCount >= 2;    -- If you have 2 or more rental you're an active user
 
 --- Produce a list of most actively rented movies
-
-CREATE VIEW MovieRentalCnt(Id, RentCnt) AS
-    SELECT   M.Id, COUNT(R.MovieId)
-    FROM     Movie M, Rental R
-    WHERE    M.Id = R.MovieId
-    GROUP BY M.Id;
-
-SELECT   Id
-FROM     MovieRentalCnt
-WHERE    RentCnt > 4       --- If actively rented if rented more then 4 times
-GROUP BY Id;
+--- [ WORKING AND TESTED ]
+]
+SELECT   M.Name, COUNT(M.Id) totalCount
+FROM     Rental R, Movie M
+WHERE    M.Id = R.MovieId
+GROUP BY MovieId
+HAVING   totalCount >= 2;    -- If a movie is rented 2 or more time then its actively rented
