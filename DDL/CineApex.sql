@@ -61,7 +61,7 @@ CREATE TABLE MovieOrder (
 	DateTime   DATETIME,
 	ReturnDate DATE,
 	
-    PRIMARY KEY (Id) ),
+    PRIMARY KEY (Id) ,
 	
 	FOREIGN KEY(MovieId) REFERENCES Movie(Id)
 		ON DELETE NO ACTION

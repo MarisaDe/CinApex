@@ -89,8 +89,8 @@ FROM    Rental R, Movie M
 WHERE   R.MovieId = M.Id AND M.Type = "Drama";
 
 SELECT  *
-FROM    Rental R, Customer C
-WHERE   R.AccountId = C.Id AND C.LastName = "Smith" AND       
+FROM    Rental R, Customer C, Person P
+WHERE   R.AccountId = C.Id AND P.SSN = C.Id AND P.LastName = "Smith" AND       
         C.FirstName = "John";
 
 
