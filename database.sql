@@ -321,6 +321,33 @@ LOCK TABLES `rental` WRITE;
 /*!40000 ALTER TABLE `rental` DISABLE KEYS */;
 /*!40000 ALTER TABLE `rental` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `userratings`
+--
+
+DROP TABLE IF EXISTS `userratings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userratings` (
+  `CustomerId` char(15) NOT NULL,
+  `MovieId` int(11) NOT NULL,
+  `Rating` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CustomerId`,`MovieId`),
+  KEY `MovieId` (`MovieId`),
+  CONSTRAINT `userratings_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`Id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `userratings_ibfk_2` FOREIGN KEY (`MovieId`) REFERENCES `movie` (`Id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userratings`
+--
+
+LOCK TABLES `userratings` WRITE;
+/*!40000 ALTER TABLE `userratings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userratings` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -331,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-20 22:18:50
+-- Dump completed on 2017-03-20 22:39:42
