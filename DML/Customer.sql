@@ -21,9 +21,9 @@ INSERT INTO AppearedIn(ActorId, MovieId)
 --- 1.	A customer's currently held movies
 SELECT MovieId
 FROM Rental
-WHERE AccountId =1 AND EXISTS(
+WHERE AccountId =2 AND EXISTS(
 	SELECT ReturnDate
-	FROM Order
+	FROM MovieOrder
 	WHERE OrderId = Id AND ReturnDate > NOW());
 ---2.	A customer's queue of movies it would like to see [WORKS]
 SELECT MovieId, Name
@@ -61,14 +61,15 @@ ORDER BY Rating DESC
 LIMIT 2;
 
 ---9.	Personalized movie suggestion list
+SELECT m.Name, m.Type
+FROM Movie m, Rental r
+WHERE 
 ---10.	Rate the movies they have rented
 INSERT INTO UserRatings(CustomerId, MovieId, Rating)
 	Values('111-11-1111', 3, 1);
 
-Select AVG(Rating) AS AvgRating
-FROM UserRatings
-WHERE MovieId=3;
-
-UPDATE Movie
-SET Rating=AvgRating
-WHERE MovieId=3;
+UPDATE Movie m 
+INNER JOIN UserRatings u
+ON m.Id = u.MovieId
+SET m.Rating=AVG(u.Rating)
+WHERE Id=3;
