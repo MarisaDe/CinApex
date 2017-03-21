@@ -58,7 +58,7 @@ CREATE TABLE MovieOrder (
 	Id         INTEGER,
 	AccountId  CHAR(15),
 	MovieId    INTEGER,
-	DateTime   DATETIME,
+	DateNTime   DATETIME,
 	ReturnDate DATE,
 	
     PRIMARY KEY (Id) ,
