@@ -36,11 +36,11 @@ WHERE       Id = 2;
 CREATE VIEW monthlyReport(Id, DistrFee) AS
     SELECT  M.Id, M.DistrFee
     FROM    Movie M, MovieOrder MO
-    WHERE   M.Id = MO.MovieId AND
-            MONTH(DateTime) = 3         --- MARCH
+    WHERE   M.Id = MO.Id AND
+            MONTH(DateTime) = 3 ;        --- MARCH
 
 SELECT SUM(DistrFee)
-FROM   monthlyReport
+FROM   monthlyReport;
 
 
 

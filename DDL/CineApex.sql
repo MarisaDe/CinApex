@@ -46,7 +46,7 @@ CREATE TABLE Account (
 	Id         CHAR(15),
 	DateOpened DATE,
 	Type       CHAR(30),
-	CustomerId   CHAR(15),
+	CustomerId CHAR(15),
 	
     PRIMARY KEY (Id),
 	FOREIGN KEY (Customer) REFERENCES Customer (Id)
