@@ -57,7 +57,7 @@ CREATE TABLE MovieOrder (
 	Id         INTEGER,
 	AccountId  CHAR(15),
 	MovieId    INTEGER,
-	DateNTime   DATETIME,
+	DateAndTime   DATETIME,
 	ReturnDate DATE,
 	
     PRIMARY KEY (Id) ,
@@ -93,6 +93,7 @@ CREATE TABLE Rental (
 	CustRepId CHAR(15),
 	OrderId   INTEGER,
 	MovieId   INTEGER,
+	UserRating INTEGER,
 	
     PRIMARY KEY (AccountId, CustRepId, OrderId, MovieId),
 	FOREIGN KEY (AccountId) REFERENCES Account (Id)
@@ -136,16 +137,16 @@ CREATE TABLE AppearedIn(
     
 );
 
-CREATE TABLE UserRatings(
-    CustomerId CHAR(15),
-    MovieId INTEGER,
-    Rating INTEGER,
+---CREATE TABLE UserRatings(
+---    CustomerId CHAR(15),
+---    MovieId INTEGER,
+---    Rating INTEGER,
     
-    PRIMARY KEY (CustomerId, MovieId),
-    FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
-            ON DELETE NO ACTION
-            ON UPDATE CASCADE,
-    FOREIGN KEY (MovieId) REFERENCES Movie(Id)
-            ON DELETE NO ACTION
-            ON UPDATE CASCADE
-);
+---    PRIMARY KEY (CustomerId, MovieId),
+---    FOREIGN KEY (CustomerId) REFERENCES Rental(AccountId)
+---            ON DELETE NO ACTION
+---            ON UPDATE CASCADE,
+---    FOREIGN KEY (MovieId) REFERENCES Rental(MovieId)
+---            ON DELETE NO ACTION
+---            ON UPDATE CASCADE
+---);
