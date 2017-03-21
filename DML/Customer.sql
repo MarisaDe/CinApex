@@ -1,3 +1,10 @@
+--- Add Account
+INSERT INTO Account(Id, DateOpened, Type, CustomerId)
+	Values(1, 10-1-06, umlimited-2, 444-44-4444);
+INSERT INTO Account(Id, DateOpened, Type, CustomerId)
+	Values(2, 10-15-06, limited, 222-22-2222);
+
+
 --- 1.	A customer's currently held movies
 SELECT MovieId
 FROM Rental
@@ -34,11 +41,11 @@ WHERE ActorId=Id AND (
 	OR Name LIKE ‘Tim Robbins’)
 
 ---8.	Best-Seller list of movies
-SELECT TOP 10 MovieId
-FROM Rental
-WHERE 
+---SELECT TOP 10 MovieId
+---FROM Rental
+---WHERE 
 ---9.	Personalized movie suggestion list
 
 ---10.	Rate the movies they have rented
-UPDATE Movie
-SET 
+---UPDATE Movie
+---SET 
