@@ -48,6 +48,10 @@ CREATE TABLE Account (
 	Type       CHAR(30),
 	CustomerId CHAR(15),
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 1458ac6b3b877cafe20ce054afae168e0eb4f910
     PRIMARY KEY (Id),
 	FOREIGN KEY (CustomerId) REFERENCES Customer (Id)
 		ON DELETE NO ACTION
@@ -55,10 +59,19 @@ CREATE TABLE Account (
 		
 CREATE TABLE MovieOrder (
 	Id         INTEGER,
-	DateTime   DATETIME,
+	AccountId  CHAR(15),
+	MovieId    INTEGER,
+	DateNTime   DATETIME,
 	ReturnDate DATE,
 	
-    PRIMARY KEY (Id) );
+    PRIMARY KEY (Id) ,
+	
+	FOREIGN KEY(MovieId) REFERENCES Movie(Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE,
+	FOREIGN KEY(AccountId) REFERENCES Account(Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE);
 
 CREATE TABLE Movie (
 	Id        INTEGER,
