@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for osx10.12 (x86_64)
 --
--- Host: localhost    Database: test
+-- Host: localhost    Database: cineapex
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -93,6 +93,7 @@ CREATE TABLE `appearedin` (
 
 LOCK TABLES `appearedin` WRITE;
 /*!40000 ALTER TABLE `appearedin` DISABLE KEYS */;
+INSERT INTO `appearedin` VALUES (1,1),(1,2),(2,2);
 /*!40000 ALTER TABLE `appearedin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,6 +148,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+INSERT INTO `employee` VALUES ('1','123-45-6789','2015-11-05',65),('2','789-12-3456','2006-02-02',50);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,6 +259,7 @@ CREATE TABLE `movieq` (
 
 LOCK TABLES `movieq` WRITE;
 /*!40000 ALTER TABLE `movieq` DISABLE KEYS */;
+INSERT INTO `movieq` VALUES ('1',1),('2',2),('1',3);
 /*!40000 ALTER TABLE `movieq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +289,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES ('111-11-1111','Yang','Shang','123 Success Street',11790,'516-632-8959'),('222-22-2222','Du','Victor','456 Fortune Road',11790,'516-632-4360'),('333-33-3333','Smith','John','789 Peace Blvd.',93536,'315-443-4321'),('444-44-4444','Philip','Lewis','135 Knowledge Lane',11794,'516-666-8888');
+INSERT INTO `person` VALUES ('111-11-1111','Yang','Shang','123 Success Street',11790,'516-632-8959'),('123-45-6789','Smith','David','123 College road',11790,'516-2152-345'),('222-22-2222','Du','Victor','456 Fortune Road',11790,'516-632-4360'),('333-33-3333','Smith','John','789 Peace Blvd.',93536,'315-443-4321'),('444-44-4444','Philip','Lewis','135 Knowledge Lane',11794,'516-666-8888'),('789-12-3456','Warren','David','456 Sunken Street',11794,'631-632-9987');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-20 22:39:42
+-- Dump completed on 2017-03-21 14:22:18
