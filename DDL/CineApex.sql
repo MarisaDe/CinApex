@@ -47,7 +47,11 @@ CREATE TABLE Account (
 	DateOpened DATE,
 	Type       CHAR(30),
 <<<<<<< HEAD
+<<<<<<< HEAD
 	CustomerId CHAR(15),
+=======
+	Customer   INTEGER,
+>>>>>>> 073542b7c2e015f2a4209911cad1f025699ac482
 =======
 	Customer   INTEGER,
 >>>>>>> 073542b7c2e015f2a4209911cad1f025699ac482
