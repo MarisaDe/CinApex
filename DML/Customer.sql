@@ -61,9 +61,12 @@ ORDER BY Rating DESC
 LIMIT 2;
 
 ---9.	Personalized movie suggestion list
-SELECT m.Name, m.Type
-FROM Movie m, Rental r
-WHERE 
+SELECT m1.Name
+FROM Movie m1
+WHERE m1.Type = 
+	SELECT m.Type
+	From Movie m, Rental r
+	WHERE m.Id=r.MovieId AND r.AccountId=1
 ---10.	Rate the movies they have rented
 INSERT INTO UserRatings(CustomerId, MovieId, Rating)
 	Values('111-11-1111', 3, 1);
