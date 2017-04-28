@@ -153,8 +153,8 @@ FROM    Customer C, Person P
 WHERE   C.Id = P.SSN 
 
 #4. Produce a list of movie suggestions for a given customer (using
-   the recommender system which uses information about the customer's past
-   orders and that of nearest neighbors)
+#   the recommender system which uses information about the customer's past
+#   orders and that of nearest neighbors)
 
 CREATE VIEW PastOrder(CustId, MovieId, MovieType)
 AS
@@ -169,7 +169,7 @@ WHERE M.Type IN (SELECT O.Type FROM PastOrder O
 AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O
 	     WHERE O.CustId = '444444444')
 
-Customer Level Transactions
+#Customer Level Transactions
 
 #1. A customer's currently held movies
 
