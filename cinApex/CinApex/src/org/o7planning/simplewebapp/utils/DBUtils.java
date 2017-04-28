@@ -119,6 +119,7 @@ public class DBUtils {
       return null;
   }
  
+  /*
   public static void updateProduct(Connection conn, Product product) throws SQLException {
       String sql = "Update Product set Name =?, Price=? where Code=? ";
  
@@ -129,25 +130,29 @@ public class DBUtils {
       pstm.setString(3, product.getCode());
       pstm.executeUpdate();
   }
- 
-  public static void insertProduct(Connection conn, Product product) throws SQLException {
-      String sql = "Insert into Product(Code, Name,Price) values (?,?,?)";
+ */
+  
+  public static void insertProduct(Connection conn, Movie movie) throws SQLException {
+      String sql = "INSERT INTO Movie VALUES(?, ?, ?, ?, ?, ?);";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
  
-      pstm.setString(1, product.getCode());
-      pstm.setString(2, product.getName());
-      pstm.setFloat(3, product.getPrice());
+      pstm.setInt(1, movie.getId());
+      pstm.setString(2, movie.getName());
+      pstm.setString(3, movie.getType());
+      pstm.setInt(4, movie.getRating());
+      pstm.setInt(5, movie.getDistrFee());
+      pstm.setInt(6, movie.getNumCopies());
  
       pstm.executeUpdate();
   }
  
-  public static void deleteProduct(Connection conn, String code) throws SQLException {
-      String sql = "Delete Product where Code= ?";
+  public static void deleteProduct(Connection conn, int id) throws SQLException {
+      String sql = "DELETE FROM Movie WHERE Id = ?";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
  
-      pstm.setString(1, code);
+      pstm.setInt(1, id);
  
       pstm.executeUpdate();
   }
