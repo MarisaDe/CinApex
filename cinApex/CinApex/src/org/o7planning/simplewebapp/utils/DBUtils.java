@@ -104,7 +104,7 @@ public class DBUtils {
 	return list;
   }
   
-  public static Movie findProduct(Connection conn, String Name) throws SQLException {
+  public static Movie findMovie(Connection conn, String Name) throws SQLException {
       String sql = "Select a.Id, a.Name, a.DistrFee from Product a where a.Name=?";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class DBUtils {
   }
  */
   
-  public static void insertProduct(Connection conn, Movie movie) throws SQLException {
+  public static void insertMovie(Connection conn, Movie movie) throws SQLException {
       String sql = "INSERT INTO Movie VALUES(?, ?, ?, ?, ?, ?);";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
@@ -147,7 +147,7 @@ public class DBUtils {
       pstm.executeUpdate();
   }
  
-  public static void deleteProduct(Connection conn, int id) throws SQLException {
+  public static void deleteMovie(Connection conn, int id) throws SQLException {
       String sql = "DELETE FROM Movie WHERE Id = ?";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
