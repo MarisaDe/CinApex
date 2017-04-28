@@ -54,46 +54,67 @@ public class DBUtils {
       return null;
   }
  
+  public static Movie buildMovie(ResultSet rs)  throws SQLException{
+      
+	  int Id = rs.getInt("Id");
+      String Name = rs.getString("Name");
+      String Type = rs.getString("Type");
+      int Rating  = rs.getInt("Rating");
+      int DistrFee = rs.getInt("DistrFee");
+      int NumCopies = rs.getInt("NumCopies");
+      Movie movie = new Movie();
+      movie.setId(Id);
+      movie.setName(Name);
+      movie.setType(Type);
+      movie.setRating(Rating);
+      movie.setDistrFee(DistrFee);
+      movie.setNumCopies(NumCopies);
+      
+      return movie;
+      
+  }
+  
   public static List<Movie> movieList(Connection conn) throws SQLException {
       String sql = "Select a.Id, a.Name, a.Type, a.Rating, a.DistrFee, a.NumCopies from movie a ";
- 
+      
       PreparedStatement pstm = conn.prepareStatement(sql);
  
       ResultSet rs = pstm.executeQuery();
       List<Movie> list = new ArrayList<Movie>();
       while (rs.next()) {
-          int Id = rs.getInt("Id");
-          String Name = rs.getString("Name");
-          String Type = rs.getString("Type");
-          int Rating  = rs.getInt("Rating");
-          int DistrFee = rs.getInt("DistrFee");
-          int NumCopies = rs.getInt("NumCopies");
-          Movie movie = new Movie();
-          movie.setId(Id);
-          movie.setName(Name);
-          movie.setType(Type);
-          movie.setRating(Rating);
-          movie.setDistrFee(DistrFee);
-          movie.setNumCopies(NumCopies);
-          
+    	  Movie movie = buildMovie(rs);
           list.add(movie);
       }
       return list;
   }
- 
-  public static Movie findProduct(Connection conn, String code) throws SQLException {
-      String sql = "Select a.Code, a.Name, a.Price from Product a where a.Code=?";
+  
+  public static List<Movie> movieSuggestions(Connection conn, String Id) throws SQLException{
+	String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M WHERE M.Type IN (SELECT O.Type FROM PastOrder O WHERE O.CustId = '?')  AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O WHERE O.CustId = '?'";
+	
+	PreparedStatement pstm = conn.prepareStatement(sql);
+	pstm.setString(1, Id);
+	
+	ResultSet rs = pstm.executeQuery();
+    List<Movie> list = new ArrayList<Movie>();
+    while (rs.next()) {
+    	Movie movie = buildMovie(rs);
+        list.add(movie);
+    }
+	
+	return list;
+  }
+  
+  public static Movie findProduct(Connection conn, String Name) throws SQLException {
+      String sql = "Select a.Id, a.Name, a.DistrFee from Product a where a.Name=?";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
-      pstm.setString(1, code);
+      pstm.setString(1, Name);
  
       ResultSet rs = pstm.executeQuery();
  
       while (rs.next()) {
-          String name = rs.getString("Name");
-          float price = rs.getFloat("Price");
-          Product product = new Product(code, name, price);
-          return product;
+    	  Movie movie = buildMovie(rs);
+          return movie;
       }
       return null;
   }
