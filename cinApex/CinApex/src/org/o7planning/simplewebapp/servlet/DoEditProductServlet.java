@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
-import org.o7planning.simplewebapp.beans.Product;
+import org.o7planning.simplewebapp.beans.Movie;
 import org.o7planning.simplewebapp.utils.DBUtils;
 import org.o7planning.simplewebapp.utils.MyUtils;
  

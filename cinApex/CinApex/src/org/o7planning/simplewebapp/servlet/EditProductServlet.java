@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
-import org.o7planning.simplewebapp.beans.Product;
+import org.o7planning.simplewebapp.beans.Movie;
 import org.o7planning.simplewebapp.utils.DBUtils;
 import org.o7planning.simplewebapp.utils.MyUtils;
  
@@ -28,14 +28,14 @@ public class EditProductServlet extends HttpServlet {
             throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
  
-        String code = (String) request.getParameter("code");
+        String id = (String) request.getParameter("Id");
  
-        Product product = null;
+        Movie movie = null;
  
         String errorString = null;
  
         try {
-            product = DBUtils.findProduct(conn, code);
+        	movie = DBUtils.findMovie(conn, id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -45,14 +45,14 @@ public class EditProductServlet extends HttpServlet {
         // If no error.
         // The product does not exist to edit.
         // Redirect to productList page.
-        if (errorString != null && product == null) {
+        if (errorString != null && movie == null) {
             response.sendRedirect(request.getServletPath() + "/productList");
             return;
         }
  
         // Store errorString in request attribute, before forward to views.
         request.setAttribute("errorString", errorString);
-        request.setAttribute("product", product);
+        request.setAttribute("product", movie);
  
         RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/Views/editProductView.jsp");

@@ -81,7 +81,7 @@ public class DBUtils {
       return list;
   }
  
-  public static Product findProduct(Connection conn, String code) throws SQLException {
+  public static Movie findProduct(Connection conn, String code) throws SQLException {
       String sql = "Select a.Code, a.Name, a.Price from Product a where a.Code=?";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
