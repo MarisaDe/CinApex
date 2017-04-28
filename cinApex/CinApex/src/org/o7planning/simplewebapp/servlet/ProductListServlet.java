@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
-import org.o7planning.simplewebapp.beans.Product;
+import org.o7planning.simplewebapp.beans.Movie;
 import org.o7planning.simplewebapp.utils.DBUtils;
 import org.o7planning.simplewebapp.utils.MyUtils;
  
@@ -30,9 +30,9 @@ public class ProductListServlet extends HttpServlet {
         Connection conn = MyUtils.getStoredConnection(request);
  
         String errorString = null;
-        List<Product> list = null;
+        List<Movie> list = null;
         try {
-            list = DBUtils.queryProduct(conn);
+            list = DBUtils.movieList(conn);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
  
-import org.o7planning.simplewebapp.beans.Product;
+import org.o7planning.simplewebapp.beans.Movie;
 import org.o7planning.simplewebapp.beans.UserAccount;
  
 public class DBUtils {
@@ -54,7 +54,7 @@ public class DBUtils {
       return null;
   }
  
-  public static List<Product> movieList(Connection conn) throws SQLException {
+  public static List<Movie> movieList(Connection conn) throws SQLException {
       String sql = "Select a.Id, a.Name, a.Type, a.Rating, a.DistrFee, a.NumCopies from movie a ";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
