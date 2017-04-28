@@ -62,16 +62,20 @@ public class DBUtils {
       ResultSet rs = pstm.executeQuery();
       List<Movie> list = new ArrayList<Movie>();
       while (rs.next()) {
-          String Id = rs.getString("Id");
+          int Id = rs.getInt("Id");
           String Name = rs.getString("Name");
-          String Name = rs.getString("Name");
+          String Type = rs.getString("Type");
           int Rating  = rs.getInt("Rating");
           int DistrFee = rs.getInt("DistrFee");
           int NumCopies = rs.getInt("NumCopies");
           Movie movie = new Movie();
-          movie.setCode(code);
-          movie.setName(name);
-          movie.setPrice(price);
+          movie.setId(Id);
+          movie.setName(Name);
+          movie.setType(Type);
+          movie.setRating(Rating);
+          movie.setDistrFee(DistrFee);
+          movie.setNumCopies(NumCopies);
+          
           list.add(movie);
       }
       return list;
