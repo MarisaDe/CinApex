@@ -54,22 +54,25 @@ public class DBUtils {
       return null;
   }
  
-  public static List<Product> queryProduct(Connection conn) throws SQLException {
-      String sql = "Select a.Code, a.Name, a.Price from Product a ";
+  public static List<Product> movieList(Connection conn) throws SQLException {
+      String sql = "Select a.Id, a.Name, a.Type, a.Rating, a.DistrFee, a.NumCopies from movie a ";
  
       PreparedStatement pstm = conn.prepareStatement(sql);
  
       ResultSet rs = pstm.executeQuery();
-      List<Product> list = new ArrayList<Product>();
+      List<Movie> list = new ArrayList<Movie>();
       while (rs.next()) {
-          String code = rs.getString("Code");
-          String name = rs.getString("Name");
-          float price = rs.getFloat("Price");
-          Product product = new Product();
-          product.setCode(code);
-          product.setName(name);
-          product.setPrice(price);
-          list.add(product);
+          String Id = rs.getString("Id");
+          String Name = rs.getString("Name");
+          String Name = rs.getString("Name");
+          int Rating  = rs.getInt("Rating");
+          int DistrFee = rs.getInt("DistrFee");
+          int NumCopies = rs.getInt("NumCopies");
+          Movie movie = new Movie();
+          movie.setCode(code);
+          movie.setName(name);
+          movie.setPrice(price);
+          list.add(movie);
       }
       return list;
   }
