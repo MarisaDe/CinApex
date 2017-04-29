@@ -568,9 +568,9 @@ public class DBUtils {
 	 *  Customer Level TransActions
 	 */
 	
-	public static HashMap getCustomerQueue(Connection conn, int id) throws SQLException{
+	public static HashMap<Integer, String> getCustomerQueue(Connection conn, int id) throws SQLException{
 		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
-		HashMap customerQueue = new HashMap();
+		HashMap<Integer, String> customerQueue = new HashMap<Integer, String>();
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
