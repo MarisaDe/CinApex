@@ -218,7 +218,7 @@ public class DBUtils {
 
 	// Obtain a Sales Report
 	// Note that the query string does NOT have semicolons. I don't know if they
-	// need them when there are multiple queries in a statment
+	// need them
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
 		String sql = 
 				"CREATE TABLE Cost (" +
@@ -283,18 +283,13 @@ public class DBUtils {
 		}
 		
 		//Get Employee by id
-		public static List<Employee> getEmployees(Connection conn, String id) throws SQLException {
+		public static Employee getEmployees(Connection conn, String id) throws SQLException {
 			String sql = "Select * From Employee Where id = ;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
-
-			List<Employee> allEmp = new ArrayList<Employee>();
-			while (rs.next()) {
-				Employee emp = buildEmployee(rs);
-				allEmp.add(emp);
-			}
-			System.out.println(allEmp.size());
-			return allEmp;
+			
+			Employee emp = buildEmployee(rs);
+			return emp;
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
@@ -335,8 +330,6 @@ public class DBUtils {
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
-		
-		// NOT FINSIHED
 
 	}
 	

@@ -1,7 +1,6 @@
 package Beans;
 
-public class Actors {
-
+public class Actors{
 
 	private int Id;
 	private String Name;
