@@ -10,14 +10,7 @@ public class Person {
    private String city;
    private String state;
    
-   public Person(String FName, String LName, String address, int zip, String phone, String city, String state){
-	   this.FName = FName;
-	   this.LName = LName;
-	   this.address = address;
-	   this.zip = zip;
-	   this.phone = phone;
-	   this.city = city;
-	   this.state = state;
+   public Person(){
    }
    
    

@@ -2,11 +2,6 @@ package Beans;
 
 public class AppearedIn {
 	
-<<<<<<< HEAD
-	private int ActorId;
-	
-
-=======
 	private int actorId;
 	public AppearedIn(int actorId, int movieId) {
 		super();
@@ -35,5 +30,4 @@ public class AppearedIn {
 	public void setMovieId(int movieId) {
 		this.movieId = movieId;
 	}
->>>>>>> 21f713e677f9fa6d8fad9aba1b3c0a60f4232f75
 }

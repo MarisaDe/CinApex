@@ -8,10 +8,8 @@ public class Customer extends Person{
 	private int rating;
 	
 
-	public Customer(String FName, String LName, String address, int zip, String phone, String city,
-			String state) {
-		super(FName, LName, address, zip, phone, city, state);
-		
+	public Customer() {
+		super();
 	}
 	
 	

@@ -2,14 +2,22 @@ package Beans;
 
 public class Employee extends Person{
 
+	private int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	private String ssn;
 	private String startDate;
 	private double hourlyRate;
 	
 	
-	public Employee(String FName, String LName, String address, int zip, String phone, String city, String state) {
-		super(FName, LName, address, zip, phone, city, state);
+	public Employee() {
+		super();
 		
 	}
 	

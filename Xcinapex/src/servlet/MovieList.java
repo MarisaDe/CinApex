@@ -28,9 +28,9 @@ public class MovieList extends HttpServlet {
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinApex";
+		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
-   		String pass = "serverplz!";
+   		String pass = "pass";
    		java.sql.Connection conn = null;
    		
 		List<Movie> allMovies=null;

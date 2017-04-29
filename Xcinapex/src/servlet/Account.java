@@ -11,19 +11,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
 import Beans.Customer;
 import utils.DBUtils;
 
-@WebServlet("/Home")
-public class Login {
+@WebServlet("/Account")
+public class Account extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Account() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +33,31 @@ public class Login {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session=request.getSession(true);
    		//Don't forget to change this
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
+		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
-   		String pass = "serverplz!";
+   		String pass = "pass";
    		java.sql.Connection conn = null;
 	   	
-		List<Employee> allEmp = null;
-		List<Customer> allCust = null;
 		String errorString = null;
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			//allCust = DBUtils.queryMovies(conn);
 			
 			String name=request.getParameter("user").trim();
+			System.out.println(name);
 			Employee emp;
-			emp = DBUtils.getEmployees(conn, name);
+			emp = DBUtils.getEmployee(conn, name);
 			
 			if(emp != null){		
-				 session.setAttribute("loginedUser", emp);
+				 session.setAttribute("loggedInUser", emp);
 			}
+			request.setAttribute("errorString", errorString);
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
+	        dispatcher.forward(request, response);
 			
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
@@ -65,14 +68,6 @@ public class Login {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("Login", allEmp);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/index.jsp");
-        dispatcher.forward(request, response);
 	}
 
 	/**
