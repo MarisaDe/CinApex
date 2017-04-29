@@ -10,8 +10,8 @@ import java.util.List;
 import Beans.*;
 
 public class DBUtils {
+
 	
-	// MOVIE QUERIES /////////
 	public static Movie buildMovie(ResultSet rs) throws SQLException {
 		int distrFee = rs.getInt("DistrFee");
 		int id = rs.getInt("Id");
@@ -30,6 +30,7 @@ public class DBUtils {
 
 		return movie;
 	}
+	
 
 	public static List<Movie> queryMovies(Connection conn) throws SQLException {
 		String sql = "Select * From movie;";
@@ -41,7 +42,7 @@ public class DBUtils {
 			Movie movie = buildMovie(rs);
 			allMovies.add(movie);
 		}
-		System.out.println(allMovies.size());
+		
 		return allMovies;
 	}
 
@@ -78,7 +79,7 @@ public class DBUtils {
 		}
 		return null;
 	}
-	
+
 	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where id=?";
 
@@ -96,7 +97,7 @@ public class DBUtils {
 		}
 		return null;
 	}
-	
+
 	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
 		String sql = "Select * from Movie where id=?";
 
@@ -114,10 +115,10 @@ public class DBUtils {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * Manager Level Transaction ONLY
+	 * 
 	 * @param conn
 	 * @param movie
 	 * @throws SQLException
@@ -136,7 +137,7 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
+
 	/**
 	 * Manager Level Transaction ONLY
 	 */
@@ -149,22 +150,22 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	public static void updateMovieType(Connection conn, String type, int id) throws SQLException{
+
+	public static void updateMovieType(Connection conn, String type, int id) throws SQLException {
 		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setString(1, type);
 		pstm.setInt(2, id);
 
 		pstm.executeUpdate();
-		
+
 	}
-	
-	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException{
+
+	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException {
 		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, rating);
@@ -172,10 +173,10 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException{
+
+	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException {
 		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, fee);
@@ -183,10 +184,10 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException{
+
+	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException {
 		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, NumCopies);
@@ -194,11 +195,12 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	// updates employee's hourly rate, really the only thing you could change in an employee
-	public static void updateEmployee(Connection conn, int rate, int id) throws SQLException{
+
+	// updates employee's hourly rate, really the only thing you could change in
+	// an employee
+	public static void updateEmployee(Connection conn, int rate, int id) throws SQLException {
 		String sql = "UPDATE Employee SET HourlyRate = ? WHERE Id = ?";
-		
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, rate);
@@ -206,35 +208,103 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	
+
+	// Obtain a Sales Report
+	// Note that the query string does NOT have semicolons. I don't know if they
+	// need them
+	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
+		String sql = 
+				"CREATE TABLE Cost (" +
+				"AcctType     CHAR(50)," +
+				"MonthlyFee   INT," +
+				"PRIMARY KEY(AcctType))" +
+
+				"INSERT INTO Cost" + "VALUES('Limited', 10)" +
+
+				"INSERT INTO Cost" + "VALUES('Unlimited-1', 15)" +
+
+				"INSERT INTO Cost" + "VALUES('Unlimited-2', 20)" +
+
+				"INSERT INTO Cost" + "VALUES('Unlimited-3', 25)" +
+
+				"SELECT SUM(C.MonthlyFee)" + "FROM Account A, Cost C"
+				+ "WHERE A.DateOpened >'?' AND A.AcctType = C.AcctType";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		// DATE FORMAT 2004-11-1
+		pstm.setString(1, Date);
+
+		ResultSet rs = pstm.executeQuery();
+		int sum = rs.getInt(1);
+
+		return sum;
+	}
+
+	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, employee.getSsn());
+		pstm.setString(2, employee.getStartDate());
+		pstm.setDouble(3, employee.getHourlyRate());
+
+		pstm.executeUpdate();
+
+	}
+
+	public static void deleteEmployee(Connection conn, String ssn) throws SQLException {
+		String sql = "DELETE FROM Employee WHERE SSN=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, ssn);
+
+		pstm.executeUpdate();
+
+	}
+
+	public static void customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
+		String sql = "FROM     Rental R, Employee E, Person P" + 
+					 "WHERE    E.Id  = R.CustRepId AND" + "P.SSN = E.SSN" +
+					 "GROUP BY CustRepId " +
+					 "HAVING   COUNT(CustRepId) =" + 
+					 		"( SELECT   COUNT(CustRepId) totalCount"+ 
+					 		"FROM     Rental R, Employee E " +
+					 		"WHERE    E.Id = R.CustRepId" +
+					 		"GROUP BY CustRepId " +
+					 		"ORDER BY totalCount DESC" + 
+					 		"LIMIT 1)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		
+
+	}
+
 	/**
 	 * END OF Manager Level Transaction
 	 */
-	
+
 	public static List<Movie> getCustomersHeldMovies(Connection conn, String id) throws SQLException {
-		String sql = "SELECT MovieId"
-				     + "FROM Rental"
-				     + "WHERE AccountId = ? AND EXISTS("
-				     + "SELECT ReturnDate"
-				     + "FROM MovieOrder"
-				     + "WHERE OrderId = Id AND ReturnDate > NOW());";
-		
+		String sql = "SELECT MovieId" + "FROM Rental" + "WHERE AccountId = ? AND EXISTS(" + "SELECT ReturnDate"
+				+ "FROM MovieOrder" + "WHERE OrderId = Id AND ReturnDate > NOW());";
+
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, id);
 
 		ResultSet rs = pstm.executeQuery();
-		
+
 		List<Movie> list = new ArrayList<Movie>();
-		
+
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
 			list.add(movie);
 		}
-		
-		
+
 		return list;
-		
+
 	}
 	// PERSON QUERIES /////////
 
@@ -251,22 +321,7 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-	
-	
-	// EMPLOYEE QUERIES /////////
-	public static void insertEmployee(Connection conn, Employee employee) throws SQLException{
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
-		
-		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, employee.getSsn());
-		pstm.setString(2, employee.getStartDate());
-		pstm.setDouble(3, employee.getHourlyRate());
-		
-		pstm.executeUpdate();
-		
-	}
-	
 	public static void deletePerson(Connection conn, String SSN) throws SQLException {
 		String sql = "DELETE FROM Employee WHERE SSN = ?";
 
@@ -275,41 +330,6 @@ public class DBUtils {
 		pstm.setString(1, SSN);
 
 		pstm.executeUpdate();
-	}
-	
-	
-	// Obtain a Sales Report
-	// Note that the query string does NOT have semicolons. I don't know if they need them
-	public static int obtainSalesReport(Connection conn, String Date) throws SQLException{
-		String sql = "	CREATE TABLE Cost (" +
-						"AcctType     AccountType," +
-						"MonthlyFee   CURRENCY," +
-						"PRIMARY KEY(AcctType)  )" +
-						
-						"INSERT INTO Cost" +			
-						"VALUES('Limited', 10)" +            
-						
-						"INSERT INTO Cost" +
-						"VALUES('Unlimited-1', 15)" +
-						
-						"INSERT INTO Cost" +			 
-						"VALUES('Unlimited-2', 20)" +
-							
-						"INSERT INTO Cost" +
-						"VALUES('Unlimited-3', 25)" +
-						
-						"SELECT SUM(C.MonthlyFee)" +
-						"FROM Account A, Cost C" +
-						"WHERE A.DateOpened >'?' AND A.Type = C.AcctType";
-		
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		// DATE FORMAT 2004-11-1
-		pstm.setString(1, Date);
-
-		ResultSet rs = pstm.executeQuery();
-		int sum = rs.getInt(1);
-		
-		return sum;	
 	}
 
 }
