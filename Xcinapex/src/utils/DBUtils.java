@@ -76,7 +76,6 @@ public class DBUtils {
 		return list;
 	}
 
-<<<<<<< HEAD
 	public static List<Movie> findMovie(Connection conn, String keyword, String selector) throws SQLException{
 		if(selector.equals("Title")){
 			String percent="%";
@@ -86,34 +85,12 @@ public class DBUtils {
 			return findMovieByType(conn,keyword);
 		}else{
 			return null;//not yet impl
-=======
-
-	public static Movie findMovieById(Connection conn, int id) throws SQLException {
-		String sql = "Select * from Movie where id = ?";
-
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, id);
-
-		ResultSet rs = pstm.executeQuery();
-
-		while (rs.next()) {
-			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
->>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
-		}
 			
+		}
 	}
-<<<<<<< HEAD
+	
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
-=======
-
-	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
-		String sql = "Select * from Movie where Type = ?";
->>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
@@ -128,15 +105,9 @@ public class DBUtils {
 		System.out.println(list.size());
 		return list;
 	}
-<<<<<<< HEAD
 	
 	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
 		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
-=======
-
-	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
-		String sql = "Select * from Movie where Name = ?";
->>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
@@ -289,6 +260,7 @@ public class DBUtils {
 			String ssn = rs.getString("ssn");
 
 			Employee emp = new Employee(FName, LName, address, zip, phone,city,state);
+			
 			emp.setSsn(ssn);
 
 			return emp;

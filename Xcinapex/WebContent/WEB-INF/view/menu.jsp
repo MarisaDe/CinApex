@@ -59,13 +59,8 @@ margin-bottom: 0px;
  
            <form class="navbar-form navbar-left" action="/Cinapex1/FindMovie">
                 <div class='input-prepend'>
-<<<<<<< HEAD
-                        <font color = "white">Category: </font>
+                        <font color = "red">Category: </font>
                     <select id="select" name="selector" style="width: 80px; height: 30px">
-=======
-                        <font color = "red">Category:</font>
-                    <select style="width: 80px; height: 30px">
->>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
                         <option>Title </option>
                         <option>Genre</option>
                         <option>Actor</option>
@@ -78,7 +73,7 @@ margin-bottom: 0px;
 	       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Best Sellers</a></li>
+        <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
         <li><a href="#">Your Personalized List</a></li>
          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>

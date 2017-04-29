@@ -17,7 +17,7 @@ import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet("/Movie/BestSelling")
+@WebServlet("/BestSellers")
 public class BestSeller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
