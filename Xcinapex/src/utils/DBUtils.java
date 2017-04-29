@@ -103,7 +103,32 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	
+	public static List<Movie> getCustomersHeldMovies(Connection conn, String id) throws SQLException {
+		String sql = "SELECT MovieId"
+				     + "FROM Rental"
+				     + "WHERE AccountId = ? AND EXISTS("
+				     + "SELECT ReturnDate"
+				     + "FROM MovieOrder"
+				     + "WHERE OrderId = Id AND ReturnDate > NOW());";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, id);
 
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Movie> list = new ArrayList<Movie>();
+		
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+		
+		
+		return list;
+		
+	}
 	// PERSON QUERIES /////////
 
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
