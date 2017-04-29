@@ -61,6 +61,7 @@ margin-bottom: 0px;
                 <div class='input-prepend'>
                         <font color = "red">Category: </font>
                     <select id="select" name="selector" style="width: 80px; height: 30px">
+
                         <option>Title </option>
                         <option>Genre</option>
                         <option>Actor</option>

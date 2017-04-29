@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import Beans.*;
 
@@ -76,6 +77,7 @@ public class DBUtils {
 		return list;
 	}
 
+
 	public static List<Movie> findMovie(Connection conn, String keyword, String selector) throws SQLException{
 		if(selector.equals("Title")){
 			String percent="%";
@@ -84,13 +86,16 @@ public class DBUtils {
 		}else if (selector.equals("Genre")){
 			return findMovieByType(conn,keyword);
 		}else{
-			return null;//not yet impl
-			
+
+			return null; //not yet impl
 		}
 	}
-	
+
+
+
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
+
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
@@ -105,6 +110,7 @@ public class DBUtils {
 		System.out.println(list.size());
 		return list;
 	}
+
 	
 	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
 		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
@@ -312,8 +318,18 @@ public class DBUtils {
 		pstm.executeUpdate();
 
 	}
-
-	public static void customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
+	
+	/**
+	 * Finds the customer rep who over saw the most transactions
+	 * Returns an object of CustomerRepOverSaw that contains
+	 * the id of the customer rep and the FName, LName, and the
+	 * total number of transactions that the customerRep has overseen
+	 * @param conn
+	 * @param ssn
+	 * @return
+	 * @throws SQLException
+	 */
+	public static CustomerRepOverSaw customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
 		String sql = "FROM     Rental R, Employee E, Person P" + 
 					 "WHERE    E.Id  = R.CustRepId AND" + "P.SSN = E.SSN" +
 					 "GROUP BY CustRepId " +
@@ -327,6 +343,22 @@ public class DBUtils {
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
+		
+		CustomerRepOverSaw CROS = new CustomerRepOverSaw();
+		
+		while(rs.next()){
+			int id = rs.getInt("CustRepId");
+			String FName = rs.getString("FirstName");
+			String LName = rs.getString("LastName");
+			int count = rs.getInt("totalCount");
+			
+			CROS.setId(id);
+			CROS.setFName(FName);
+			CROS.setLName(LName);
+			CROS.setCount(count);
+		}
+		
+		return CROS;
 
 	}
 	
@@ -397,5 +429,182 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	/**
+	 *  Customer Rep Transactions
+	 */
+	
+	public static MovieOrder buildMovieOrder(ResultSet rs) throws SQLException{
+		
+		MovieOrder movieOrder  = new MovieOrder();
+		
+		int id = rs.getInt("Id");
+		String accountId = rs.getString("AccountId");
+		int movieId = rs.getInt("MovieId");
+		String dNT = rs.getString("DateAndTime");
+		String rd = rs.getString("ReturnDate");
 
+		movieOrder.setId(id);
+		movieOrder.setAccountId(accountId);
+		movieOrder.setMovieId(movieId);
+		movieOrder.setDateAndTime(dNT);
+		movieOrder.setReturnDate(rd);
+
+		
+		return movieOrder;
+		
+	}
+	
+	public static Rental buildRental(ResultSet rs) throws SQLException{
+		
+		Rental rental  = new Rental();
+		
+		String custRepId = rs.getString("AccountId");
+		String accountId = rs.getString("CustRepId");
+		int orderId = rs.getInt("OrderId");
+		int movieId = rs.getInt("MovieId");
+
+		rental.setCustRepId(custRepId);
+		rental.setAccountId(accountId);
+		rental.setOrderId(orderId);
+		rental.setMovieId(movieId);
+
+		
+		return rental;
+		
+	}
+	
+	public static Actors buildActor(ResultSet rs) throws SQLException{
+		
+		Actors actor  = new Actors();
+		
+		int id = rs.getInt("Id");
+		String name = rs.getString("Name");
+		int age = rs.getInt("Age");
+		char sex = rs.getString("Sex").charAt(0);
+		int rating = rs.getInt("Rating");
+
+		actor.setName(name);
+		actor.setName(name);
+		actor.setAge(age);
+		actor.setSex(sex);
+		actor.setRating(rating);
+
+		
+		return actor;
+		
+	}
+	
+	// Adding an Order should call bother insertMovieOrder and insertRental
+	
+	public static void insertMovieOrder(Connection conn) throws SQLException{
+		String sql = "INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate) VALUES(?, ?, ?, ?, ?)";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		MovieOrder movieOrder = buildMovieOrder(rs);
+		
+		pstm.setInt(1, movieOrder.getId());
+		pstm.setString(2, movieOrder.getAccountId());
+		pstm.setInt(3, movieOrder.getMovieId());
+		pstm.setString(4, movieOrder.getDateAndTime());
+		pstm.setInt(5, movieOrder.getReturnDate());
+		
+		pstm.executeUpdate();
+	}
+	
+	public static void insertRental(Connection conn) throws SQLException{
+		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?)";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		Rental rental = buildRental(rs);
+		
+		pstm.setString(1, rental.getCustRepId());
+		pstm.setString(2, rental.getAccountId());
+		pstm.setInt(3, rental.getOrderId());
+		pstm.setInt(4, rental.getMovieId());
+		
+		pstm.executeUpdate();
+	}
+	
+	public static List<String> getMailingList(Connection conn) throws SQLException{
+		String sql = "SELECT C.email FROM Customer C";
+		
+		List<String> mailingList = new ArrayList<String>();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			String email = rs.getString("email");
+			mailingList.add(email);
+		}
+		
+		return mailingList;
+	}
+	
+	public static void insertActor(Connection conn) throws SQLException{
+		String sql = "INSERT INTO Actor(Id, Name, Age, Sex, Rating) VALUES(?, ?, ?, ?, ?)";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		Actors actor = buildActor(rs);
+		
+		pstm.setInt(1, actor.getId());
+		pstm.setString(2, actor.getName());
+		pstm.setInt(3, actor.getAge());
+		pstm.setInt(4, actor.getSex());
+		pstm.setInt(4, actor.getRating());
+		
+		pstm.executeUpdate();
+		
+	}
+	
+	
+	/**
+	 *  Customer Level TransActions
+	 */
+	
+	public static HashMap getCustomerQueue(Connection conn, int id) throws SQLException{
+		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
+		HashMap customerQueue = new HashMap();
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			int movieId = rs.getInt("MovieId");
+			String movieName = rs.getString("Name");
+			
+			customerQueue.put(movieId, movieName);
+		}
+		
+		return customerQueue;
+		
+	}
+	
+	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
+		String sql = "SELECT * FROM Customer WHERE Id = ?";
+		
+		
+	}
+	
+	public static void getCustomerHistory(Connection conn, int accountId) throws SQLException{
+		String sql = "SELECT * FROM MovieOrder  WHERE DateAndTime <= NOW() AND AccountId = ? ORDER BY DateAndTime";
+		
+	}
+	
+	public static void getBestSellerList(Connection conn) throws SQLException{
+		String sql = "SELECT Name, Rating FROM Movie ORDER BY Rating DESC LIMIT 2";
+		
+	}
+	
+	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
+		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
+		
+		
+	}
+	
 }

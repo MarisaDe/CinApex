@@ -6,9 +6,13 @@ public class MovieOrder {
 	private String accountId;
 	private int movieId;
 	private String dateAndTime;
-	private String returnDate;
+	private int returnDate;
 	
-	public MovieOrder(int id, String accountId, int movieId, String dateAndTime, String returnDate){
+	public MovieOrder(){
+		
+	}
+	
+	public MovieOrder(int id, String accountId, int movieId, String dateAndTime, int returnDate){
 		
 		this.id = id;
 		this.accountId = accountId;
@@ -34,7 +38,7 @@ public class MovieOrder {
 		return dateAndTime;
 	}
 	
-	public String getReturnDate(){
+	public int getReturnDate(){
 		return returnDate;
 	}
 	
