@@ -114,7 +114,14 @@ public class DBUtils {
 		}
 		return null;
 	}
-
+	
+	
+	/**
+	 * Manager Level Transaction ONLY
+	 * @param conn
+	 * @param movie
+	 * @throws SQLException
+	 */
 	public static void insertMovie(Connection conn, Movie movie) throws SQLException {
 		String sql = "INSERT INTO Movie VALUES(?, ?, ?, ?, ?, ?);";
 
@@ -129,7 +136,10 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-
+	
+	/**
+	 * Manager Level Transaction ONLY
+	 */
 	public static void deleteMovie(Connection conn, int id) throws SQLException {
 		String sql = "DELETE FROM Movie WHERE Id = ?";
 
@@ -140,6 +150,67 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static void updateMovieType(Connection conn, String type, int id) throws SQLException{
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, type);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+		
+	}
+	
+	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException{
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, rating);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException{
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, fee);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException{
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, NumCopies);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+	}
+	
+	// updates employee's hourly rate, really the only thing you could change in an employee
+	public static void updateEmployee(Connection conn, int rate, int id) throws SQLException{
+		String sql = "UPDATE Employee SET HourlyRate = ? WHERE Id = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, rate);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+	}
+	
+	
+	/**
+	 * END OF Manager Level Transaction
+	 */
 	
 	public static List<Movie> getCustomersHeldMovies(Connection conn, String id) throws SQLException {
 		String sql = "SELECT MovieId"
