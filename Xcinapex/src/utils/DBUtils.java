@@ -320,7 +320,17 @@ public class DBUtils {
 		pstm.executeUpdate();
 
 	}
-
+	
+	/**
+	 * Finds the customer rep who over saw the most transactions
+	 * Returns an object of CustomerRepOverSaw that contains
+	 * the id of the customer rep and the FName, LName, and the
+	 * total number of transactions that the customerRep has overseen
+	 * @param conn
+	 * @param ssn
+	 * @return
+	 * @throws SQLException
+	 */
 	public static CustomerRepOverSaw customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
 		String sql = "FROM     Rental R, Employee E, Person P" + 
 					 "WHERE    E.Id  = R.CustRepId AND" + "P.SSN = E.SSN" +
