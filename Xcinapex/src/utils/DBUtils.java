@@ -76,16 +76,12 @@ public class DBUtils {
 		return list;
 	}
 
-<<<<<<< HEAD
-	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
-		String sql = "Select * from Movie where Type=?";
-=======
+
 	public static Movie findMovieById(Connection conn, int id) throws SQLException {
-		String sql = "Select * from Movie where id=?";
->>>>>>> ecf764d4c9c6164ebc877a8306ac6c54df6a7eaf
+		String sql = "Select * from Movie where id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setString(1, type);
+		pstm.setInt(1, id);
 
 		ResultSet rs = pstm.executeQuery();
 
@@ -100,7 +96,7 @@ public class DBUtils {
 	}
 
 	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
-		String sql = "Select * from Movie where id=?";
+		String sql = "Select * from Movie where Type = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
@@ -118,7 +114,7 @@ public class DBUtils {
 	}
 
 	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
-		String sql = "Select * from Movie where id=?";
+		String sql = "Select * from Movie where Name = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
