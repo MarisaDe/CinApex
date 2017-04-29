@@ -321,7 +321,7 @@ public class DBUtils {
 
 	}
 
-	public static void customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
+	public static CustomerRepOverSaw customerRepOversawMostTrans(Connection conn, String ssn) throws SQLException {
 		String sql = "FROM     Rental R, Employee E, Person P" + 
 					 "WHERE    E.Id  = R.CustRepId AND" + "P.SSN = E.SSN" +
 					 "GROUP BY CustRepId " +
@@ -335,6 +335,22 @@ public class DBUtils {
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
+		
+		CustomerRepOverSaw CROS = new CustomerRepOverSaw();
+		
+		while(rs.next()){
+			int id = rs.getInt("CustRepId");
+			String FName = rs.getString("FirstName");
+			String LName = rs.getString("LastName");
+			int count = rs.getInt("totalCount");
+			
+			CROS.setId(id);
+			CROS.setFName(FName);
+			CROS.setLName(LName);
+			CROS.setCount(count);
+		}
+		
+		return CROS;
 
 	}
 	
