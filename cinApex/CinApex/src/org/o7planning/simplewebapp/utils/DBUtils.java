@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
- 
-import org.o7planning.simplewebapp.beans.Movie;
-import org.o7planning.simplewebapp.beans.UserAccount;
+
+import org.o7planning.simplewebapp.beans.*;
  
 public class DBUtils {
  
@@ -157,4 +156,21 @@ public class DBUtils {
       pstm.executeUpdate();
   }
  
+  
+  // PERSON DATA
+  
+  public static void insertPerson(Connection conn, Person person) throws SQLException{
+	 String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
+	 PreparedStatement pstm = conn.prepareStatement(sql);
+	 
+     pstm.setString(1, person.getId());
+     pstm.setString(2, person.getFName());
+     pstm.setString(3, person.getLName());
+     pstm.setString(4, person.getAddress());
+     pstm.setInt(5, person.getZip());
+     pstm.setString(6, person.getPhone());
+
+     pstm.executeUpdate();
+  }
+  
 }
