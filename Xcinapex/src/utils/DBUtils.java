@@ -476,10 +476,31 @@ public class DBUtils {
 		
 	}
 	
+	public static Actors buildActor(ResultSet rs) throws SQLException{
+		
+		Actors actor  = new Actors();
+		
+		int id = rs.getInt("Id");
+		String name = rs.getString("Name");
+		int age = rs.getInt("Age");
+		char sex = rs.getString("Sex").charAt(0);
+		int rating = rs.getInt("Rating");
+
+		actor.setName(name);
+		actor.setName(name);
+		actor.setAge(age);
+		actor.setSex(sex);
+		actor.setRating(rating);
+
+		
+		return actor;
+		
+	}
+	
 	// Adding an Order should call bother insertMovieOrder and insertRental
 	
 	public static void insertMovieOrder(Connection conn) throws SQLException{
-		String sql = "INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate) VALUES(?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate) VALUES(?, ?, ?, ?, ?)";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
@@ -495,7 +516,7 @@ public class DBUtils {
 	}
 	
 	public static void insertRental(Connection conn) throws SQLException{
-		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?);";
+		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?)";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
@@ -507,6 +528,38 @@ public class DBUtils {
 		pstm.setInt(4, rental.getMovieId());
 		
 		pstm.executeUpdate();
+	}
+	
+	public static List<String> getMailingList(Connection conn) throws SQLException{
+		String sql = "SELECT C.email FROM Customer C";
+		
+		List<String> mailingList = new ArrayList<String>();
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			String email = rs.getString("email");
+			mailingList.add(email);
+		}
+		
+		return mailingList;
+	}
+	
+	public static void insertActor(Connection conn) throws SQLException{
+		String sql = "INSERT INTO Actor(Id, Name, Age, Sex, Rating) VALUES(?, ?, ?, ?, ?)";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		Actors actor = buildActor(rs);
+		
+		pstm.setInt(1, actor.getId());
+		pstm.setString(2, actor.getName());
+		pstm.setInt(3, actor.getAge());
+		pstm.setInt(4, actor.getSex());
+		pstm.setInt(4, actor.getRating());
+		
+		pstm.executeUpdate();
+		
 	}
 
 }
