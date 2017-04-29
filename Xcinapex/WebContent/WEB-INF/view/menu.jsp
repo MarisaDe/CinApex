@@ -56,16 +56,16 @@ margin-bottom: 0px;
 
     <!-- Collect the nav links, forms, and other content for toggling -->
  
-           <form class="navbar-form navbar-left">
+           <form class="navbar-form navbar-left" action="/Cinapex1/FindMovie">
                 <div class='input-prepend'>
                         <font color = "white">Category: </font>
-                    <select style="width: 80px; height: 30px">
+                    <select id="select" name="selector" style="width: 80px; height: 30px">
                         <option>Title </option>
                         <option>Genre</option>
                         <option>Actor</option>
                         <select>
 	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="Search">
+	          <input id="keyword" name="search" type="text" class="form-control" placeholder="Search">
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	      </form>

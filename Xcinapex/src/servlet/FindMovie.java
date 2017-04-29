@@ -17,7 +17,7 @@ import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet("/Movie/Type/")
+@WebServlet("/FindMovie")
 public class FindMovie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public class FindMovie extends HttpServlet {
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doPost(request,response);/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
@@ -53,11 +53,40 @@ public class FindMovie extends HttpServlet {
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
         dispatcher.forward(request, response);
+        */
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String keyword = request.getParameter("search");
+		String selector=request.getParameter("selector");
+		System.out.println(keyword+" "+selector);
+		
+		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String url = "jdbc:mysql://localhost:3306/c305";
+   		String user = "root";
+   		String pass = "pass";
+   		java.sql.Connection conn = null;
+   		
+		List<Movie> allMovies=null;
+		String errorString = null;
+		try{
+			Class.forName(jdbc_driver).newInstance();
+			conn = DriverManager.getConnection(url, user, pass);
+			allMovies= DBUtils.findMovie(conn,keyword,selector);
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("errorString", errorString);
+		request.setAttribute("MovieList", allMovies);
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }

@@ -75,63 +75,50 @@ public class DBUtils {
 		return list;
 	}
 
-<<<<<<< HEAD
-	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
+	public static List<Movie> findMovie(Connection conn, String keyword, String selector) throws SQLException{
+		if(selector.equals("Title")){
+			String percent="%";
+			String name=percent+keyword+percent;
+			return findMovieByName(conn,name);
+		}else if (selector.equals("Genre")){
+			return findMovieByType(conn,keyword);
+		}else{
+			return null;//not yet impl
+		}
+			
+	}
+	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
-=======
-	public static Movie findMovieById(Connection conn, int id) throws SQLException {
-		String sql = "Select * from Movie where id=?";
->>>>>>> ecf764d4c9c6164ebc877a8306ac6c54df6a7eaf
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
 
 		ResultSet rs = pstm.executeQuery();
 
+		List<Movie> list = new ArrayList<Movie>();
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
+			list.add(movie);
 		}
-		return null;
+		System.out.println(list.size());
+		return list;
 	}
 	
-	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
-		String sql = "Select * from Movie where id=?";
-
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setString(1, type);
-
-		ResultSet rs = pstm.executeQuery();
-
-		while (rs.next()) {
-			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
-		}
-		return null;
-	}
-	
-	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
-		String sql = "Select * from Movie where id=?";
+	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
+		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
 
 		ResultSet rs = pstm.executeQuery();
 
+		List<Movie> list = new ArrayList<Movie>();
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
+			list.add(movie);
 		}
-		return null;
+		System.out.println(list.size());
+		return list;
 	}
 
 	public static void insertMovie(Connection conn, Movie movie) throws SQLException {
