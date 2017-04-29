@@ -3,7 +3,7 @@ package Beans;
 public class Employee extends Person{
 
 	
-	private int ssn;
+	private String ssn;
 	private String startDate;
 	private double hourlyRate;
 	
@@ -13,7 +13,7 @@ public class Employee extends Person{
 	}
 	
 	
-	public void setSsn(int ssn){
+	public void setSsn(String ssn){
 		   this.ssn = ssn;
 	   }
 	   
@@ -25,7 +25,7 @@ public class Employee extends Person{
 		   this.hourlyRate = hourlyRate;
 	   }
 	
-	public int getSsn(){
+	public String getSsn(){
 		   return ssn;
 	   }
 	   

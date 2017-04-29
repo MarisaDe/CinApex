@@ -10,7 +10,8 @@ import java.util.List;
 import Beans.*;
 
 public class DBUtils {
-
+	
+	// MOVIE QUERIES /////////
 	public static Movie buildMovie(ResultSet rs) throws SQLException {
 		int distrFee = rs.getInt("DistrFee");
 		int id = rs.getInt("Id");
@@ -103,7 +104,7 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 
-	// PERSON DATA
+	// PERSON QUERIES /////////
 
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
@@ -117,6 +118,65 @@ public class DBUtils {
 		pstm.setString(6, person.getPhone());
 
 		pstm.executeUpdate();
+	}
+	
+	public static void deletePerson(Connection conn, String SSN) throws SQLException {
+		String sql = "DELETE FROM Employee WHERE SSN = ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, SSN);
+
+		pstm.executeUpdate();
+	}
+	
+	// EMPLOYEE QUERIES /////////
+	public static void insertEmployee(Connection conn, Employee employee) throws SQLException{
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, employee.getSsn());
+		pstm.setString(2, employee.getStartDate());
+		pstm.setDouble(3, employee.getHourlyRate());
+		
+		pstm.executeUpdate();
+		
+	}
+	
+	
+	// Obtain a Sales Report
+	// Note that the query string does NOT have semicolons. I don't know if they need them
+	public static int obtainSalesReport(Connection conn, String Date) throws SQLException{
+		String sql = "	CREATE TABLE Cost (" +
+						"AcctType     AccountType," +
+						"MonthlyFee   CURRENCY," +
+						"PRIMARY KEY(AcctType)  )" +
+						
+						"INSERT INTO Cost" +			
+						"VALUES('Limited', 10)" +            
+						
+						"INSERT INTO Cost" +
+						"VALUES('Unlimited-1', 15)" +
+						
+						"INSERT INTO Cost" +			 
+						"VALUES('Unlimited-2', 20)" +
+							
+						"INSERT INTO Cost" +
+						"VALUES('Unlimited-3', 25)" +
+						
+						"SELECT SUM(C.MonthlyFee)" +
+						"FROM Account A, Cost C" +
+						"WHERE A.DateOpened >'?' AND A.Type = C.AcctType";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		// DATE FORMAT 2004-11-1
+		pstm.setString(1, Date);
+
+		ResultSet rs = pstm.executeQuery();
+		int sum = rs.getInt(1);
+		
+		return sum;	
 	}
 
 }
