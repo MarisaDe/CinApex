@@ -290,18 +290,13 @@ public class DBUtils {
 		}
 		
 		//Get Employee by id
-		public static List<Employee> getEmployees(Connection conn, String id) throws SQLException {
+		public static Employee getEmployees(Connection conn, String id) throws SQLException {
 			String sql = "Select * From Employee Where id = ;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
-
-			List<Employee> allEmp = new ArrayList<Employee>();
-			while (rs.next()) {
-				Employee emp = buildEmployee(rs);
-				allEmp.add(emp);
-			}
-			System.out.println(allEmp.size());
-			return allEmp;
+			
+			Employee emp = buildEmployee(rs);
+			return emp;
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
