@@ -76,6 +76,17 @@ public class DBUtils {
 		return list;
 	}
 
+<<<<<<< HEAD
+	public static List<Movie> findMovie(Connection conn, String keyword, String selector) throws SQLException{
+		if(selector.equals("Title")){
+			String percent="%";
+			String name=percent+keyword+percent;
+			return findMovieByName(conn,name);
+		}else if (selector.equals("Genre")){
+			return findMovieByType(conn,keyword);
+		}else{
+			return null;//not yet impl
+=======
 
 	public static Movie findMovieById(Connection conn, int id) throws SQLException {
 		String sql = "Select * from Movie where id = ?";
@@ -91,44 +102,54 @@ public class DBUtils {
 			if (movie != null) {
 				return movie;
 			}
+>>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
 		}
-		return null;
+			
 	}
+<<<<<<< HEAD
+	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
+		String sql = "Select * from Movie where Type=?";
+=======
 
 	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type = ?";
+>>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
 
 		ResultSet rs = pstm.executeQuery();
 
+		List<Movie> list = new ArrayList<Movie>();
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
+			list.add(movie);
 		}
-		return null;
+		System.out.println(list.size());
+		return list;
 	}
+<<<<<<< HEAD
+	
+	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
+		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
+=======
 
 	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
 		String sql = "Select * from Movie where Name = ?";
+>>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
 
 		ResultSet rs = pstm.executeQuery();
 
+		List<Movie> list = new ArrayList<Movie>();
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
-
-			if (movie != null) {
-				return movie;
-			}
+			list.add(movie);
 		}
-		return null;
+		System.out.println(list.size());
+		return list;
 	}
 
 	/**
