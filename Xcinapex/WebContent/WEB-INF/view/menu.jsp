@@ -2,14 +2,15 @@
   pageEncoding="UTF-8"%>
   <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">	
+		
+		
+		<!-- CSS -->	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<!--<link rel="stylesheet" href="../css/bootstrap.min.css">  --> 
-<!-- <script src="../js/bootstrap.min.js"></script>   -->
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-</head>
 <body>
 <style>
 
@@ -58,7 +59,7 @@ margin-bottom: 0px;
  
            <form class="navbar-form navbar-left">
                 <div class='input-prepend'>
-                        <font color = "white">Category: </font>
+                        <font color = "red">Category:</font>
                     <select style="width: 80px; height: 30px">
                         <option>Title </option>
                         <option>Genre</option>
@@ -72,20 +73,27 @@ margin-bottom: 0px;
 	       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Your Personalized List</a></li>
+         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Queue</a></li>
+            <li><a href="#">History</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">Current Movies Held</a></li>
           </ul>
         </li>
       </ul>
+
+   
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<!-- Scripts -->	
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 </body>
 </html>
