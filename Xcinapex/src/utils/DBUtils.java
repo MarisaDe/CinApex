@@ -61,11 +61,47 @@ public class DBUtils {
 		return list;
 	}
 
-	public static Movie findMovie(Connection conn, int id) throws SQLException {
+	public static Movie findMovieById(Connection conn, int id) throws SQLException {
 		String sql = "Select * from Movie where id=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+
+			if (movie != null) {
+				return movie;
+			}
+		}
+		return null;
+	}
+	
+	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
+		String sql = "Select * from Movie where id=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, type);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+
+			if (movie != null) {
+				return movie;
+			}
+		}
+		return null;
+	}
+	
+	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
+		String sql = "Select * from Movie where id=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, name);
 
 		ResultSet rs = pstm.executeQuery();
 
@@ -144,6 +180,7 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
 	
 	// EMPLOYEE QUERIES /////////
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException{
