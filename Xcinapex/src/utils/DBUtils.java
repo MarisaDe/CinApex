@@ -431,5 +431,82 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	/**
+	 *  Customer Rep Transactions
+	 */
+	
+	public static MovieOrder buildMovieOrder(ResultSet rs) throws SQLException{
+		
+		MovieOrder movieOrder  = new MovieOrder();
+		
+		int id = rs.getInt("Id");
+		String accountId = rs.getString("AccountId");
+		int movieId = rs.getInt("MovieId");
+		String dNT = rs.getString("DateAndTime");
+		String rd = rs.getString("ReturnDate");
+
+		movieOrder.setId(id);
+		movieOrder.setAccountId(accountId);
+		movieOrder.setMovieId(movieId);
+		movieOrder.setDateAndTime(dNT);
+		movieOrder.setReturnDate(rd);
+
+		
+		return movieOrder;
+		
+	}
+	
+	public static Rental buildRental(ResultSet rs) throws SQLException{
+		
+		Rental rental  = new Rental();
+		
+		String custRepId = rs.getString("AccountId");
+		String accountId = rs.getString("CustRepId");
+		int orderId = rs.getInt("OrderId");
+		int movieId = rs.getInt("MovieId");
+
+		rental.setCustRepId(custRepId);
+		rental.setAccountId(accountId);
+		rental.setOrderId(orderId);
+		rental.setMovieId(movieId);
+
+		
+		return rental;
+		
+	}
+	
+	// Adding an Order should call bother insertMovieOrder and insertRental
+	
+	public static void insertMovieOrder(Connection conn) throws SQLException{
+		String sql = "INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate) VALUES(?, ?, ?, ?, ?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		MovieOrder movieOrder = buildMovieOrder(rs);
+		
+		pstm.setInt(1, movieOrder.getId());
+		pstm.setString(2, movieOrder.getAccountId());
+		pstm.setInt(3, movieOrder.getMovieId());
+		pstm.setString(4, movieOrder.getDateAndTime());
+		pstm.setInt(5, movieOrder.getReturnDate());
+		
+		pstm.executeUpdate();
+	}
+	
+	public static void insertRental(Connection conn) throws SQLException{
+		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		Rental rental = buildRental(rs);
+		
+		pstm.setString(1, rental.getCustRepId());
+		pstm.setString(2, rental.getAccountId());
+		pstm.setInt(3, rental.getOrderId());
+		pstm.setInt(4, rental.getMovieId());
+		
+		pstm.executeUpdate();
+	}
 
 }
