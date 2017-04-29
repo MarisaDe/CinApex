@@ -8,14 +8,18 @@ public class Person {
    private String address;
    private int zip;
    private String phone;
+   private String city;
+   private String state;
    
-   public Person(String id, String FName, String LName, String address, int zip, String phone){
+   public Person(String id, String FName, String LName, String address, int zip, String phone, String city, String state){
 	   this.id = id;
 	   this.FName = FName;
 	   this.LName = LName;
 	   this.address = address;
 	   this.zip = zip;
 	   this.phone = phone;
+	   this.city = city;
+	   this.state = state;
    }
    
    public void setId( String id){
@@ -42,6 +46,14 @@ public class Person {
 	   this.phone = phone;
    }
    
+   public void setCity(String city){
+	   this.phone = city;
+   }
+   
+   public void setState(String state){
+	   this.phone = state;
+   }
+   
    public String getId(){
 	   return id;
    }
@@ -65,6 +77,15 @@ public class Person {
    public String getPhone(){
 	   return phone;
    }
+   
+   public String getCity(){
+	   return city;
+   }
+   
+   public String getState(){
+	   return state;
+   }
+ 
    
    
 }
