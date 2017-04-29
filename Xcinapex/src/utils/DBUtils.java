@@ -167,7 +167,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieType(Connection conn, String type, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Type = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -179,7 +179,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Rating = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -190,7 +190,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  DistrFee = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -201,7 +201,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  NumCopies = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
