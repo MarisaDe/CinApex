@@ -2,7 +2,6 @@ package Beans;
 
 public class Person {
  
-   private String id;
    private String FName;
    private String LName;
    private String address;
@@ -11,8 +10,7 @@ public class Person {
    private String city;
    private String state;
    
-   public Person(String id, String FName, String LName, String address, int zip, String phone, String city, String state){
-	   this.id = id;
+   public Person(String FName, String LName, String address, int zip, String phone, String city, String state){
 	   this.FName = FName;
 	   this.LName = LName;
 	   this.address = address;
@@ -22,9 +20,6 @@ public class Person {
 	   this.state = state;
    }
    
-   public void setId( String id){
-	   this.id = id;
-   }
    
    public void setFName( String FName){
 	   this.FName = FName;
@@ -54,9 +49,6 @@ public class Person {
 	   this.phone = state;
    }
    
-   public String getId(){
-	   return id;
-   }
    
    public String getFName(){
 	   return FName;
