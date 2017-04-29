@@ -45,6 +45,20 @@ public class DBUtils {
 		
 		return allMovies;
 	}
+	
+	public static List<Movie> getBestSeller(Connection conn) throws SQLException {
+		String sql = "SELECT M.Id, M.Name, M.Type, M.Rating, N.NumOrders FROM MovieOrder N, Movie M WHERE N.MovieId = M.Id ORDER BY N.NumOrders DESC";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> bestSellers = new ArrayList<Movie>();
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			bestSellers.add(movie);
+		}
+		System.out.println(bestSellers.size());
+		return bestSellers;
+	}
 
 	public static List<Movie> movieSuggestions(Connection conn, String Id) throws SQLException {
 		String sql = "SELECT M.Id, M.Name, M.Type FROM Movie M WHERE M.Type IN (SELECT O.Type FROM PastOrder O WHERE O.CustId = '?')  AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O WHERE O.CustId = '?'";
@@ -62,11 +76,16 @@ public class DBUtils {
 		return list;
 	}
 
+<<<<<<< HEAD
+	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
+		String sql = "Select * from Movie where Type=?";
+=======
 	public static Movie findMovieById(Connection conn, int id) throws SQLException {
 		String sql = "Select * from Movie where id=?";
+>>>>>>> ecf764d4c9c6164ebc877a8306ac6c54df6a7eaf
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, id);
+		pstm.setString(1, type);
 
 		ResultSet rs = pstm.executeQuery();
 

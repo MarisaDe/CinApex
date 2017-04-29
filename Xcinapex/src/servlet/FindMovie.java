@@ -17,11 +17,11 @@ import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet("/Movie")
-public class MovieList extends HttpServlet {
+@WebServlet("/Movie/Type/")
+public class FindMovie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public MovieList() {
+    public FindMovie() {
         super();
     }
     
@@ -38,7 +38,7 @@ public class MovieList extends HttpServlet {
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allMovies= DBUtils.queryMovies(conn);
+			allMovies= DBUtils.findMovie(type);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -51,7 +51,7 @@ public class MovieList extends HttpServlet {
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovies);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/MovieList.jsp");
+                .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
         dispatcher.forward(request, response);
 	}
 
