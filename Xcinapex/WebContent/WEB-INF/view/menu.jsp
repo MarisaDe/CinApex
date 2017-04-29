@@ -77,8 +77,9 @@ margin-bottom: 0px;
         <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
         <li><a href="#">Your Personalized List</a></li>
          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account: ${loggedInUser.id} <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="/Cinapex1/Login">Login</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Queue</a></li>
             <li><a href="#">History</a></li>

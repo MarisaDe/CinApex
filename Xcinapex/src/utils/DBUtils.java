@@ -256,19 +256,13 @@ public class DBUtils {
 	
 		// Return an employee to build a list
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
-			String FName = rs.getString("FName");
-			String LName = rs.getString("LName");
-			String address = rs.getString("address");
-			int zip = rs.getInt("zip");
-			String phone = rs.getString("phone");
-			String city = rs.getString("city");
-			String state = rs.getString("state");
-			String ssn = rs.getString("ssn");
-
-			Employee emp = new Employee(FName, LName, address, zip, phone,city,state);
+			Employee emp = new Employee();
 			
-			emp.setSsn(ssn);
-
+			emp.setHourlyRate(rs.getInt("HourlyRate"));
+			emp.setId(rs.getInt("Id"));
+			emp.setSsn(rs.getString("Ssn"));
+			emp.setStartDate(rs.getString("StartDate"));
+			
 			return emp;
 		}
 		
@@ -289,12 +283,15 @@ public class DBUtils {
 		}
 		
 		//Get Employee by id
-		public static Employee getEmployees(Connection conn, String id) throws SQLException {
-			String sql = "Select * From Employee Where id = ;";
+		public static Employee getEmployee(Connection conn, String id) throws SQLException {
+			String sql = "Select * From Employee Where SSN = ?;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, id);
 			ResultSet rs = pstm.executeQuery();
-			
-			Employee emp = buildEmployee(rs);
+			Employee emp=new Employee();
+			if(rs.next()){
+				emp = buildEmployee(rs);
+			}
 			return emp;
 		}
 		
