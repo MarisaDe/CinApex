@@ -120,15 +120,6 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
-	public static void deletePerson(Connection conn, String SSN) throws SQLException {
-		String sql = "DELETE FROM Employee WHERE SSN = ?";
-
-		PreparedStatement pstm = conn.prepareStatement(sql);
-
-		pstm.setString(1, SSN);
-
-		pstm.executeUpdate();
-	}
 	
 	// EMPLOYEE QUERIES /////////
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException{
@@ -142,6 +133,16 @@ public class DBUtils {
 		
 		pstm.executeUpdate();
 		
+	}
+	
+	public static void deletePerson(Connection conn, String SSN) throws SQLException {
+		String sql = "DELETE FROM Employee WHERE SSN = ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, SSN);
+
+		pstm.executeUpdate();
 	}
 	
 	
