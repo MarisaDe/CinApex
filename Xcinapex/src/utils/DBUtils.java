@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import Beans.*;
 
@@ -561,5 +562,52 @@ public class DBUtils {
 		pstm.executeUpdate();
 		
 	}
-
+	
+	
+	/**
+	 *  Customer Level TransActions
+	 */
+	
+	public static HashMap getCustomerQueue(Connection conn, int id) throws SQLException{
+		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
+		HashMap customerQueue = new HashMap();
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			int movieId = rs.getInt("MovieId");
+			String movieName = rs.getString("Name");
+			
+			customerQueue.put(movieId, movieName);
+		}
+		
+		return customerQueue;
+		
+	}
+	
+	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
+		String sql = "SELECT * FROM Customer WHERE Id = ?";
+		
+		
+	}
+	
+	public static void getCustomerHistory(Connection conn, int accountId) throws SQLException{
+		String sql = "SELECT * FROM MovieOrder  WHERE DateAndTime <= NOW() AND AccountId = ? ORDER BY DateAndTime";
+		
+	}
+	
+	public static void getBestSellerList(Connection conn) throws SQLException{
+		String sql = "SELECT Name, Rating FROM Movie ORDER BY Rating DESC LIMIT 2";
+		
+	}
+	
+	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
+		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
+		
+		
+	}
+	
 }
