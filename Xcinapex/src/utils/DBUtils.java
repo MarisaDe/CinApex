@@ -145,7 +145,6 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
-	
 	// EMPLOYEE QUERIES /////////
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException{
 		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
