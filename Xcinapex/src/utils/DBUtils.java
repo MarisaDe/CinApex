@@ -226,7 +226,7 @@ public class DBUtils {
 
 	// Obtain a Sales Report
 	// Note that the query string does NOT have semicolons. I don't know if they
-	// need them
+	// need them when there are multiple queries in a statment
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
 		String sql = 
 				"CREATE TABLE Cost (" +
