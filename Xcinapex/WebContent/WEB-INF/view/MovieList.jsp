@@ -9,11 +9,11 @@
     <title>All Movies</title>
  </head>
  <body>
+ <jsp:include page="menu.jsp"></jsp:include>
  
- 
-    <h3>Movie List</h3>
+    <h3 align = "center">Movie List</h3>
  <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" >
+    <table border="1" cellpadding="5" cellspacing="1" align = "center">
        <tr>
           <th>Movie Id</th>
           <th>Name</th>
