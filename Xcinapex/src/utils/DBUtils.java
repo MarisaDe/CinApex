@@ -293,11 +293,29 @@ public class DBUtils {
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
-		
-		
 
 	}
-
+	
+	public static List<String> mostActivelyRentedMovies(Connection conn) throws SQLException{
+		String sql = "SELECT   M.Name, COUNT(M.Id) totalCount" +
+					 "FROM     Rental R, Movie M"+
+					 "WHERE    M.Id = R.MovieId"+
+					 "GROUP BY MovieId"+
+					 "HAVING   totalCount >= 2;";
+		
+		List<String> activelyRentedMovies = new ArrayList<String>();
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			String movieName = rs.getString("Name");
+			activelyRentedMovies.add(movieName);
+		}
+		
+		return activelyRentedMovies;
+	}
+	
 	/**
 	 * END OF Manager Level Transaction
 	 */
