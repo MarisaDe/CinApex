@@ -255,6 +255,55 @@ public class DBUtils {
 		return sum;
 	}
 
+	
+		// Return an employee to build a list
+		public static Employee buildEmployee(ResultSet rs) throws SQLException {
+			String FName = rs.getString("FName");
+			String LName = rs.getString("LName");
+			String address = rs.getString("address");
+			int zip = rs.getInt("zip");
+			String phone = rs.getString("phone");
+			String city = rs.getString("city");
+			String state = rs.getString("state");
+			String ssn = rs.getString("ssn");
+
+			Employee emp = new Employee(FName, LName, address, zip, phone,city,state);
+			emp.setSsn(ssn);
+
+			return emp;
+		}
+		
+		
+		//Get all Employees
+		public static List<Employee> getEmployees(Connection conn) throws SQLException {
+			String sql = "Select * From Employees;";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			ResultSet rs = pstm.executeQuery();
+
+			List<Employee> allEmp = new ArrayList<Employee>();
+			while (rs.next()) {
+				Employee emp = buildEmployee(rs);
+				allEmp.add(emp);
+			}
+			System.out.println(allEmp.size());
+			return allEmp;
+		}
+		
+		//Get Employee by id
+		public static List<Employee> getEmployees(Connection conn, String id) throws SQLException {
+			String sql = "Select * From Employee Where id = ;";
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			ResultSet rs = pstm.executeQuery();
+
+			List<Employee> allEmp = new ArrayList<Employee>();
+			while (rs.next()) {
+				Employee emp = buildEmployee(rs);
+				allEmp.add(emp);
+			}
+			System.out.println(allEmp.size());
+			return allEmp;
+		}
+		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
 		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
 
@@ -344,8 +393,7 @@ public class DBUtils {
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
-
-		pstm.setString(1, person.getId());
+		
 		pstm.setString(2, person.getFName());
 		pstm.setString(3, person.getLName());
 		pstm.setString(4, person.getAddress());
