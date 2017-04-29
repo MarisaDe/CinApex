@@ -6,26 +6,20 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Cinapex</title>
+    <title>All Movies</title>
  </head>
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
  
-    <h3 align = "center">Movie List</h3>
+    <h3 align = "center">Your ID</h3>
  <p style="color: red;">${errorString}</p>
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
        <tr>
-          <th>Movie Id</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Rating</th>
+          <th>ID</th>
        </tr>
-       <c:forEach items="${MovieList}" var="movie" >
+       <c:forEach items="${Login}" var="emp" >
           <tr>
-             <td>${movie.id}</td>
-             <td>${movie.name}</td>
-             <td>${movie.type}</td>
-             <td>${movie.rating}</td>
+             <td>${employee.ssn}</td>
              
           </tr>
        </c:forEach>

@@ -76,7 +76,10 @@ public class DBUtils {
 		return list;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29963f046928448670e59de706bf529a7c8b1ace
 	public static List<Movie> findMovie(Connection conn, String keyword, String selector) throws SQLException{
 		if(selector.equals("Title")){
 			String percent="%";
@@ -85,6 +88,7 @@ public class DBUtils {
 		}else if (selector.equals("Genre")){
 			return findMovieByType(conn,keyword);
 		}else{
+<<<<<<< HEAD
 			return null; //not yet impl
 		}
 	}
@@ -93,6 +97,15 @@ public class DBUtils {
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
 
+=======
+			return null;//not yet impl
+			
+		}
+	}
+	
+	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
+		String sql = "Select * from Movie where Type=?";
+>>>>>>> 29963f046928448670e59de706bf529a7c8b1ace
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
@@ -107,10 +120,16 @@ public class DBUtils {
 		System.out.println(list.size());
 		return list;
 	}
+<<<<<<< HEAD
 
 	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
 		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
 
+=======
+	
+	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
+		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
+>>>>>>> 29963f046928448670e59de706bf529a7c8b1ace
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
@@ -221,7 +240,7 @@ public class DBUtils {
 
 	// Obtain a Sales Report
 	// Note that the query string does NOT have semicolons. I don't know if they
-	// need them when there are multiple queries in a statment
+	// need them
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
 		String sql = 
 				"CREATE TABLE Cost (" +
@@ -263,6 +282,7 @@ public class DBUtils {
 			String ssn = rs.getString("ssn");
 
 			Employee emp = new Employee(FName, LName, address, zip, phone,city,state);
+			
 			emp.setSsn(ssn);
 
 			return emp;
@@ -285,18 +305,13 @@ public class DBUtils {
 		}
 		
 		//Get Employee by id
-		public static List<Employee> getEmployees(Connection conn, String id) throws SQLException {
+		public static Employee getEmployees(Connection conn, String id) throws SQLException {
 			String sql = "Select * From Employee Where id = ;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
-
-			List<Employee> allEmp = new ArrayList<Employee>();
-			while (rs.next()) {
-				Employee emp = buildEmployee(rs);
-				allEmp.add(emp);
-			}
-			System.out.println(allEmp.size());
-			return allEmp;
+			
+			Employee emp = buildEmployee(rs);
+			return emp;
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
@@ -337,8 +352,6 @@ public class DBUtils {
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
-		
-		// NOT FINSIHED
 
 	}
 	
