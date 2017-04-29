@@ -75,11 +75,52 @@ public class DBUtils {
 		return list;
 	}
 
+<<<<<<< HEAD
 	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
+=======
+	public static Movie findMovieById(Connection conn, int id) throws SQLException {
+		String sql = "Select * from Movie where id=?";
+>>>>>>> ecf764d4c9c6164ebc877a8306ac6c54df6a7eaf
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, type);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+
+			if (movie != null) {
+				return movie;
+			}
+		}
+		return null;
+	}
+	
+	public static Movie findMovieByType(Connection conn, String type) throws SQLException {
+		String sql = "Select * from Movie where id=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, type);
+
+		ResultSet rs = pstm.executeQuery();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+
+			if (movie != null) {
+				return movie;
+			}
+		}
+		return null;
+	}
+	
+	public static Movie findMovieByName(Connection conn, String name) throws SQLException {
+		String sql = "Select * from Movie where id=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, name);
 
 		ResultSet rs = pstm.executeQuery();
 
@@ -117,7 +158,32 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	
+	public static List<Movie> getCustomersHeldMovies(Connection conn, String id) throws SQLException {
+		String sql = "SELECT MovieId"
+				     + "FROM Rental"
+				     + "WHERE AccountId = ? AND EXISTS("
+				     + "SELECT ReturnDate"
+				     + "FROM MovieOrder"
+				     + "WHERE OrderId = Id AND ReturnDate > NOW());";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, id);
 
+		ResultSet rs = pstm.executeQuery();
+		
+		List<Movie> list = new ArrayList<Movie>();
+		
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+		
+		
+		return list;
+		
+	}
 	// PERSON QUERIES /////////
 
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
