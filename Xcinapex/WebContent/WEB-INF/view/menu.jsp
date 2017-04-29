@@ -59,13 +59,10 @@ margin-bottom: 0px;
  
            <form class="navbar-form navbar-left" action="/Cinapex1/FindMovie">
                 <div class='input-prepend'>
-<<<<<<< HEAD
-                        <font color = "white">Category: </font>
+
+                        <font color = "red">Category: </font>
                     <select id="select" name="selector" style="width: 80px; height: 30px">
-=======
-                        <font color = "red">Category:</font>
-                    <select style="width: 80px; height: 30px">
->>>>>>> 470cb512f7a29b264d324352b4cc5e7e11bd8093
+
                         <option>Title </option>
                         <option>Genre</option>
                         <option>Actor</option>
