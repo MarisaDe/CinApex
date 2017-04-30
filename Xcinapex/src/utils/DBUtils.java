@@ -257,7 +257,11 @@ public class DBUtils {
 		// Return an employee to build a list
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
-			
+			emp.setAddress(rs.getString("Address"));
+			emp.setFName(rs.getString("FirstName"));
+			emp.setLName(rs.getString("LastName"));
+			emp.setPhone(rs.getString("Telephone"));
+			emp.setZip(rs.getInt("ZipCode"));
 			emp.setHourlyRate(rs.getInt("HourlyRate"));
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
@@ -284,7 +288,7 @@ public class DBUtils {
 		
 		//Get Employee by id
 		public static Employee getEmployee(Connection conn, String id) throws SQLException {
-			String sql = "Select * From Employee Where SSN = ?;";
+			String sql = "Select * From Employee e JOIN Person p Where e.SSN = ? and e.SSN = p.SSN;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setString(1, id);
 			ResultSet rs = pstm.executeQuery();
@@ -292,6 +296,7 @@ public class DBUtils {
 			if(rs.next()){
 				emp = buildEmployee(rs);
 			}
+			System.out.println(emp.getFName());
 			return emp;
 		}
 		
