@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
+import Beans.Person;
 import Beans.Customer;
 import utils.DBUtils;
 
@@ -48,11 +49,14 @@ public class Account extends HttpServlet{
 			
 			String name=request.getParameter("user").trim();
 			System.out.println(name);
-			Employee emp;
-			emp = DBUtils.getEmployee(conn, name);
+			String personType= request.getParameter("personType");
+			
+			Person emp;
+			emp = DBUtils.loginChoice(conn, name,personType);
 			
 			if(emp != null){		
 				 session.setAttribute("loggedInUser", emp);
+				 session.setAttribute("personType", personType);
 			}
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()

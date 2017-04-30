@@ -2,7 +2,7 @@ package Beans;
 
 public class Customer extends Person{
 
-	private int custId;
+	private String Id;
 	private String email;
 	private String cCard;
 	private int rating;
@@ -13,11 +13,11 @@ public class Customer extends Person{
 	}
 	
 	
-	public void setCustId(int custId){
-		   this.custId = custId;
+	public void setCustId(String custId){
+		   this.Id = custId;
 	   }
 	   
-	public void setStartDate(String email){
+	public void setEmail(String email){
 		   this.email = email;
 	   }
 	
@@ -29,8 +29,8 @@ public class Customer extends Person{
 		   this.rating = rating;
 	   }
 	
-	public int getCustId(){
-		   return custId;
+	public String getCustId(){
+		   return Id;
 	   }
 	   
 	public String getEmail(){

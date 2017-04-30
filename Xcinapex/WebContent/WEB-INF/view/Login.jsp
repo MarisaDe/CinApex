@@ -15,10 +15,7 @@
   
  <form class="form-signin" action="/Cinapex1/Account">
         <h3 class="form-signin-heading">Customer ID or SSN</h3>
-<<<<<<< HEAD
-          use: 123-45-6789
-=======
->>>>>>> 10f13b9d82e54aeac1cfe815aa488cbb1fc23134
+         
         <label  for="inputEmail" class="sr-only">Customer ID / SSN</label>
         
         <div class='type'>
@@ -28,7 +25,8 @@
                <option>Employee</option>
              </select>
         <div class="form-group">
-	    use: 111-11-1111 for customer    
+	    use: 111-11-1111 for customer  
+	    use: 123-45-6789 for employee  
 	        
         <input type="text" id="inputEmail" name="user" class="form-control" placeholder="Enter your SSN or Customer ID" required autofocus>
         

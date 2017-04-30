@@ -611,5 +611,42 @@ public class DBUtils {
 		
 		
 	}
+
+
+	public static Person loginChoice(Connection conn, String name, String personType) throws SQLException {
+		if (personType.equals("Employee")){
+			return getEmployee(conn,name);
+		}else{
+			return getCustomer(conn,name);
+		}
+	}
+	
+	public static Customer getCustomer(Connection conn, String name) throws SQLException{
+		String sql = "Select * From Customer c JOIN Person p Where c.Id = ? and c.Id = p.SSN;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, name);
+		ResultSet rs = pstm.executeQuery();
+		Customer cus=new Customer();
+		if(rs.next()){
+			cus = buildCustomer(rs);
+		}
+		System.out.println(cus.getFName());
+		return cus;
+	}
+
+
+	private static Customer buildCustomer(ResultSet rs) throws SQLException {
+		Customer emp = new Customer();
+		emp.setAddress(rs.getString("Address"));
+		emp.setFName(rs.getString("FirstName"));
+		emp.setLName(rs.getString("LastName"));
+		emp.setPhone(rs.getString("Telephone"));
+		emp.setZip(rs.getInt("ZipCode"));
+		emp.setcCard(rs.getString("CreditCardNumber"));
+		emp.setRating(rs.getInt("Rating"));
+		emp.setEmail(rs.getString("Email"));
+		
+		return emp;
+	}
 	
 }
