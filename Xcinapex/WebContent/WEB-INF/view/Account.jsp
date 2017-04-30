@@ -16,7 +16,7 @@
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
       
        <h3>SSN:${loggedInUser.ssn }</h3>
-         <h3>Name:${loggedInUser.FName }</h3>
+         <h3>Address :${loggedInUser.address }</h3>
            <h3>ID:${loggedInUser.id }</h3>
              <h3>Starting Date:${loggedInUser.startDate }</h3>
                <h3>Rate per Hour:${loggedInUser.hourlyRate }</h3>

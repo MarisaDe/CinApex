@@ -3,6 +3,8 @@ package Beans;
 public class Employee extends Person{
 
 	private int id;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -18,7 +20,6 @@ public class Employee extends Person{
 	
 	public Employee() {
 		super();
-		
 	}
 	
 	public void setSsn(String ssn){

@@ -2,24 +2,23 @@ package Beans;
 
 public class Person {
  
-   private String FName;
-   private String LName;
+   private String firstName;
+   private String lastName;
    private String address;
-   private int zip;
-   private String phone;
-   private String city;
-   private String state;
+   private int zipcode;
+   private String telephone;
    
    public Person(){
+	   super();
    }
    
    
    public void setFName( String FName){
-	   this.FName = FName;
+	   this.firstName = FName;
    }
    
    public void setLName(String LName){
-	   this.LName = LName;
+	   this.lastName = LName;
    }
    
    public void setAddress( String address){
@@ -27,28 +26,20 @@ public class Person {
    }
    
    public void setZip(int zip){
-	   this.zip = zip;
+	   this.zipcode = zip;
    }
    
    public void setPhone(String phone){
-	   this.phone = phone;
-   }
-   
-   public void setCity(String city){
-	   this.phone = city;
-   }
-   
-   public void setState(String state){
-	   this.phone = state;
+	   this.telephone = phone;
    }
    
    
    public String getFName(){
-	   return FName;
+	   return firstName;
    }
    
    public String getLName(){
-	   return LName;
+	   return lastName;
    }
    
    public String getAddress(){
@@ -56,19 +47,12 @@ public class Person {
    }
    
    public int getZip(){
-	   return zip;
+	   return zipcode;
    }
    
    public String getPhone(){
-	   return phone;
-   }
+	   return telephone;
    
-   public String getCity(){
-	   return city;
-   }
-   
-   public String getState(){
-	   return state;
    }
  
    
