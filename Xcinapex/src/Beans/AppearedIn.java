@@ -30,4 +30,5 @@ public class AppearedIn {
 	public void setMovieId(int movieId) {
 		this.movieId = movieId;
 	}
+
 }

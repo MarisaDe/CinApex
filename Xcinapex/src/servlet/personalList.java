@@ -17,26 +17,20 @@ import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet("/Movie")
-public class MovieList extends HttpServlet {
+@WebServlet("/personalList")
+public class personalList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public MovieList() {
+    public personalList() {
         super();
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
+   		String pass = "serverplz!";
    		java.sql.Connection conn = null;
    		
 		List<Movie> allMovies=null;
@@ -44,7 +38,7 @@ public class MovieList extends HttpServlet {
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allMovies= DBUtils.queryMovies(conn);
+			allMovies= DBUtils.getBestSeller(conn);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -55,9 +49,9 @@ public class MovieList extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
+		request.setAttribute("bestSellers", allMovies);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/MovieList.jsp");
+                .getRequestDispatcher("/WEB-INF/view/personalList.jsp");
         dispatcher.forward(request, response);
 	}
 

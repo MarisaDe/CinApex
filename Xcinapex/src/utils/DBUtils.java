@@ -85,10 +85,11 @@ public class DBUtils {
 			return findMovieByName(conn,name);
 		}else if (selector.equals("Genre")){
 			return findMovieByType(conn,keyword);
-		}else{
-
-			return null; //not yet impl
+		}else if(selector.equals("Actor")){
+			return findMovieByActor(conn, keyword);
 		}
+		
+		return null;
 	}
 
 
@@ -126,6 +127,74 @@ public class DBUtils {
 			list.add(movie);
 		}
 		System.out.println(list.size());
+		return list;
+	}
+
+	public static List<Actors> findActorByName(Connection conn, String name) throws SQLException{
+		String sql = "SELECT *  FROM Actor WHERE Name LIKE ?;";
+		List<Actors> list = new ArrayList<Actors>();
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		name = name + "%";
+		pstm.setString(1, name);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while (rs.next()) {
+			Actors actor = buildActor(rs);
+			list.add(actor);
+		}
+		
+		System.out.println("Actor by Name List : " + list.size());
+		
+		return list;
+	}
+	
+	public static List<Movie> findMovieByActor(Connection conn, String name) throws SQLException{
+		
+		
+		List<Movie> list = new ArrayList<Movie>();
+		List<Actors> actorList = findActorByName(conn, name);
+		List<Integer> movieId = new ArrayList<Integer>();
+		
+		// for each actor that matched
+		for(int i = 0; i < actorList.size(); i++){
+			String sql = "SELECT MovieId FROM appearedIn where ActorId = ?";
+			
+			Actors actor = actorList.get(i);
+			int actorId = actor.getId();
+			String actorName = actor.getName();
+			System.out.println("actor Id : " + actorId + " actor Name : " + actorName);
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, actorId);
+			ResultSet rs = pstm.executeQuery();
+			
+			// get movie id's
+			while(rs.next()){
+				movieId.add(rs.getInt("MovieId"));
+			}
+		}
+		
+		System.out.println("moveId List" + movieId.size());
+		
+		// use Movie Id to compose a list of movies with that Id;
+		for(int i = 0; i < movieId.size(); i++){
+			String sql2 = "SELECT * from Movie WHERE Id = ?";
+			
+			int Id = movieId.get(i);
+			PreparedStatement pstm = conn.prepareStatement(sql2);
+			pstm.setInt(1, Id);
+			
+			ResultSet rs2 = pstm.executeQuery();
+			
+			while(rs2.next()){
+				Movie movie = buildMovie(rs2);
+				list.add(movie);
+			}
+		}
+		
+		System.out.println("move by actor List" + list.size());
+		
 		return list;
 	}
 
@@ -489,7 +558,7 @@ public class DBUtils {
 		char sex = rs.getString("Sex").charAt(0);
 		int rating = rs.getInt("Rating");
 
-		actor.setName(name);
+		actor.setId(id);
 		actor.setName(name);
 		actor.setAge(age);
 		actor.setSex(sex);
