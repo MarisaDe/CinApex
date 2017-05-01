@@ -48,8 +48,8 @@ $('table').on('click','.delete',function(){
        <tr>
        <th></th>
           <th>SSN</th>
-          <!-- <th>Last Name</th>-->
-          <!-- <th>First Name</th>-->
+          <th>Last Name</th>
+          <th>First Name</th>
           <th>Address</th>
           <%--<th>City</th>--%>
           <%--<th>State</th>--%>
@@ -62,8 +62,8 @@ $('table').on('click','.delete',function(){
           <tr>
           	 <td><button type = "button" class="btn-danger" href="#" role = "button">X</a></td>
           	 <td>${emp.ssn}</td>
-          	 <%-- <td>${emp.firstName}</td>--%>
-          	 <%-- <td>${emp.lastName}</td>--%>
+          	 <td>${emp.firstName}</td>
+          	 <td>${emp.lastName}</td>
           	 <td>${emp.address}</td>
           	  	 <%-- <td>${emp.city}</td>--%>
           	  <%-- <td>${emp.state}</td>--%>
