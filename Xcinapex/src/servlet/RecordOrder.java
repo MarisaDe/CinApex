@@ -33,6 +33,7 @@ public class RecordOrder extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		String accountId = request.getParameter("accountId");
+		String custRepId = request.getParameter("custRepId");
 		int movieId =  Integer.parseInt(request.getParameter("movieId"));
 		String date = request.getParameter("date");
 		String returnDate = request.getParameter("returnDate");
@@ -45,6 +46,11 @@ public class RecordOrder extends HttpServlet {
 		movieOrder.setReturnDate(returnDate);
 		
 		Rental rental = new Rental();
+		rental.setAccountId(accountId);
+		rental.setCustRepId(custRepId);
+		rental.setMovieId(movieId);
+		rental.setOrderId(orderId);
+		
 		
 		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
@@ -63,6 +69,8 @@ public class RecordOrder extends HttpServlet {
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			
+			// Exec the queries and insert the data into the database
 			DBUtils.insertMovieOrder(conn, movieOrder);
 			DBUtils.insertRental(conn, rental);
 		}catch (ClassNotFoundException e){
@@ -74,8 +82,7 @@ public class RecordOrder extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		//request.setAttribute("errorString", errorString);
-		//request.setAttribute("MovieList", allMovies);
+
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
         dispatcher.forward(request, response);
