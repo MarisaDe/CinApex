@@ -327,14 +327,22 @@ public class DBUtils {
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
 			emp.setAddress(rs.getString("Address"));
+<<<<<<< HEAD
 			emp.setFirstName(rs.getString("FirstName"));
 			emp.setLastName(rs.getString("LastName"));
 			emp.setTelephone(rs.getString("Telephone"));
 			emp.setZipcode(rs.getInt("ZipCode"));
 			emp.setHourlyRate(rs.getInt("HourlyRate"));
+=======
+			emp.setFName(rs.getString("FirstName"));
+			emp.setLName(rs.getString("LastName"));
+			emp.setPhone(rs.getString("Telephone"));
+			emp.setZip(rs.getInt("ZipCode"));
+			emp.setHourlyRate(rs.getInt("hourlyRate"));
+>>>>>>> 3e095b1a570d51476ae3d9ec427697417e755af5
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
-			emp.setStartDate(rs.getString("StartDate"));
+			emp.setStartDate(rs.getString("startDate"));
 			
 			return emp;
 		}
@@ -342,7 +350,7 @@ public class DBUtils {
 		
 		//Get all Employees
 		public static List<Employee> getEmployees(Connection conn) throws SQLException {
-			String sql = "Select * From Employees;";
+			String sql = "Select * From Employee e JOIN Person p Where e.SSN = p.SSN;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 
@@ -660,22 +668,40 @@ public class DBUtils {
 	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
 		String sql = "SELECT * FROM Customer WHERE Id = ?";
 		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, id);
+		
 		
 	}
 	
 	public static void getCustomerHistory(Connection conn, int accountId) throws SQLException{
 		String sql = "SELECT * FROM MovieOrder  WHERE DateAndTime <= NOW() AND AccountId = ? ORDER BY DateAndTime";
 		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, accountId);
 	}
 	
-	public static void getBestSellerList(Connection conn) throws SQLException{
+	public static HashMap<String,Integer> getBestSellerList(Connection conn) throws SQLException{
 		String sql = "SELECT Name, Rating FROM Movie ORDER BY Rating DESC LIMIT 2";
+		PreparedStatement pstm = conn.prepareStatement(sql);
 		
+		HashMap<String, Integer> bestSellerList = new HashMap<String, Integer>();
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			int movieRating = rs.getInt("Name");
+			String movieName = rs.getString("Rating");
+			
+			bestSellerList.put(movieName, movieRating);
+		}
+		return bestSellerList;
 	}
 	
 	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
 		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
-		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, accountId);
 		
 	}
 
