@@ -16,7 +16,7 @@
 
 .navbar-search {
   margin-top: 4px;
-}
+} 
 
 .navbar .btn, .navbar .btn-group {
   margin-top: 1px;
@@ -78,7 +78,7 @@ margin-bottom: 0px;
          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Settings</a></li>
+            <li><a href="/Cinapex1/Settings">Settings</a></li>
             <li><a href="#">Queue</a></li>
             <li><a href="#">History</a></li>
             <li role="separator" class="divider"></li>

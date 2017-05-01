@@ -14,18 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
-import Beans.Person;
 import Beans.Customer;
 import utils.DBUtils;
 
-@WebServlet("/Account")
-public class Account extends HttpServlet{
+@WebServlet("/History")
+public class History extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Account() {
+    public History() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,52 +35,34 @@ public class Account extends HttpServlet{
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
-		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
-   		*/
-   		
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		
+   		String pass = "serverplz!";
    		java.sql.Connection conn = null;
 	   	
 		String errorString = null;
-		try{
+		
+		try {
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+		
+			//System.out.println(session.getAttribute(user));
 			
-			String name=request.getParameter("user").trim();
-			System.out.println(name);
-			String personType= request.getParameter("personType");
-			
-			Person emp;
-			emp = DBUtils.loginChoice(conn, name,personType);
-			
-			if(emp != null){		
-				 session.setAttribute("loggedInUser", emp);
-				 session.setAttribute("personType", personType);
-			}
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
+	                .getRequestDispatcher("/WEB-INF/view/History.jsp");
 	        dispatcher.forward(request, response);
-			
-		}catch (ClassNotFoundException e){
+				
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
+		
+   	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -89,5 +70,4 @@ public class Account extends HttpServlet{
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
