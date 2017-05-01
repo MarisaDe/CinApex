@@ -52,16 +52,17 @@ public class RecordOrder extends HttpServlet {
 		rental.setOrderId(orderId);
 		
 		
-		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
    		String pass = "pass";
-   		*/
+   		
+   		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
+   		*/
    		
    		
    		java.sql.Connection conn = null;

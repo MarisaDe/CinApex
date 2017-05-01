@@ -327,10 +327,10 @@ public class DBUtils {
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
 			emp.setAddress(rs.getString("Address"));
-			emp.setFName(rs.getString("FirstName"));
-			emp.setLName(rs.getString("LastName"));
-			emp.setPhone(rs.getString("Telephone"));
-			emp.setZip(rs.getInt("ZipCode"));
+			emp.setFirstName(rs.getString("FirstName"));
+			emp.setLastName(rs.getString("LastName"));
+			emp.setTelephone(rs.getString("Telephone"));
+			emp.setZipcode(rs.getInt("ZipCode"));
 			emp.setHourlyRate(rs.getInt("HourlyRate"));
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
@@ -365,7 +365,7 @@ public class DBUtils {
 			if(rs.next()){
 				emp = buildEmployee(rs);
 			}
-			System.out.println(emp.getFName());
+			System.out.println(emp.getFirstName());
 			return emp;
 		}
 		
@@ -485,11 +485,11 @@ public class DBUtils {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
-		pstm.setString(2, person.getFName());
-		pstm.setString(3, person.getLName());
+		pstm.setString(2, person.getFirstName());
+		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
-		pstm.setInt(5, person.getZip());
-		pstm.setString(6, person.getPhone());
+		pstm.setInt(5, person.getZipcode());
+		pstm.setString(6, person.getTelephone());
 
 		pstm.executeUpdate();
 	}
@@ -697,7 +697,7 @@ public class DBUtils {
 		if(rs.next()){
 			cus = buildCustomer(rs);
 		}
-		System.out.println(cus.getFName());
+		System.out.println(cus.getFirstName()+cus.getLastName());
 		return cus;
 	}
 
@@ -705,10 +705,10 @@ public class DBUtils {
 	private static Customer buildCustomer(ResultSet rs) throws SQLException {
 		Customer emp = new Customer();
 		emp.setAddress(rs.getString("Address"));
-		emp.setFName(rs.getString("FirstName"));
-		emp.setLName(rs.getString("LastName"));
-		emp.setPhone(rs.getString("Telephone"));
-		emp.setZip(rs.getInt("ZipCode"));
+		emp.setFirstName(rs.getString("FirstName"));
+		emp.setLastName(rs.getString("LastName"));
+		emp.setTelephone(rs.getString("Telephone"));
+		emp.setZipcode(rs.getInt("ZipCode"));
 		emp.setcCard(rs.getString("CreditCardNumber"));
 		emp.setRating(rs.getInt("Rating"));
 		emp.setEmail(rs.getString("Email"));

@@ -26,50 +26,26 @@ public class FindMovie extends HttpServlet {
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cineapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		java.sql.Connection conn = null;
+		doPost(request,response);
    		
-		List<Movie> allMovies=null;
-		String errorString = null;
-		try{
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			allMovies= DBUtils.findMovie(type);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
-        dispatcher.forward(request, response);
-        */
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String keyword = request.getParameter("search");
 		String selector=request.getParameter("selector");
 		System.out.println(keyword+" "+selector);
-		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		
+		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
    		String pass = "pass";
-   		*/
+   		
+   		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
+   		*/
    		
    		
    		java.sql.Connection conn = null;

@@ -17,6 +17,12 @@
       
        <h3>${personType}</h3>
          <h3>Address :${loggedInUser.address }</h3>
+         <h3>${loggedInUser.zipcode}</h3>
+         <h3>${loggedInUser.telephone}</h3>
+         <h3>${loggedInUser.lastName}</h3>
+         <h3>${loggedInUser.firstName}</h3>
+         
+         
     </table>
  
     
