@@ -15,7 +15,7 @@ public class Employee extends Person{
 
 	private String ssn;
 	private String startDate;
-	private double hourlyRate;
+	private int hourlyRate;
 	
 	
 	public Employee() {
@@ -30,7 +30,7 @@ public class Employee extends Person{
 		   this.startDate = startDate;
 	   }
 	
-	public void setHourlyRate(double hourlyRate){
+	public void setHourlyRate(int hourlyRate){
 		   this.hourlyRate = hourlyRate;
 	   }
 	
@@ -44,7 +44,7 @@ public class Employee extends Person{
 		   return startDate;
 	   }
 	
-	public double getHourlyRate(){
+	public int getHourlyRate(){
 		   return hourlyRate;
 	   }
 	

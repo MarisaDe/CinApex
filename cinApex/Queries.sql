@@ -1,4 +1,4 @@
-#Manager Level Transactions
+ #Manager Level Transactions
 #1. Add, Edit and Delete movies
 
 INSERT INTO Movie
@@ -37,21 +37,15 @@ WHERE SSN='123-45-6789'
 #3. Obtain a sales report (i.e. the overall income from all active subscriptions) for a particular month
 
 CREATE TABLE Cost (
-AcctType     CHAR(50),
-MonthlyFee   INT,
+AcctType     AccountType,
+MonthlyFee   CURRENCY,
 PRIMARY KEY(AcctType)  )	
 
-INSERT INTO Cost			
-VALUES('Limited', 10)             
+INSERT INTO Cost			INSERT INTO Cost
+VALUES('Limited', 10)             VALUES('Unlimited-1', 15)
 
-INSERT INTO Cost
-VALUES('Unlimited-1', 15)
-
-INSERT INTO Cost
-VALUES('Unlimited-3', 25)
-
-INSERT INTO Cost			
-VALUES('Unlimited-2', 20)		
+INSERT INTO Cost			 INSERT INTO Cost
+VALUES('Unlimited-2', 20)		VALUES('Unlimited-3', 25)
 
 SELECT SUM(C.MonthlyFee)
 FROM Account A, Cost C
@@ -113,7 +107,7 @@ WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders)
 
 CREATE VIEW MovieOrder(MovieId, NumOrders)
 AS
-SELECT R.MoiveId, COUNT(R.MovieId) 
+SELECT R.MovieId, COUNT(R.MovieId) 
 FROM Rental R
 GROUP BY R.MovieId
 
@@ -207,7 +201,7 @@ WHERE N.AcctId = R.AccountId AND R.Id = O.Id AND N.CustId = '444444444'
 
 #5. Movies available of a particular type
 
-CREATE VIEW HandOut(MovieId, NumOut)
+CREATE VIEW handout(MovieId, NumOut)
 AS 
 SELECT R.MovieId, COUNT(*)
 FROM Rental R, Order O
@@ -215,20 +209,20 @@ WHERE R.OrderId = O.Id AND O.ReturnDate =NULL
 GROUP BY R.MovieId
 
 SELECT M.Id, M.Name, M.Type
-FROM Movie M, HandOut H
+FROM Movie M, handout H
 WHERE M.Id = H.MovieId AND M.NumCopies>H.NumOut AND M.Type ='Drama'
 
 #6. Movies available with a particular keyword or set of keywords in
    the movie name
 
 SELECT M.Id, M.Name, M.Type
-FROM Movie M, HandOut H
+FROM Movie M, handout H
 WHERE M.Id = H.MovieId AND M.NumCopies>H.NumOut AND M.Name LIKE "%Harry%Potter%" 
 
 #7. Movies available starring a particular actor or group of actors
 
 SELECT M.Id, M.Name, M.Type
-FROM Movie M, HandOut H, AppearedIn I, ACTOR A
+FROM Movie M, handout H, AppearedIn I, ACTOR A
 WHERE M.Id = H.MovieID AND M.NumCopies>H.NumOut AND A.NAME = "Al Pacino" AND
 I.ActorId = A.Id AND I.MovieId = M.Id 
 
