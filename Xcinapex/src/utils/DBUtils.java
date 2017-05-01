@@ -571,12 +571,10 @@ public class DBUtils {
 	
 	// Adding an Order should call bother insertMovieOrder and insertRental
 	
-	public static void insertMovieOrder(Connection conn) throws SQLException{
+	public static void insertMovieOrder(Connection conn, MovieOrder movieOrder) throws SQLException{
 		String sql = "INSERT INTO MovieOrder(Id, AccountId, MovieId, DateAndTime, ReturnDate) VALUES(?, ?, ?, ?, ?)";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
-		MovieOrder movieOrder = buildMovieOrder(rs);
 		
 		pstm.setInt(1, movieOrder.getId());
 		pstm.setString(2, movieOrder.getAccountId());
@@ -587,12 +585,12 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
-	public static void insertRental(Connection conn) throws SQLException{
+	public static void insertRental(Connection conn, Rental rental) throws SQLException{
 		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?)";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
-		Rental rental = buildRental(rs);
+		//ResultSet rs = pstm.executeQuery();
+		//Rental rental = buildRental(rs);
 		
 		pstm.setString(1, rental.getCustRepId());
 		pstm.setString(2, rental.getAccountId());
@@ -617,12 +615,12 @@ public class DBUtils {
 		return mailingList;
 	}
 	
-	public static void insertActor(Connection conn) throws SQLException{
+	public static void insertActor(Connection conn, Actors actor) throws SQLException{
 		String sql = "INSERT INTO Actor(Id, Name, Age, Sex, Rating) VALUES(?, ?, ?, ?, ?)";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		ResultSet rs = pstm.executeQuery();
-		Actors actor = buildActor(rs);
+		//ResultSet rs = pstm.executeQuery();
+		//Actors actor = buildActor(rs);
 		
 		pstm.setInt(1, actor.getId());
 		pstm.setString(2, actor.getName());
