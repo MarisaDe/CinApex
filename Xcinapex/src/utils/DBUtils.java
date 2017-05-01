@@ -660,22 +660,40 @@ public class DBUtils {
 	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
 		String sql = "SELECT * FROM Customer WHERE Id = ?";
 		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, id);
+		
 		
 	}
 	
 	public static void getCustomerHistory(Connection conn, int accountId) throws SQLException{
 		String sql = "SELECT * FROM MovieOrder  WHERE DateAndTime <= NOW() AND AccountId = ? ORDER BY DateAndTime";
 		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, accountId);
 	}
 	
-	public static void getBestSellerList(Connection conn) throws SQLException{
+	public static HashMap<String,Integer> getBestSellerList(Connection conn) throws SQLException{
 		String sql = "SELECT Name, Rating FROM Movie ORDER BY Rating DESC LIMIT 2";
+		PreparedStatement pstm = conn.prepareStatement(sql);
 		
+		HashMap<String, Integer> bestSellerList = new HashMap<String, Integer>();
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			int movieRating = rs.getInt("Name");
+			String movieName = rs.getString("Rating");
+			
+			bestSellerList.put(movieName, movieRating);
+		}
+		return bestSellerList;
 	}
 	
 	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
 		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
-		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, accountId);
 		
 	}
 
