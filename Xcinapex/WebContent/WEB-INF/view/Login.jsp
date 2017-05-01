@@ -15,11 +15,8 @@
   
  <form class="form-signin" action="/Cinapex1/Account">
         <h3 class="form-signin-heading">Customer ID or SSN</h3>
-<<<<<<< HEAD
 
-=======
-         
->>>>>>> 9f73d9b01182a228f6f433928b0f008d0ee5e990
+
         <label  for="inputEmail" class="sr-only">Customer ID / SSN</label>
         
         <div class='type'>
