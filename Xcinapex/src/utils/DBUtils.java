@@ -331,10 +331,10 @@ public class DBUtils {
 			emp.setLName(rs.getString("LastName"));
 			emp.setPhone(rs.getString("Telephone"));
 			emp.setZip(rs.getInt("ZipCode"));
-			emp.setHourlyRate(rs.getInt("HourlyRate"));
+			emp.setHourlyRate(rs.getInt("hourlyRate"));
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
-			emp.setStartDate(rs.getString("StartDate"));
+			emp.setStartDate(rs.getString("startDate"));
 			
 			return emp;
 		}
@@ -342,7 +342,7 @@ public class DBUtils {
 		
 		//Get all Employees
 		public static List<Employee> getEmployees(Connection conn) throws SQLException {
-			String sql = "Select * From Employees;";
+			String sql = "Select * From Employee e JOIN Person p Where e.SSN = p.SSN;";
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			ResultSet rs = pstm.executeQuery();
 
