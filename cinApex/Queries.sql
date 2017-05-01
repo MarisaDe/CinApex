@@ -244,6 +244,6 @@ ORDER BY N.NumOrders DESC
 SELECT M.Id, M.Name, M.Type
 FROM Movie M
 WHERE M.Type IN (SELECT O.Type FROM PastOrder O
-		WHERE O.CustId = '444444444') 
+		WHERE O.CustId = '444-44-4444') 
 AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O
-	     WHERE O.CustId = '444444444'
+	     WHERE O.CustId = '444-44-4444'
