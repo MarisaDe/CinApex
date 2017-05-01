@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,64 +14,65 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Beans.Employee;
-import Beans.Person;
-import Beans.Customer;
+import Beans.*;
 import utils.DBUtils;
+import utils.MyUtils;
 
-@WebServlet("/Account")
-public class Account extends HttpServlet{
+@WebServlet("/RecordOrder")
+public class RecordOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Account() {
+	
+    public RecordOrder() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
-   		//Don't forget to change this
+		doPost(request,response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int orderId = Integer.parseInt(request.getParameter("orderId"));
+		String accountId = request.getParameter("accountId");
+		String custRepId = request.getParameter("custRepId");
+		int movieId =  Integer.parseInt(request.getParameter("movieId"));
+		String date = request.getParameter("date");
+		String returnDate = request.getParameter("returnDate");
+		
+		MovieOrder movieOrder = new MovieOrder();
+		movieOrder.setAccountId(accountId);
+		movieOrder.setDateAndTime(date);
+		movieOrder.setId(orderId);
+		movieOrder.setMovieId(movieId);
+		movieOrder.setReturnDate(returnDate);
+		
+		Rental rental = new Rental();
+		rental.setAccountId(accountId);
+		rental.setCustRepId(custRepId);
+		rental.setMovieId(movieId);
+		rental.setOrderId(orderId);
+		
+		
 		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
    		String pass = "pass";
    		*/
-   		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
    		
+   		
    		java.sql.Connection conn = null;
-	   	
-		String errorString = null;
+
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			
-			String name=request.getParameter("user").trim();
-			System.out.println(name);
-			String personType= request.getParameter("personType");
-			
-			Person emp;
-			emp = DBUtils.loginChoice(conn, name,personType);
-			
-			if(emp != null){		
-				 session.setAttribute("loggedInUser", emp);
-				 session.setAttribute("personType", personType);
-			}
-			request.setAttribute("errorString", errorString);
-			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
-	        dispatcher.forward(request, response);
-			
+			// Exec the queries and insert the data into the database
+			DBUtils.insertMovieOrder(conn, movieOrder);
+			DBUtils.insertRental(conn, rental);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -80,14 +82,10 @@ public class Account extends HttpServlet{
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }
