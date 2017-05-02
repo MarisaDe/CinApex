@@ -327,7 +327,6 @@ public class DBUtils {
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
 			emp.setAddress(rs.getString("Address"));
-
 			emp.setFirstName(rs.getString("FirstName"));
 			emp.setLastName(rs.getString("LastName"));
 			emp.setTelephone(rs.getString("Telephone"));
@@ -370,28 +369,48 @@ public class DBUtils {
 			System.out.println(emp.getFirstName());
 			return emp;
 		}
-	
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		
-		pstm.setInt(1, employee.getId());
-		pstm.setString(2, employee.getSsn());
-		pstm.setString(3, employee.getStartDate());
-		pstm.setInt(4, employee.getHourlyRate());
+
+		pstm.setString(1, employee.getSsn());
+		pstm.setString(2, employee.getStartDate());
+		pstm.setDouble(3, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
 	}
 
-	public static void deleteEmployee(Connection conn, String ssn) throws SQLException {
-		String sql = "DELETE FROM Employee WHERE SSN=?";
+	public static void deleteEmployee(Connection conn, String ssn, int custId) throws SQLException {
+		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
+		//PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		//pstm.setInt(1, custId);
+		//ResultSet rs = pstm.executeQuery();
+			
+		deleteRental(conn, custId);
+		
+		String sql2 = "DELETE FROM Employee WHERE SSN=?";
+
+		PreparedStatement pstm2 = conn.prepareStatement(sql2);
+
+		pstm2.setString(1, ssn);
+
+		pstm2.executeUpdate();
+		
+		deletePerson(conn, ssn);
+
+	}
+	
+	
+	public static void deleteRental(Connection conn, int custId) throws SQLException {
+		String sql = "DELETE FROM Rental WHERE CustRepId=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, ssn);
+		pstm.setInt(1, custId);
 
 		pstm.executeUpdate();
 
@@ -483,6 +502,7 @@ public class DBUtils {
 		return list;
 
 	}
+	
 	// PERSON QUERIES /////////
 	
 	public static void insertLocation(Connection conn, Location location) throws SQLException{
@@ -501,7 +521,6 @@ public class DBUtils {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
-		pstm.setString(1, person.getSSN());
 		pstm.setString(2, person.getFirstName());
 		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
@@ -512,7 +531,7 @@ public class DBUtils {
 	}
 
 	public static void deletePerson(Connection conn, String SSN) throws SQLException {
-		String sql = "DELETE FROM Employee WHERE SSN = ?";
+		String sql = "DELETE FROM Person WHERE SSN = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
