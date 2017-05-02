@@ -327,19 +327,13 @@ public class DBUtils {
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
 			emp.setAddress(rs.getString("Address"));
-<<<<<<< HEAD
-=======
 
->>>>>>> 847ec3a6e3306f2da34d94d1ca456cc1c232b532
 			emp.setFirstName(rs.getString("FirstName"));
 			emp.setLastName(rs.getString("LastName"));
 			emp.setTelephone(rs.getString("Telephone"));
 			emp.setZipcode(rs.getInt("ZipCode"));
 			emp.setHourlyRate(rs.getInt("HourlyRate"));
-<<<<<<< HEAD
-=======
 
->>>>>>> 847ec3a6e3306f2da34d94d1ca456cc1c232b532
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
 			emp.setStartDate(rs.getString("startDate"));
@@ -376,15 +370,17 @@ public class DBUtils {
 			System.out.println(emp.getFirstName());
 			return emp;
 		}
+	
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-
-		pstm.setString(1, employee.getSsn());
-		pstm.setString(2, employee.getStartDate());
-		pstm.setDouble(3, employee.getHourlyRate());
+		
+		pstm.setInt(1, employee.getId());
+		pstm.setString(2, employee.getSsn());
+		pstm.setString(3, employee.getStartDate());
+		pstm.setInt(4, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
@@ -488,11 +484,24 @@ public class DBUtils {
 
 	}
 	// PERSON QUERIES /////////
-
+	
+	public static void insertLocation(Connection conn, Location location) throws SQLException{
+		String sql = "INSERT INTO Location(ZipCode, City, State) VALUES (?, ?, ?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, location.getZip());
+		pstm.setString(2, location.getCity());
+		pstm.setString(3, location.getState());
+		
+		pstm.executeUpdate();
+	}
+	
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
+		pstm.setString(1, person.getSSN());
 		pstm.setString(2, person.getFirstName());
 		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
