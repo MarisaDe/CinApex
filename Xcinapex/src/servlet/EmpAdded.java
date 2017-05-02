@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Beans.Employee;
+import Beans.Location;
 import Beans.Person;
 import utils.DBUtils;
 
@@ -40,13 +41,21 @@ public class EmpAdded extends HttpServlet {
 			
 			String firstName = request.getParameter("EmpFname");
 			String lastName = request.getParameter("EmpLName");
+			String id = request.getParameter("EmpId");
 			String ssn = request.getParameter("EmpSSN");
+			String city = request.getParameter("EmpCity");
 			String address = request.getParameter("EmpAddress");
-			//int zip =  request.getParameter("EmpZip");
+			String zip =  request.getParameter("EmpZip");
 			String state = request.getParameter("EmpState");
 			String phone = request.getParameter("EmpPhone");
 			String startDate = request.getParameter("EmpDate");
-			//int hourlyRate = request.getParameter("EmpWage");
+			String hourlyRate = request.getParameter("EmpWage");
+			
+			
+			Location location = new Location();
+			location.setCity(city);
+			location.setZip(Integer.parseInt(zip));
+			location.setState(state);
 			
 			Person person = new Person();
 			person.setTelephone(phone);
@@ -60,18 +69,20 @@ public class EmpAdded extends HttpServlet {
 			
 			employee.setFirstName(firstName);
 			employee.setLastName(lastName);
+			employee.setId(Integer.parseInt(id));
 			employee.setSsn(ssn);
 			employee.setAddress(address);
-			//employee.setZipcode(Integer.parseInt(zip));
+			employee.setZipcode(Integer.parseInt(zip));
 			employee.setStartDate(startDate);
 			employee.setTelephone(phone);
 			employee.setStartDate(startDate);
-			//employee.setHourlyRate(Integer.parseInt(hourlyRate));
+			employee.setHourlyRate(Integer.parseInt(hourlyRate));
 			
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			
+			DBUtils.insertLocation( conn, location);
 			DBUtils.insertPerson(conn, person);
 			DBUtils.insertEmployee(conn, employee);
 			

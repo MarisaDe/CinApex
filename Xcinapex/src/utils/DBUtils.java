@@ -373,13 +373,14 @@ public class DBUtils {
 	
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-
-		pstm.setString(1, employee.getSsn());
-		pstm.setString(2, employee.getStartDate());
-		pstm.setInt(3, employee.getHourlyRate());
+		
+		pstm.setInt(1, employee.getId());
+		pstm.setString(2, employee.getSsn());
+		pstm.setString(3, employee.getStartDate());
+		pstm.setInt(4, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
@@ -483,7 +484,19 @@ public class DBUtils {
 
 	}
 	// PERSON QUERIES /////////
-
+	
+	public static void insertLocation(Connection conn, Location location) throws SQLException{
+		String sql = "INSERT INTO Location(ZipCode, City, State) VALUES (?, ?, ?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, location.getZip());
+		pstm.setString(2, location.getCity());
+		pstm.setString(3, location.getState());
+		
+		pstm.executeUpdate();
+	}
+	
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
