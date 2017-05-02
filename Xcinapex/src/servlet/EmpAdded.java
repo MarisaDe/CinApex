@@ -30,7 +30,7 @@ public class EmpAdded extends HttpServlet {
    		
    		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-<<<<<<< HEAD
+
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
    		String pass = "pass";
@@ -42,11 +42,11 @@ public class EmpAdded extends HttpServlet {
    		String user = "manager";
    		String pass = "manager";
 		*/
-=======
+   		/*
 		String url = "jdbc:mysql://localhost:3306/cinapex";
 		String user = "root";
 		String pass = "serverplz!";
->>>>>>> ab6a115047cf43ce14b0c0a39acce33e8ec538f4
+		*/
 		java.sql.Connection conn = null;
    		
 		String errorString = null;

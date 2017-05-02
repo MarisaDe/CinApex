@@ -16,11 +16,11 @@
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
       
        <h3>${personType}</h3>
-         <h3>Address :${loggedInUser.address }</h3>
-         <h3>${loggedInUser.zipcode}</h3>
-         <h3>${loggedInUser.telephone}</h3>
-         <h3>${loggedInUser.lastName}</h3>
-         <h3>${loggedInUser.firstName}</h3>
+         <h3>Address :${loggedInUser.address } ${loggedInUser.zipcode}</h3>
+         <h3>SSN:${loggedInUser.ssn}</h3>
+         <h3>Telephone Number:${loggedInUser.telephone}</h3>
+         <h3>Last Name:${loggedInUser.lastName}</h3>
+         <h3>First Name:${loggedInUser.firstName}</h3>
          
          
     </table>
