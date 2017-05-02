@@ -789,6 +789,38 @@ public class DBUtils {
 		}
 	}
 	
+	// Return an employee to build a list
+	public static Customer buildCustomers(ResultSet rs) throws SQLException {
+		Customer cust = new Customer();
+		cust.setAddress(rs.getString("Address"));
+		cust.setFirstName(rs.getString("FirstName"));
+		cust.setLastName(rs.getString("LastName"));
+		cust.setTelephone(rs.getString("Telephone"));
+		cust.setZipcode(rs.getInt("ZipCode"));
+		cust.setEmail(rs.getString("Email"));
+		cust.setRating(rs.getInt("Rating"));
+		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCustId(rs.getString("ID"));
+
+		return cust;
+	}
+	
+	
+	//Get all Employees
+	public static List<Customer> getCustomers(Connection conn) throws SQLException {
+		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Customer> allCust = new ArrayList<Customer>();
+		while (rs.next()) {
+			Customer emp = buildCustomers(rs);
+			allCust.add(emp);
+		}
+		System.out.println(allCust.size());
+		return allCust;
+	}
+	
 	public static Customer getCustomer(Connection conn, String name) throws SQLException{
 		String sql = "Select * From Customer c JOIN Person p Where c.Id = ? and c.Id = p.SSN;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
