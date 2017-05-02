@@ -15,7 +15,7 @@
 <div class="container">
   <h2>Add an Employee</h2>
   <p>Fill out all fields below to add an Employee to the database:</p>
-  <form action="/cineApex1/EmpAdded">
+  <form action="/Cinapex1/EmpAdded">
     <div class="form-group row">
      <div class="col-xs-4">
         <label for="ex3">First Name</label>

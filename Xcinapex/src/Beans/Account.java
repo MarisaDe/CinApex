@@ -1,6 +1,6 @@
 package Beans;
 
-public class Account {
+public class Account extends Customer{
 	
 	private String id;
 	private String date;
@@ -8,7 +8,7 @@ public class Account {
 	private String customerId;
 	
 	public Account(){
-		
+		super();
 	}
 	
 	public Account(String id, String date, String type, String customerId){
