@@ -327,19 +327,12 @@ public class DBUtils {
 		public static Employee buildEmployee(ResultSet rs) throws SQLException {
 			Employee emp = new Employee();
 			emp.setAddress(rs.getString("Address"));
-<<<<<<< HEAD
-=======
-
->>>>>>> 847ec3a6e3306f2da34d94d1ca456cc1c232b532
 			emp.setFirstName(rs.getString("FirstName"));
 			emp.setLastName(rs.getString("LastName"));
 			emp.setTelephone(rs.getString("Telephone"));
 			emp.setZipcode(rs.getInt("ZipCode"));
 			emp.setHourlyRate(rs.getInt("HourlyRate"));
-<<<<<<< HEAD
-=======
 
->>>>>>> 847ec3a6e3306f2da34d94d1ca456cc1c232b532
 			emp.setId(rs.getInt("Id"));
 			emp.setSsn(rs.getString("Ssn"));
 			emp.setStartDate(rs.getString("startDate"));
