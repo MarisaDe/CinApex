@@ -15,9 +15,11 @@
  <p style="color: red;">${errorString}</p>
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
       
-       <h3>Account Type :${loggedInUser.ssn }</h3>
+       <h3>Account Type :${sessionScope.personType }</h3>
+       
+       <td><input type="text" value="<%= session.getAttribute("personType") %>" /></td>
     </table>
- 
+ Username from session:<c:out value="${sessionScope.loggedInUser.firstName } + ${sessionScope.loggedInUser.lastName}"/>
     
  </body>
 </html>
