@@ -61,7 +61,7 @@ public class MovieAdded extends HttpServlet {
 			
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/EmpAdded.jsp");
+	                .getRequestDispatcher("/WEB-INF/view/MovieAdded.jsp");
 	        dispatcher.forward(request, response);
 				
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {

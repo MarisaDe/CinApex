@@ -502,10 +502,7 @@ public class DBUtils {
 		return list;
 
 	}
-<<<<<<< HEAD
-	// PERSON QUERIES ////////////////////////////////////////////////////////////////////////////////////////
 
-=======
 	
 	// PERSON QUERIES /////////
 	
@@ -521,7 +518,6 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
->>>>>>> 0ff17eb994be83da1c8d7e61cfdf294e19a5c882
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
