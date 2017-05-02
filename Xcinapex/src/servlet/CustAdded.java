@@ -49,7 +49,7 @@ public class CustAdded extends HttpServlet {
 			String phone = request.getParameter("CusPhone");
 			String email = request.getParameter("Email");
 			String cCard = request.getParameter("cCard");
-			String rating = request.getParameter("Rating");
+			String rating = request.getParameter("rating");
 			
 			
 			Location location = new Location();
@@ -60,7 +60,7 @@ public class CustAdded extends HttpServlet {
 			Person person = new Person();
 			person.setTelephone(phone);
 			person.setSSN(id);
-			//person.setZipcode(Integer.parseInt(zip));
+			person.setZipcode(Integer.parseInt(zip));
 			person.setFirstName(firstName);
 			person.setLastName(lastName);
 			person.setAddress(address);
@@ -69,12 +69,13 @@ public class CustAdded extends HttpServlet {
 			
 			cust.setFirstName(firstName);
 			cust.setLastName(lastName);
-			cust.setCustId(Integer.parseInt(id));
+			cust.setCustId(id);
 			cust.setAddress(address);
 			cust.setZipcode(Integer.parseInt(zip));
 			cust.setTelephone(phone);
 			cust.setEmail(email);
 			cust.setRating(Integer.parseInt(rating));
+			cust.setcCard(cCard);
 			
 			
 			Class.forName(jdbc_driver).newInstance();
@@ -82,7 +83,7 @@ public class CustAdded extends HttpServlet {
 			
 			DBUtils.insertLocation( conn, location);
 			DBUtils.insertPerson(conn, person);
-			DBUtils.insertCust(conn, Cust);
+			DBUtils.insertCustomer(conn, cust);
 			
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()

@@ -522,6 +522,7 @@ public class DBUtils {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
+		pstm.setString(1, person.getSSN());
 		pstm.setString(2, person.getFirstName());
 		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
@@ -698,10 +699,10 @@ public class DBUtils {
 		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setString(1, customer.getEmail());
-		pstm.setInt(2, customer.getRating());
-		pstm.setString(3, customer.getcCard());
-		pstm.setString(4, customer.getCustId());
+		pstm.setString(1, customer.getCustId());
+		pstm.setString(2, customer.getEmail());
+		pstm.setInt(3, customer.getRating());
+		pstm.setString(4, customer.getcCard());
 
 		pstm.executeUpdate();
 

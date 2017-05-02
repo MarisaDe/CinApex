@@ -15,7 +15,7 @@
 <div class="container">
   <h2>Add a Customer</h2>
   <p>Fill out all fields below to add a Customer to the database:</p>
-  <form action="/Cinapex1/EmpAdded">
+  <form action="/Cinapex1/CustAdded">
     <div class="form-group row">
      <div class="col-xs-4">
         <label for="ex3">First Name</label>
@@ -66,7 +66,7 @@
       
      <div class="col-xs-4">
         <label for="ex3">Rating</label>
-        <input class="form-control" id="ex3" type="number" name="CusRating" placeholder="Ex: 4">
+        <input class="form-control" id="ex3" type="number" name="rating" placeholder="Ex: 4">
       </div>
       
       
