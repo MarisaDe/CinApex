@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/AddEmp")
+@WebServlet("/AddMovie")
 public class AddMovie extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
