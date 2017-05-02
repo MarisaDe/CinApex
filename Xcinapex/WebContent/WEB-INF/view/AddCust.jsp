@@ -13,60 +13,60 @@
 
 
 <div class="container">
-  <h2>Add an Employee</h2>
-  <p>Fill out all fields below to add an Employee to the database:</p>
-  <form action="/Cinapex1/EmpAdded">
+  <h2>Add a Customer</h2>
+  <p>Fill out all fields below to add a Customer to the database:</p>
+  <form action="/Cinapex1/CustAdded">
     <div class="form-group row">
      <div class="col-xs-4">
         <label for="ex3">First Name</label>
-        <input class="form-control" id="ex3" type="text" name="EmpFname" placeholder="First Name" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusFname" placeholder="First Name" required autofocus>
       </div>
             <div class="col-xs-4">
         <label for="ex3">Last Name</label>
-        <input class="form-control" id="ex3" type="text" name="EmpLName" placeholder="Last Name" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusLName" placeholder="Last Name" required autofocus>
       </div>
       <div class="col-xs-4">
         <label for="ex3">Customer Id </label>
-        <input class="form-control" id="ex3" type="text" name="EmpId" placeholder="xxx-xx-xxxx" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusId" placeholder="xxx-xx-xxxx" required autofocus>
       </div>
       <br><br><br>
       <div class="col-xs-4">
         <label for="ex3">Address</label>
-        <input class="form-control" id="ex3" type="text" name="EmpAddress" placeholder="Ex: 123 Success Street" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusAddress" placeholder="Ex: 123 Success Street" required autofocus>
       </div>
        <div class="col-xs-4">
         <label for="ex3">City</label>
-        <input class="form-control" id="ex3" type="text" name="EmpCity" placeholder="Ex: StonyBrook" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusCity" placeholder="Ex: StonyBrook" required autofocus>
       </div>
       <div class="col-xs-4">
         <label for="ex3">ZipCode</label>
-        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="CusZip" placeholder="Ex: 11790"  maxlength="5" required autofocus>
       </div>
       
       <div class="col-xs-4">
         <label for="ex3">State</label>
-        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="CusState" placeholder="Ex: NY" maxlength="2" required autofocus>
       </div>
       <br><br><br>
       <div class="col-xs-4">
-        <label for="ex3">Phone</label>
-        <input class="form-control" id="ex3" type="text" name="EmpPhone" placeholder="Ex: 516-632-8959" required autofocus>
+        <label for="ex3">Telephone</label>
+        <input class="form-control" id="ex3" type="text" name="CusPhone" placeholder="Ex: 516-632-8959" maxlength="12" required autofocus>
       </div>
       
     
      <div class="col-xs-4">
         <label for="ex3">Email</label>
-        <input class="form-control" id="ex3" type="text" name="EmpDate" placeholder="Ex: customer@gmail.com" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="Email" placeholder="Ex: customer@gmail.com" required autofocus>
       </div>
       
       <div class="col-xs-4">
         <label for="ex3">Credit Card</label>
-        <input class="form-control" id="ex3" type="number" name="EmpWage" placeholder="Ex: 3423-2342-32342" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="cCard" placeholder="Ex: 3423-2342-32342" required autofocus>
       </div>
       
      <div class="col-xs-4">
         <label for="ex3">Rating</label>
-        <input class="form-control" id="ex3" type="number" name="EmpWage" placeholder="Ex: 4">
+        <input class="form-control" id="ex3" type="number" name="rating" placeholder="Ex: 4">
       </div>
       
       

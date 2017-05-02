@@ -44,17 +44,17 @@
       </div>
       <div class="col-xs-4">
         <label for="ex3">ZipCode</label>
-        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" maxlength="5" required autofocus>
       </div>
       
       <div class="col-xs-4">
         <label for="ex3">State</label>
-        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" maxlength="2" required autofocus>
       </div>
       <br><br><br>
       <div class="col-xs-4">
         <label for="ex3">Phone</label>
-        <input class="form-control" id="ex3" type="text" name="EmpPhone" placeholder="Ex: 516-632-8959" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpPhone" placeholder="Ex: 516-632-8959" maxlength="12" required autofocus>
       </div>
       
     

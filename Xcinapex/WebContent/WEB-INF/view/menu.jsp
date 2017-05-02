@@ -51,7 +51,7 @@ margin-bottom: 0px;
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-      <img alt="Logo" src="${pageContext.request.contextPath}/CinApex.png" style="max-width:150px; margin-top: -5px;">
+      <img alt="Logo" href="/Cinapex1/" src="${pageContext.request.contextPath}/CinApex.png" style="max-width:150px; margin-top: -5px;">
       </a>
     </div>
 

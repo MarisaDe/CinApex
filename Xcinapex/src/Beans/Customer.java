@@ -2,9 +2,9 @@ package Beans;
 
 public class Customer extends Person{
 
-	private String Id;
+	private String CustId;
 	private String email;
-	private String cCard;
+	private String CCard;
 	private int rating;
 	
 
@@ -14,7 +14,7 @@ public class Customer extends Person{
 	
 	
 	public void setCustId(String custId){
-		   this.Id = custId;
+		   this.CustId = custId;
 	   }
 	   
 	public void setEmail(String email){
@@ -22,7 +22,7 @@ public class Customer extends Person{
 	   }
 	
 	public void setcCard(String cCard){
-		   this.cCard = cCard;
+		   this.CCard = cCard;
 	   }
 	
 	public void setRating(int rating){
@@ -30,7 +30,7 @@ public class Customer extends Person{
 	   }
 	
 	public String getCustId(){
-		   return Id;
+		   return CustId;
 	   }
 	   
 	public String getEmail(){
@@ -38,7 +38,7 @@ public class Customer extends Person{
 	   }
 	
 	public String getcCard(){
-		   return cCard;
+		   return CCard;
 	   }
 	
 	public int getRating(){

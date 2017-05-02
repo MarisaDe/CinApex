@@ -31,7 +31,7 @@ public class AddMovie extends HttpServlet{
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
    		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/AddEmp.jsp");
+                .getRequestDispatcher("/WEB-INF/view/AddMovie.jsp");
         dispatcher.forward(request, response);
 
    	}
