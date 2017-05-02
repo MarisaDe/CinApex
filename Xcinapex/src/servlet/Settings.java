@@ -58,7 +58,7 @@ public class Settings extends HttpServlet{
 			
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/Settings.jsp");
+	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
 	        dispatcher.forward(request, response);
 				
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {

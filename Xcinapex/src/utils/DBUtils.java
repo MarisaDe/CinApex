@@ -705,22 +705,22 @@ public class DBUtils {
 	 *  Customer Level TransActions
 	 */
 	
-	public static HashMap<Integer, String> getCustomerQueue(Connection conn, int id) throws SQLException{
-		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
-		HashMap<Integer, String> customerQueue = new HashMap<Integer, String>();
+	public static List<Movie> getCustomerQueue(Connection conn, String custid) throws SQLException{
+		int id = getAccountIdFromCustomerId(conn,custid);
+		
+		String sql = "SELECT * FROM MovieQ JOIN Movie WHERE AccountId = ? AND MovieId=Id";
+		List<Movie> customerQueue = new ArrayList<Movie>();
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		while(rs.next()){
-			int movieId = rs.getInt("MovieId");
-			String movieName = rs.getString("Name");
-			
-			customerQueue.put(movieId, movieName);
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			customerQueue.add(movie);
 		}
-		
+
 		return customerQueue;
 		
 	}
@@ -802,11 +802,24 @@ public class DBUtils {
 		return bestSellerList;
 	}
 	
-	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
-		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=1) and type in( select type from rental, movie where accountid =1 and id=movieid );";
+	public static List<Movie> getPersonalizeMovieSuggestions(Connection conn, String custId) throws SQLException{
+		int id=getAccountIdFromCustomerId(conn,custId);
+		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=?) and type in( select type from rental, movie where accountid =? and id=movieid );";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
+		pstm.setInt(1, id);
+		pstm.setInt(2, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> list = new ArrayList<Movie>();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+
+		return list;
 		
 	}
 
