@@ -502,7 +502,7 @@ public class DBUtils {
 		return list;
 
 	}
-	// PERSON QUERIES /////////
+	// PERSON QUERIES ////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
@@ -679,6 +679,19 @@ public class DBUtils {
 		return customerQueue;
 		
 	}
+	
+	public static void insertCustomer(Connection conn, Customer customer) throws SQLException{
+		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, customer.getEmail());
+		pstm.setInt(2, customer.getRating());
+		pstm.setString(3, customer.getcCard());
+		pstm.setString(4, customer.getCustId());
+
+		pstm.executeUpdate();
+
+		}
 	
 	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
 		String sql = "SELECT * FROM Customer WHERE Id = ?";
