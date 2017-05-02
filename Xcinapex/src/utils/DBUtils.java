@@ -481,14 +481,31 @@ public class DBUtils {
 	
 	/**
 	 * END OF Manager Level Transaction
+	 * @throws SQLException 
 	 */
 
-	public static List<Movie> getCustomersHeldMovies(Connection conn, String id) throws SQLException {
-		String sql = "SELECT MovieId" + "FROM Rental" + "WHERE AccountId = ? AND EXISTS(" + "SELECT ReturnDate"
-				+ "FROM MovieOrder" + "WHERE OrderId = Id AND ReturnDate > NOW());";
-
+	public static int getAccountIdFromCustomerId(Connection conn, String custid) throws SQLException{
+		String msql="SELECT a.id from customer c JOIN account a  where a.customerid = c.id and c.id =?";
+		PreparedStatement ps = conn.prepareStatement(msql);
+		ps.setString(1, custid);
+		ResultSet rs= ps.executeQuery();
+		int i=0;
+		while (rs.next()){
+			i=rs.getInt(1);
+		}
+		return i;
+		
+	}
+	
+	public static List<Movie> getCustomersHeldMovies(Connection conn, String custid) throws SQLException {
+		int id=getAccountIdFromCustomerId(conn,custid);
+		
+		String sql = "SELECT * FROM Rental r JOIN movie m WHERE AccountId =? AND EXISTS( SELECT"+
+				 " ReturnDate FROM MovieOrder WHERE OrderId = Id AND ReturnDate > NOW()) and r.mov"+
+				"ieid = m.id;";
+		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setString(1, id);
+		pstm.setInt(1, id);
 
 		ResultSet rs = pstm.executeQuery();
 
@@ -717,11 +734,25 @@ public class DBUtils {
 		
 	}
 	
-	public static void getCustomerHistory(Connection conn, int accountId) throws SQLException{
-		String sql = "SELECT * FROM MovieOrder  WHERE DateAndTime <= NOW() AND AccountId = ? ORDER BY DateAndTime";
+	public static List<Movie> getCustomerHistory(Connection conn, String custId) throws SQLException{
+		int id = getAccountIdFromCustomerId(conn,custId);
+		String sql = "SELECT * FROM Rental r JOIN movie m WHERE AccountId =? AND EXISTS( SELECT"+
+				 " ReturnDate FROM MovieOrder WHERE OrderId = Id) and r.mov"+
+				"ieid = m.id;";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
+		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> list = new ArrayList<Movie>();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+
+		return list;
 	}
 	
 	public static HashMap<String,Integer> getBestSellerList(Connection conn) throws SQLException{
@@ -781,6 +812,7 @@ public class DBUtils {
 		emp.setcCard(rs.getString("CreditCardNumber"));
 		emp.setRating(rs.getInt("Rating"));
 		emp.setEmail(rs.getString("Email"));
+		emp.setCustId(rs.getString("Id"));
 		
 		return emp;
 	}
