@@ -417,6 +417,18 @@ public class DBUtils {
 
 	}
 	
+	
+	public static void deleteAccount(Connection conn, String custId) throws SQLException {
+		String sql = "DELETE FROM Account WHERE CustomerId=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, custId);
+
+		pstm.executeUpdate();
+
+	}
+	
 	/**
 	 * Finds the customer rep who over saw the most transactions
 	 * Returns an object of CustomerRepOverSaw that contains
@@ -713,6 +725,23 @@ public class DBUtils {
 		
 	}
 	
+	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
+		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
+		//PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		//pstm.setInt(1, custId);
+		//ResultSet rs = pstm.executeQuery();
+			
+		deleteAccount(conn, custId);	
+		String sql2 = "DELETE FROM Customer WHERE Id=?";
+		PreparedStatement pstm2 = conn.prepareStatement(sql2);
+
+		pstm2.setString(1, custId);
+		pstm2.executeUpdate();
+		deletePerson(conn, ssn);
+
+	}
+	
 	public static void insertCustomer(Connection conn, Customer customer) throws SQLException{
 		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
 
@@ -807,7 +836,7 @@ public class DBUtils {
 	}
 	
 	
-	//Get all Employees
+	//Get all Customers
 	public static List<Customer> getCustomers(Connection conn) throws SQLException {
 		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
 		PreparedStatement pstm = conn.prepareStatement(sql);

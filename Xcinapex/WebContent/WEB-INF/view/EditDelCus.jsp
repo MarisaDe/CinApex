@@ -6,7 +6,7 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Add Employee</title>
+    <title>Edit/Delete Customer</title>
  </head>
  <body>
  <jsp:include page="_menuEmp.jsp"></jsp:include>
@@ -40,7 +40,8 @@ function del(x) {
        <c:forEach items="${CustList}" var="cust" >
           <tr>
           	 <td> <button type = "submit" class="btn-danger">X</button></td>
-          	 <td> <input type="hidden" name="custId" value="${cust.custId}"/>${cust.custId}</td>
+          	 <td> <input type="hidden" name="custId" value="${cust.custId}"/>${cust.custId}
+          	 <input type="hidden" name="personSSN" value="${cust.SSN}"/> </td>
           	 <td id="fName">${cust.firstName}</td>
           	 <td>${cust.lastName}</td>
           	 <td>${cust.address}</td>
