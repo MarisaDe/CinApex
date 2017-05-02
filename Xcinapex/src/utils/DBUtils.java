@@ -369,7 +369,6 @@ public class DBUtils {
 			System.out.println(emp.getFirstName());
 			return emp;
 		}
-	
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
 		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
@@ -378,18 +377,40 @@ public class DBUtils {
 
 		pstm.setString(1, employee.getSsn());
 		pstm.setString(2, employee.getStartDate());
-		pstm.setInt(3, employee.getHourlyRate());
+		pstm.setDouble(3, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
 	}
 
-	public static void deleteEmployee(Connection conn, String ssn) throws SQLException {
-		String sql = "DELETE FROM Employee WHERE SSN=?";
+	public static void deleteEmployee(Connection conn, String ssn, int custId) throws SQLException {
+		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
+		//PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		//pstm.setInt(1, custId);
+		//ResultSet rs = pstm.executeQuery();
+			
+		deleteRental(conn, custId);
+		
+		String sql2 = "DELETE FROM Employee WHERE SSN=?";
+
+		PreparedStatement pstm2 = conn.prepareStatement(sql2);
+
+		pstm2.setString(1, ssn);
+
+		pstm2.executeUpdate();
+		
+		deletePerson(conn, ssn);
+
+	}
+	
+	
+	public static void deleteRental(Connection conn, int custId) throws SQLException {
+		String sql = "DELETE FROM Rental WHERE CustRepId=?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, ssn);
+		pstm.setInt(1, custId);
 
 		pstm.executeUpdate();
 
@@ -498,13 +519,26 @@ public class DBUtils {
 		return list;
 
 	}
-	// PERSON QUERIES /////////
 
+	
+	// PERSON QUERIES /////////
+	
+	public static void insertLocation(Connection conn, Location location) throws SQLException{
+		String sql = "INSERT INTO Location(ZipCode, City, State) VALUES (?, ?, ?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, location.getZip());
+		pstm.setString(2, location.getCity());
+		pstm.setString(3, location.getState());
+		
+		pstm.executeUpdate();
+	}
+	
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
-		pstm.setString(1, person.getSSN());
 		pstm.setString(2, person.getFirstName());
 		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
@@ -515,7 +549,7 @@ public class DBUtils {
 	}
 
 	public static void deletePerson(Connection conn, String SSN) throws SQLException {
-		String sql = "DELETE FROM Employee WHERE SSN = ?";
+		String sql = "DELETE FROM Person WHERE SSN = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -676,6 +710,19 @@ public class DBUtils {
 		return customerQueue;
 		
 	}
+	
+	public static void insertCustomer(Connection conn, Customer customer) throws SQLException{
+		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, customer.getEmail());
+		pstm.setInt(2, customer.getRating());
+		pstm.setString(3, customer.getcCard());
+		pstm.setString(4, customer.getCustId());
+
+		pstm.executeUpdate();
+
+		}
 	
 	public static void getCustomerSetting(Connection conn, String id) throws SQLException{
 		String sql = "SELECT * FROM Customer WHERE Id = ?";

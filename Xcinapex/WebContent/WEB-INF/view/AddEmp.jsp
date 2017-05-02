@@ -26,6 +26,10 @@
         <input class="form-control" id="ex3" type="text" name="EmpLName" placeholder="Last Name" required autofocus>
       </div>
       <div class="col-xs-4">
+        <label for="ex3">Id</label>
+        <input class="form-control" id="ex3" type="text" name="EmpId" placeholder="x" required autofocus>
+      </div>
+      <div class="col-xs-4">
         <label for="ex3">SSN</label>
         <input class="form-control" id="ex3" type="text" name="EmpSSN" placeholder="xxx-xx-xxxx" required autofocus>
       </div>
@@ -34,20 +38,23 @@
         <label for="ex3">Address</label>
         <input class="form-control" id="ex3" type="text" name="EmpAddress" placeholder="Ex: 123 Success Street" required autofocus>
       </div>
-      
+       <div class="col-xs-4">
+        <label for="ex3">City</label>
+        <input class="form-control" id="ex3" type="text" name="EmpCity" placeholder="Ex: StonyBrook" required autofocus>
+      </div>
       <div class="col-xs-4">
         <label for="ex3">ZipCode</label>
-        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" maxlength="5" required autofocus>
       </div>
       
       <div class="col-xs-4">
         <label for="ex3">State</label>
-        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" maxlength="2" required autofocus>
       </div>
-      
+      <br><br><br>
       <div class="col-xs-4">
         <label for="ex3">Phone</label>
-        <input class="form-control" id="ex3" type="text" name="EmpPhone" placeholder="Ex: 516-632-8959" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpPhone" placeholder="Ex: 516-632-8959" maxlength="12" required autofocus>
       </div>
       
     

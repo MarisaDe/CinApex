@@ -33,59 +33,23 @@ public class EditDelEmp extends HttpServlet{
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
-    protected void del(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
-   		//Don't forget to change this
-		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
-   		String user = "root";
-   		String pass = "pass";
-   		*/
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		java.sql.Connection conn = null;
-	   	  		
-		String errorString = null;
-		
-		try{
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			String[] ssn= request.getParameterValues("ssnOfEmp");
-			System.out.println(ssn[0]);
-			DBUtils.deleteEmployee(conn, ssn[0]);
-			
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("errorString", errorString);
-		doGet(request, response);
-    }
-    
+   
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
-		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
+   		String pass = "serverplz!";
    		
    		/*
+
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
    		*/
+
    		java.sql.Connection conn = null;
 	   	
    		
@@ -96,6 +60,7 @@ public class EditDelEmp extends HttpServlet{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allEmps= DBUtils.getEmployees(conn);
+
 			
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
@@ -112,10 +77,10 @@ public class EditDelEmp extends HttpServlet{
                 .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
         dispatcher.forward(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		doGet(request,response);
 	}
+
 
 }

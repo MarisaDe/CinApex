@@ -14,65 +14,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Beans.*;
+import Beans.Employee;
+import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
 
-@WebServlet("/addMovie")
-public class addMovie extends HttpServlet {
+@WebServlet("/DeleteEmp")
+public class DeleteEmp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public addMovie() {
+    public DeleteEmp() {
         super();
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int orderId = Integer.parseInt(request.getParameter("orderId"));
-		String accountId = request.getParameter("accountId");
-		String custRepId = request.getParameter("custRepId");
-		int movieId =  Integer.parseInt(request.getParameter("movieId"));
-		String date = request.getParameter("date");
-		String returnDate = request.getParameter("returnDate");
-		
-		MovieOrder movieOrder = new MovieOrder();
-		movieOrder.setAccountId(accountId);
-		movieOrder.setDateAndTime(date);
-		movieOrder.setId(orderId);
-		movieOrder.setMovieId(movieId);
-		movieOrder.setReturnDate(returnDate);
-		
-		Rental rental = new Rental();
-		rental.setAccountId(accountId);
-		rental.setCustRepId(custRepId);
-		rental.setMovieId(movieId);
-		rental.setOrderId(orderId);
-		
-		
-		/*
+   		HttpSession session=request.getSession(true);
+   		//Don't forget to change this
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
-   		*/
+   		String pass = "serverplz!";
+   		
+   		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
-   		
-   		
+   		*/
    		java.sql.Connection conn = null;
-
+		List<Employee> allEmps=null;
+		String errorString = null;
+		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			allEmps= DBUtils.getEmployees(conn);
+			String ssn= request.getParameter("ssnOfEmp");
+			int id= Integer.parseInt(request.getParameter("idOfEmp"));
+			DBUtils.deleteEmployee(conn, ssn, id);
 			
-			// Exec the queries and insert the data into the database
-			DBUtils.insertMovieOrder(conn, movieOrder);
-			DBUtils.insertRental(conn, rental);
+			System.out.println(ssn);
+			
+			Class.forName(jdbc_driver).newInstance();
+			conn = DriverManager.getConnection(url, user, pass);
+			allEmps= DBUtils.getEmployees(conn);
+			
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -82,10 +68,16 @@ public class addMovie extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-
+		request.setAttribute("errorString", errorString);
+		request.setAttribute("EmpList", allEmps);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/FindMovie.jsp");
+                .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
         dispatcher.forward(request, response);
+   	}
+   	
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
 	}
 
 }
