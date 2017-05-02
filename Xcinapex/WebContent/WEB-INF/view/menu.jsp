@@ -79,9 +79,9 @@ margin-bottom: 0px;
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/Cinapex1/Login">Login</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Queue</a></li>
-            <li><a href="#">History</a></li>
+            <li><a href="/Cinapex1/Settings">Settings</a></li>
+            <li><a href="/Cinapex1/Queue">Queue</a></li>
+            <li><a href="/Cinapex1/History">History</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Current Movies Held</a></li>
           </ul>
