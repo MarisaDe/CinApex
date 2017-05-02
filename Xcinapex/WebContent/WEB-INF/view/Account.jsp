@@ -17,7 +17,6 @@
       
        <h3>${personType}</h3>
          <h3>Address :${loggedInUser.address } ${loggedInUser.zipcode}</h3>
-         <h3>SSN:${loggedInUser.ssn}</h3>
          <h3>Telephone Number:${loggedInUser.telephone}</h3>
          <h3>Last Name:${loggedInUser.lastName}</h3>
          <h3>First Name:${loggedInUser.firstName}</h3>

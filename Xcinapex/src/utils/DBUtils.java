@@ -692,22 +692,22 @@ public class DBUtils {
 	 *  Customer Level TransActions
 	 */
 	
-	public static HashMap<Integer, String> getCustomerQueue(Connection conn, int id) throws SQLException{
-		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
-		HashMap<Integer, String> customerQueue = new HashMap<Integer, String>();
+	public static List<Movie> getCustomerQueue(Connection conn, String custid) throws SQLException{
+		int id = getAccountIdFromCustomerId(conn,custid);
+		
+		String sql = "SELECT * FROM MovieQ JOIN Movie WHERE AccountId = ? AND MovieId=Id";
+		List<Movie> customerQueue = new ArrayList<Movie>();
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		while(rs.next()){
-			int movieId = rs.getInt("MovieId");
-			String movieName = rs.getString("Name");
-			
-			customerQueue.put(movieId, movieName);
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			customerQueue.add(movie);
 		}
-		
+
 		return customerQueue;
 		
 	}
