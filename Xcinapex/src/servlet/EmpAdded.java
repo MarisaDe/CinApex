@@ -74,7 +74,7 @@ public class EmpAdded extends HttpServlet {
 			Person person = new Person();
 			person.setTelephone(phone);
 			person.setSSN(ssn);
-			//person.setZipcode(Integer.parseInt(zip));
+			person.setZipcode(Integer.parseInt(zip));
 			person.setFirstName(firstName);
 			person.setLastName(lastName);
 			person.setAddress(address);

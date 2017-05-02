@@ -371,13 +371,14 @@ public class DBUtils {
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, employee.getSsn());
-		pstm.setString(2, employee.getStartDate());
-		pstm.setDouble(3, employee.getHourlyRate());
+		pstm.setInt(1, employee.getId());
+		pstm.setString(2, employee.getSsn());
+		pstm.setString(3, employee.getStartDate());
+		pstm.setDouble(4, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 

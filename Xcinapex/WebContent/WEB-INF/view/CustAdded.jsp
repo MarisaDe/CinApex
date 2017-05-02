@@ -14,8 +14,9 @@
 	<h3 align="center">Your Account</h3>
 	<p style="color: red;">${errorString}</p>
 
-
+<center>
 		<h3>Customer Added!</h3>
+		</center>
 
 
 </body>
