@@ -502,8 +502,26 @@ public class DBUtils {
 		return list;
 
 	}
+<<<<<<< HEAD
 	// PERSON QUERIES ////////////////////////////////////////////////////////////////////////////////////////
 
+=======
+	
+	// PERSON QUERIES /////////
+	
+	public static void insertLocation(Connection conn, Location location) throws SQLException{
+		String sql = "INSERT INTO Location(ZipCode, City, State) VALUES (?, ?, ?);";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, location.getZip());
+		pstm.setString(2, location.getCity());
+		pstm.setString(3, location.getState());
+		
+		pstm.executeUpdate();
+	}
+	
+>>>>>>> 0ff17eb994be83da1c8d7e61cfdf294e19a5c882
 	public static void insertPerson(Connection conn, Person person) throws SQLException {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
