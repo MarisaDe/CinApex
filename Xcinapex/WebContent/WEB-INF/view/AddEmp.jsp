@@ -27,7 +27,7 @@
       </div>
       <div class="col-xs-4">
         <label for="ex3">Id</label>
-        <input class="form-control" id="ex3" type="text" name="EmpId" placeholder="xxx-xx-xxxx" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpId" placeholder="x" required autofocus>
       </div>
       <div class="col-xs-4">
         <label for="ex3">SSN</label>
