@@ -13,18 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Beans.Employee;
+import Beans.Movie;
 import Beans.Customer;
 import utils.DBUtils;
 
-@WebServlet("/Settings")
-public class Settings extends HttpServlet{
+@WebServlet("/EditDelCust")
+public class EditDelCust extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Settings() {
+    public EditDelCust() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,49 +32,54 @@ public class Settings extends HttpServlet{
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+   
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
-		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
+   		String pass = "serverplz!";
    		
    		/*
+
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
    		*/
+
    		java.sql.Connection conn = null;
 	   	
+   		
+		List<Customer> allCusts=null;
 		String errorString = null;
 		
-		try {
+		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-		
-			//System.out.println(session.getAttribute(user));
+			allCusts= DBUtils.getCustomers(conn);
+
 			
-			request.setAttribute("errorString", errorString);
-			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
-	        dispatcher.forward(request, response);
-				
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		}catch (ClassNotFoundException e){
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (java.sql.SQLException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
-   	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setAttribute("errorString", errorString);
+		request.setAttribute("CustList", allCusts);
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
+        dispatcher.forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
+	}
+
+
 }

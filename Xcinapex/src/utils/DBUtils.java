@@ -693,22 +693,22 @@ public class DBUtils {
 	 *  Customer Level TransActions
 	 */
 	
-	public static HashMap<Integer, String> getCustomerQueue(Connection conn, int id) throws SQLException{
-		String sql = "SELECT MovieId, Name FROM MovieQ, Movie WHERE AccountId = ? AND MovieId=Id";
-		HashMap<Integer, String> customerQueue = new HashMap<Integer, String>();
+	public static List<Movie> getCustomerQueue(Connection conn, String custid) throws SQLException{
+		int id = getAccountIdFromCustomerId(conn,custid);
+		
+		String sql = "SELECT * FROM MovieQ JOIN Movie WHERE AccountId = ? AND MovieId=Id";
+		List<Movie> customerQueue = new ArrayList<Movie>();
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
 		
 		ResultSet rs = pstm.executeQuery();
 		
-		while(rs.next()){
-			int movieId = rs.getInt("MovieId");
-			String movieName = rs.getString("Name");
-			
-			customerQueue.put(movieId, movieName);
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			customerQueue.add(movie);
 		}
-		
+
 		return customerQueue;
 		
 	}
@@ -788,6 +788,38 @@ public class DBUtils {
 		}else{
 			return getCustomer(conn,name);
 		}
+	}
+	
+	// Return an employee to build a list
+	public static Customer buildCustomers(ResultSet rs) throws SQLException {
+		Customer cust = new Customer();
+		cust.setAddress(rs.getString("Address"));
+		cust.setFirstName(rs.getString("FirstName"));
+		cust.setLastName(rs.getString("LastName"));
+		cust.setTelephone(rs.getString("Telephone"));
+		cust.setZipcode(rs.getInt("ZipCode"));
+		cust.setEmail(rs.getString("Email"));
+		cust.setRating(rs.getInt("Rating"));
+		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCustId(rs.getString("ID"));
+
+		return cust;
+	}
+	
+	
+	//Get all Employees
+	public static List<Customer> getCustomers(Connection conn) throws SQLException {
+		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Customer> allCust = new ArrayList<Customer>();
+		while (rs.next()) {
+			Customer emp = buildCustomers(rs);
+			allCust.add(emp);
+		}
+		System.out.println(allCust.size());
+		return allCust;
 	}
 	
 	public static Customer getCustomer(Connection conn, String name) throws SQLException{
