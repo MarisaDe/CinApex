@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,27 +16,19 @@ import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
 import Beans.Movie;
-import Beans.Customer;
 import utils.DBUtils;
+import utils.MyUtils;
 
-@WebServlet("/EditDelEmp")
-public class EditDelEmp extends HttpServlet{
+@WebServlet("/DeleteEmp")
+public class DeleteEmp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditDelEmp() {
+	
+    public DeleteEmp() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-   
+    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
+   		HttpSession session=request.getSession(true);
    		//Don't forget to change this
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/cinapex";
@@ -49,12 +42,19 @@ public class EditDelEmp extends HttpServlet{
    		String pass = "manager";
    		*/
    		java.sql.Connection conn = null;
-	   	
-   		
 		List<Employee> allEmps=null;
 		String errorString = null;
 		
 		try{
+			Class.forName(jdbc_driver).newInstance();
+			conn = DriverManager.getConnection(url, user, pass);
+			allEmps= DBUtils.getEmployees(conn);
+			String ssn= request.getParameter("ssnOfEmp");
+			int id= Integer.parseInt(request.getParameter("idOfEmp"));
+			DBUtils.deleteEmployee(conn, ssn, id);
+			
+			System.out.println(ssn);
+			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allEmps= DBUtils.getEmployees(conn);
@@ -73,11 +73,11 @@ public class EditDelEmp extends HttpServlet{
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
         dispatcher.forward(request, response);
-	}
-	
+   	}
+   	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
 	}
-
 
 }
