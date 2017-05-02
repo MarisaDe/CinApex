@@ -773,11 +773,24 @@ public class DBUtils {
 		return bestSellerList;
 	}
 	
-	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
-		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=1) and type in( select type from rental, movie where accountid =1 and id=movieid );";
+	public static List<Movie> getPersonalizeMovieSuggestions(Connection conn, String custId) throws SQLException{
+		int id=getAccountIdFromCustomerId(conn,custId);
+		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=?) and type in( select type from rental, movie where accountid =? and id=movieid );";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
+		pstm.setInt(1, id);
+		pstm.setInt(2, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> list = new ArrayList<Movie>();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+
+		return list;
 		
 	}
 
