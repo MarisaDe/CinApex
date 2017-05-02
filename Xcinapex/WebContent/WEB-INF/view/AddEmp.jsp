@@ -15,7 +15,7 @@
 <div class="container">
   <h2>Add an Employee</h2>
   <p>Fill out all fields below to add an Employee to the database:</p>
-  <form>
+  <form action="/cineApex1/EmpAdded">
     <div class="form-group row">
      <div class="col-xs-4">
         <label for="ex3">First Name</label>
@@ -37,12 +37,12 @@
       
       <div class="col-xs-4">
         <label for="ex3">ZipCode</label>
-        <input class="form-control" id="ex3" type="text" name="EmpZip" placeholder="Ex: 11790" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="EmpZip" placeholder="Ex: 11790" required autofocus>
       </div>
       
       <div class="col-xs-4">
         <label for="ex3">State</label>
-        <input class="form-control" id="ex3" type="text" name="EmpZip" placeholder="Ex: NY" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="EmpState" placeholder="Ex: NY" required autofocus>
       </div>
       
       <div class="col-xs-4">
@@ -58,11 +58,11 @@
       
       <div class="col-xs-4">
         <label for="ex3">Hourly Wage</label>
-        <input class="form-control" id="ex3" type="text" name="EmpWage" placeholder="Ex: $60" required autofocus>
+        <input class="form-control" id="ex3" type="number" name="EmpWage" placeholder="Ex: $60" required autofocus>
       </div>
       </div>
       <br><br>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+             <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
   </form>
 </div>
 
