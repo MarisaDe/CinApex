@@ -370,6 +370,7 @@ public class DBUtils {
 			System.out.println(emp.getFirstName());
 			return emp;
 		}
+	
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
 		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
@@ -378,7 +379,7 @@ public class DBUtils {
 
 		pstm.setString(1, employee.getSsn());
 		pstm.setString(2, employee.getStartDate());
-		pstm.setDouble(3, employee.getHourlyRate());
+		pstm.setInt(3, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
@@ -487,6 +488,7 @@ public class DBUtils {
 		String sql = "INSERT INTO Person VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		
+		pstm.setString(1, person.getSSN());
 		pstm.setString(2, person.getFirstName());
 		pstm.setString(3, person.getLastName());
 		pstm.setString(4, person.getAddress());
