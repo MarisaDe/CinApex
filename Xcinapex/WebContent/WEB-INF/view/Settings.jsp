@@ -15,7 +15,7 @@
  <p style="color: red;">${errorString}</p>
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
       
-       <h3>Account Type :${loggedInUser.ssn }</h3>
+       <h3>Account Type :${loggedInUser.custId}</h3>
     </table>
  
     
