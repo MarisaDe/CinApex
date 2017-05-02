@@ -9,7 +9,7 @@
     <title>Movie Queue</title>
  </head>
  <body>
- <jsp:include page="_menu.jsp"></jsp:include>
+ <jsp:include page="menu.jsp"></jsp:include>
  
     <h3 align = "center">Queue</h3>
  <p style="color: red;">${errorString}</p>

@@ -371,13 +371,14 @@ public class DBUtils {
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
-		String sql = "INSERT INTO Employee VALUES (?, ?, ?)";
+		String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
-		pstm.setString(1, employee.getSsn());
-		pstm.setString(2, employee.getStartDate());
-		pstm.setDouble(3, employee.getHourlyRate());
+		pstm.setInt(1, employee.getId());
+		pstm.setString(2, employee.getSsn());
+		pstm.setString(3, employee.getStartDate());
+		pstm.setDouble(4, employee.getHourlyRate());
 
 		pstm.executeUpdate();
 
@@ -773,7 +774,8 @@ public class DBUtils {
 	}
 	
 	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
-		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
+		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=1) and type in( select type from rental, movie where accountid =1 and id=movieid );";
+		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, accountId);
 		
@@ -786,6 +788,38 @@ public class DBUtils {
 		}else{
 			return getCustomer(conn,name);
 		}
+	}
+	
+	// Return an employee to build a list
+	public static Customer buildCustomers(ResultSet rs) throws SQLException {
+		Customer cust = new Customer();
+		cust.setAddress(rs.getString("Address"));
+		cust.setFirstName(rs.getString("FirstName"));
+		cust.setLastName(rs.getString("LastName"));
+		cust.setTelephone(rs.getString("Telephone"));
+		cust.setZipcode(rs.getInt("ZipCode"));
+		cust.setEmail(rs.getString("Email"));
+		cust.setRating(rs.getInt("Rating"));
+		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCustId(rs.getString("ID"));
+
+		return cust;
+	}
+	
+	
+	//Get all Employees
+	public static List<Customer> getCustomers(Connection conn) throws SQLException {
+		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Customer> allCust = new ArrayList<Customer>();
+		while (rs.next()) {
+			Customer emp = buildCustomers(rs);
+			allCust.add(emp);
+		}
+		System.out.println(allCust.size());
+		return allCust;
 	}
 	
 	public static Customer getCustomer(Connection conn, String name) throws SQLException{
