@@ -774,7 +774,8 @@ public class DBUtils {
 	}
 	
 	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
-		String sql = "SELECT m1.Name FROM Movie m1 WHERE m1.Type =  SELECT m.Type From Movie m, Rental r WHERE m.Id=r.MovieId AND r.AccountId= ?";
+		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=1) and type in( select type from rental, movie where accountid =1 and id=movieid );";
+		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, accountId);
 		
