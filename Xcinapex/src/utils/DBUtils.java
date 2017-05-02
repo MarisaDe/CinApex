@@ -92,7 +92,20 @@ public class DBUtils {
 		return null;
 	}
 
+	public static Movie findMovieById(Connection conn, int id) throws SQLException{
+		String sql = "Select * from Movie where Id = ?";
 
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		Movie movie = new Movie();
+		movie = buildMovie(rs);
+		
+		return movie;
+	}
 
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=?";
@@ -232,9 +245,21 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	public static void updateMovieName(Connection conn, String name, int id) throws SQLException {
+		String sql = "UPDATE Movie SET Name = ? WHERE  Id = ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, name);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+
+	}
 
 	public static void updateMovieType(Connection conn, String type, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Type = ?";
+		String sql = "UPDATE Movie SET Type = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -246,7 +271,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Rating = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -257,7 +282,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  DistrFee = ?";
+		String sql = "UPDATE Movie SET DistrFee = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -268,7 +293,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  NumCopies = ?";
+		String sql = "UPDATE Movie SET NumCopies = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
