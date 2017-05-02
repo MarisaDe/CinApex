@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,32 +14,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Beans.Employee;
-import Beans.Movie;
 import Beans.Customer;
+import Beans.Movie;
 import utils.DBUtils;
+import utils.MyUtils;
 
-@WebServlet("/personalList")
-public class personalList extends HttpServlet{
+@WebServlet("/DeleteCust")
+public class DeleteCust extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public personalList() {
+	
+    public DeleteCust() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
-		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+   		HttpSession session=request.getSession(true);
+   		//Don't forget to change this
+   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
+   		String pass = "serverplz!";
    		
    		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
@@ -47,18 +42,23 @@ public class personalList extends HttpServlet{
    		String pass = "manager";
    		*/
    		java.sql.Connection conn = null;
-	   	
-   		List<Movie> allMovies=null;
+		List<Customer> allCusts=null;
 		String errorString = null;
+		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			Customer cus =(Customer) session.getAttribute("loggedInUser");
+			allCusts= DBUtils.getCustomers(conn);
+			String id= request.getParameter("custId");
+			String ssn= request.getParameter("PersonSSN");
+			DBUtils.deleteCustomer(conn, ssn, id);
 			
-			String id = cus.getCustId();
+			System.out.println(ssn);
 			
-			System.out.println(cus +" "+ id+" "+cus.getCustId());
-			allMovies= DBUtils.getPersonalizeMovieSuggestions(conn, id);
+			Class.forName(jdbc_driver).newInstance();
+			conn = DriverManager.getConnection(url, user, pass);
+			allCusts = DBUtils.getCustomers(conn);
+			
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -69,17 +69,15 @@ public class personalList extends HttpServlet{
 			e.printStackTrace();
 		}
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
+		request.setAttribute("CustList", allCusts);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/personalList.jsp");
+                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
         dispatcher.forward(request, response);
-		
    	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+   	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		doGet(request,response);
 	}
+
 }

@@ -442,6 +442,18 @@ public class DBUtils {
 
 	}
 	
+	
+	public static void deleteAccount(Connection conn, String custId) throws SQLException {
+		String sql = "DELETE FROM Account WHERE CustomerId=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, custId);
+
+		pstm.executeUpdate();
+
+	}
+	
 	/**
 	 * Finds the customer rep who over saw the most transactions
 	 * Returns an object of CustomerRepOverSaw that contains
@@ -738,6 +750,23 @@ public class DBUtils {
 		
 	}
 	
+	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
+		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
+		//PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		//pstm.setInt(1, custId);
+		//ResultSet rs = pstm.executeQuery();
+			
+		deleteAccount(conn, custId);	
+		String sql2 = "DELETE FROM Customer WHERE Id=?";
+		PreparedStatement pstm2 = conn.prepareStatement(sql2);
+
+		pstm2.setString(1, custId);
+		pstm2.executeUpdate();
+		deletePerson(conn, ssn);
+
+	}
+	
 	public static void insertCustomer(Connection conn, Customer customer) throws SQLException{
 		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
 
@@ -798,11 +827,24 @@ public class DBUtils {
 		return bestSellerList;
 	}
 	
-	public static void getPersonalizeMovieSuggestions(Connection conn, int accountId) throws SQLException{
-		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=1) and type in( select type from rental, movie where accountid =1 and id=movieid );";
+	public static List<Movie> getPersonalizeMovieSuggestions(Connection conn, String custId) throws SQLException{
+		int id=getAccountIdFromCustomerId(conn,custId);
+		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=?) and type in( select type from rental, movie where accountid =? and id=movieid );";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, accountId);
+		pstm.setInt(1, id);
+		pstm.setInt(2, id);
+
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> list = new ArrayList<Movie>();
+
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			list.add(movie);
+		}
+
+		return list;
 		
 	}
 
@@ -832,7 +874,7 @@ public class DBUtils {
 	}
 	
 	
-	//Get all Employees
+	//Get all Customers
 	public static List<Customer> getCustomers(Connection conn) throws SQLException {
 		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
