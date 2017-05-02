@@ -10,7 +10,7 @@
     <title>Edit/Delete Employee</title>
  </head>
  <body>
- <jsp:include page="_menu.jsp"></jsp:include>
+ <jsp:include page="_menuEmp.jsp"></jsp:include>
 
 <script>
 
