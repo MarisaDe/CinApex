@@ -360,29 +360,13 @@ public class DBUtils {
 	}
 
 	// Obtain a Sales Report
-	// Note that the query string does NOT have semicolons. I don't know if they
-	// need them
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
-		String sql = 
-				"CREATE TABLE Cost (" +
-				"AcctType     CHAR(50)," +
-				"MonthlyFee   INT," +
-				"PRIMARY KEY(AcctType))" +
-
-				"INSERT INTO Cost" + "VALUES('Limited', 10)" +
-
-				"INSERT INTO Cost" + "VALUES('Unlimited-1', 15)" +
-
-				"INSERT INTO Cost" + "VALUES('Unlimited-2', 20)" +
-
-				"INSERT INTO Cost" + "VALUES('Unlimited-3', 25)" +
-
-				"SELECT SUM(C.MonthlyFee)" + "FROM Account A, Cost C"
-				+ "WHERE A.DateOpened >'?' AND A.AcctType = C.AcctType";
+		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >'?' AND A.AccType = C.AcctType";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		// DATE FORMAT 2004-11-1
-		pstm.setString(1, Date);
+		java.sql.Date date = java.sql.Date.valueOf(Date);
+		pstm.setDate(1, date);
 
 		ResultSet rs = pstm.executeQuery();
 		int sum = rs.getInt(1);

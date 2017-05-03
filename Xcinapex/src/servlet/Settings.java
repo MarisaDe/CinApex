@@ -54,10 +54,16 @@ public class Settings extends HttpServlet{
 		
    		//Don't forget to change this
 		String jdbc_driver= "com.mysql.jdbc.Driver";  
+<<<<<<< HEAD
+		String url = "jdbc:mysql://localhost:3306/cinapex";
+   		String user = "root";
+   		String pass = "serverplz!";
+=======
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
    		
+>>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
    		
    		java.sql.Connection conn = null;
 	   	

@@ -14,18 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import Beans.Movie;
+import Beans.Customer;
 import utils.DBUtils;
-import utils.setUpConnection;
 
-@WebServlet("/DeleteMovie")
-public class DeleteMovie extends HttpServlet{
+@WebServlet("/EditCust")
+public class EditCust extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMovie() {
+    public EditCust() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +36,6 @@ public class DeleteMovie extends HttpServlet{
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
-<<<<<<< HEAD
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/cinapex";
@@ -45,49 +43,75 @@ public class DeleteMovie extends HttpServlet{
    		String pass = "serverplz!";
    		
    		
-/*
+		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
    		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
    		String user = "manager";
    		String pass = "manager";
    		*/
-=======
-
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
-   		String user = setUpConnection.USERNAME;
-   		String pass = setUpConnection.PASSWORD;
-   		
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
 
    		java.sql.Connection conn = null;
 	   	
    		
-		List<Movie> allMovie = null;
+		List<Customer> allCusts = null;
 		String errorString = null;
 		
 		try{
+			
+			
+			String first = request.getParameter("CustFName");
+			String last = request.getParameter("CusLName");
+			String id = request.getParameter("CusId");
+			String address = request.getParameter("CusAddress");
+			String city= request.getParameter("CusCity");
+			String zip = request.getParameter("CusZip");
+			String state = request.getParameter("CusState");
+			String phone = request.getParameter("CusPhone");
+			String email = request.getParameter("Email");
+			String cCard = request.getParameter("cCard");
+			String rating = request.getParameter("rating");
+	      
+			
+			//Movie movie = DBUtils.findMovieById(conn, Integer.parseInt(movieId));
+			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allMovie= DBUtils.queryMovies(conn);
 			
-			int id = Integer.parseInt(request.getParameter("MovieId2"));
-			System.out.println("Trying to delete MovieId : " + id);
+			int id = Integer.parseInt(movieId);
 			
-			//Delete Rental by MovieId
-			DBUtils.deleteRentalByMovieId(conn, id);
-			//Delete MovieOrder by MovieId
-			DBUtils.deleteMovieOrderByMovieId(conn, id);
-			//Delete AppearedIn by MovieId
-			DBUtils.deleteAppearedInByMovieId(conn, id);
-			//Delete MovieQ by MovieId
-			DBUtils.deleteMovieQByMovieId(conn, id);
-			//Delete Movie
-			DBUtils.deleteMovie(conn, id);
+			
+			if(first != null && first.length() != 0){
+				DBUtils.updateMovieName(conn, name, id);
+			}
+			
+			if(last != null && last.length() != 0)
+				DBUtils.updateMovieType(conn, type, id);
+			
+			if(rating != null && rating.length() != 0){
+				int r =Integer.parseInt(rating);
+				DBUtils.updateMovieRating(conn, r, id);
+			}
+			
+			if(address != null&& address.length() != 0){
+				int df = Integer.parseInt(distrFee);
+				DBUtils.updateMovieDistrFee(conn, df, id);
+			}
+			
+			if(city != null && city.length() != 0){
+				int nC = Integer.parseInt(numCopies);
+				DBUtils.updateMovieNumCopies(conn, nC, id);
+			}
+			
+			if(zip != null && zip.length() != 0){
+				int nC = Integer.parseInt(numCopies);
+				DBUtils.updateMovieNumCopies(conn, nC, id);
+			}
+				
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allMovie = DBUtils.queryMovies(conn);
+			allCusts = DBUtils.queryMovies(conn);
 
 			
 		}catch (ClassNotFoundException e){
@@ -100,9 +124,9 @@ public class DeleteMovie extends HttpServlet{
 			e.printStackTrace();
 		}
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovie);
+		request.setAttribute("CustList", allCusts);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/DeleteMovie.jsp");
+                .getRequestDispatcher("/WEB-INF/view/EditDelCust.jsp");
         dispatcher.forward(request, response);
 	}
 	

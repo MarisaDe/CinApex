@@ -18,41 +18,31 @@ import utils.DBUtils;
 import utils.MyUtils;
 import utils.setUpConnection;
 
-@WebServlet("/BestSellers")
-public class BestSeller extends HttpServlet {
+@WebServlet("/MonthlySales")
+public class MonthlySales extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public BestSeller() {
+    public MonthlySales() {
         super();
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-<<<<<<< HEAD
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
-=======
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
+   		
+   		String date = request.getParameter("date");
    		java.sql.Connection conn = null;
    		
-		List<Movie> allMovies=null;
-		String errorString = null;
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allMovies= DBUtils.getBestSeller(conn);
+			try{
+				int sumOfSales = DBUtils.obtainSalesReport(conn, date);
+			}catch(Exception e){
+				String sumOfSales = "---";
+			}
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -62,10 +52,10 @@ public class BestSeller extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("bestSellers", allMovies);
+
+		request.setAttribute("Sum", sumOfSales);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/BestSellers.jsp");
+                .getRequestDispatcher("/WEB-INF/view/SalesReport.jsp");
         dispatcher.forward(request, response);
 	}
 
