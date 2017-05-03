@@ -96,7 +96,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/EditDelCust">Edit Customers</a></li>
             <li><a href="/Cinapex1/EditDelCust">Delete Customers</a></li>
                         <li role="separator" class="divider"></li>
-            <li><a href="#">Produce Customer Mailing List</a></li>
+            <li><a href="/Cinapex1/MailingList">Produce Customer Mailing List</a></li>
             <li><a href="#">Produce a list of movie suggestions</a></li>
           </ul>
         </li>
@@ -107,9 +107,13 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/AddEmp">Add Employees</a></li>
             <li><a href="/Cinapex1/EditDelEmp">Edit Employees</a></li>
             <li><a href="/Cinapex1/EditDelEmp">Delete Employees</a></li>
-                        <li role="separator" class="divider"></li>
-            <li><a href="#">Sales Report</a></li>
-            <li><a href="#">All Movie Listings</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/Cinapex1/AddMovie">Add Movies</a></li>
+            <li><a href="/Cinapex1/EditDelMovie">Edit Movies</a></li>
+            <li><a href="/Cinapex1/EditDelMovie">Delete Movies</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/Cinapex1/SalesReport">Sales Report</a></li>
+            <li><a href="/Cinapex1/Movie">All Movie Listings</a></li>
           </ul>
         </li>
       </ul>
