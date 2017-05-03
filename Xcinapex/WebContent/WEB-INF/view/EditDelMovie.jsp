@@ -9,12 +9,14 @@
     <title>Edit Delete Movie</title>
  </head>
  <body>
- <jsp:include page="_menuEmp.jsp"></jsp:include>
+ <jsp:include page="menu.jsp"></jsp:include>
 
 
     <h3 align = "center">Movie List</h3>
  <p style="color: red;">${errorString}</p>
 
+<div class="container">
+    <div class="form-group row">
  <form action="/Cinapex1/DeleteMovie">
  <div class="form-group row">
  <h2>Delete Movie</h2>
@@ -23,7 +25,7 @@
         <input class="form-control" id="ex3" type="number" name="MovieId2" placeholder="1" required autofocus>
       </div>
       <br>
-<input type="submit" value="Submit">
+<button type="submit" value="Delete" class="btn btn-danger">Delete</button>
 </div>
  </form>
 
@@ -54,14 +56,15 @@
         <label for="ex3">NumCopies</label>
         <input class="form-control" id="ex3" type="number" name="MovieNumCopies" placeholder="5">
       </div>
-      <br>
-<input type="submit" value="Submit">
-</div>
+      </div>
+      <br><br>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+<br><br>
  </form>
  
     <table class="table table-striped" id = "movieTable">
        <tr>
-       <th></th>
+
           <th>Id</th>
           <th>Name</th>
           <th>Type</th>
@@ -81,6 +84,7 @@
           </tr>
        </c:forEach>
     </table>
-    
+    </div>
+    </div>
  </body>
 </html>

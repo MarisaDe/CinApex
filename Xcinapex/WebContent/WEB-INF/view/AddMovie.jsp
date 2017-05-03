@@ -9,7 +9,7 @@
     <title>Add Movie</title>
  </head>
  <body>
-<jsp:include page="menu.jsp"></jsp:include>ude>
+<jsp:include page="menu.jsp"></jsp:include>
 
 
 <div class="container">
@@ -43,7 +43,7 @@
         <input class="form-control" id="ex3" type="number" name="MovieCopies" placeholder="4" required autofocus>
       </div>
       
-      <br><br>
+      <br><br><br><br>
              <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
   </form>
 </div>
