@@ -53,31 +53,14 @@ public class EditDelCust extends HttpServlet{
 	        dispatcher.forward(request, response);
 		   return;
 		}
-<<<<<<< HEAD
-		/*
-		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
-   		String user = "root";
-   		String pass = "pass";
-   		*/
-=======
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
+
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
    		
-<<<<<<< HEAD
-   	
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
-=======
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
+
 
    		java.sql.Connection conn = null;
 	   	
