@@ -58,7 +58,7 @@
       </div>
       </div>
       <br><br>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
 <br><br>
  </form>
  
@@ -86,5 +86,10 @@
     </table>
     </div>
     </div>
+    <script>
+ function refresh() {
+    location.reload();
+}
+    </script>
  </body>
 </html>
