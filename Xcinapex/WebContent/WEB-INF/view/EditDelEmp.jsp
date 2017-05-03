@@ -9,14 +9,8 @@
     <title>Add Employee</title>
  </head>
  <body>
-<jsp:include page="menu.jsp"></jsp:include>>
+<jsp:include page="menu.jsp"></jsp:include>
 
-<script>
-function del(x) {
-    document.getElementById("empTable").deleteRow(x.rowIndex);
-}
-
-</script>
 
     <h3 align = "center">Employee List</h3>
  <p style="color: red;">${errorString}</p>
@@ -24,8 +18,9 @@ function del(x) {
 
     <table class="table table-striped" id = "empTable">
        <tr>
-       <th></th>
+          <th></th>
           <th>SSN</th>
+          <th>Employee ID</th>
           <th>Last Name</th>
           <th>First Name</th>
           <th>Address</th>
@@ -33,28 +28,36 @@ function del(x) {
           <%--<th>State</th>--%>
           <th>Zipcode</th>
           <th>Telephone</th>
-          <th>Employee ID</th>
           <th>Start Date</th>
           <th>Hourly Rate</th>
        </tr>
        <c:forEach items="${EmpList}" var="emp" >
           <tr>
-           <form action="/Cinapex1/DeleteEmp">
-          	 <td> <button type = "submit" class="btn-danger">X</button></td>
-          	 <td> <input type="hidden" name="ssnOfEmp" value="${emp.ssn}"/>${emp.ssn}</td>
-          	 <td id="fName">${emp.firstName}</td>
-          	 <td>${emp.lastName}</td>
-          	 <td>${emp.address}</td>
+           <form id = "empForm" action = "/Cinapex1/EditEmp">
+          	 <td><button type = "submit" class="btn-danger" name = "save" onclick="refresh()">Save</button></td>
+          	 <td><input type="hidden" name="ssnOfEmp" value="${emp.ssn}"/>${emp.ssn}</td>
+          	 <td><input type="hidden" name="idOfEmp" value="${emp.id}"/>${emp.id}</td>
+          	 <td><input required name="empLastName" value="${emp.lastName}"/></td>
+          	 <td><input name="empFirstName" value="${emp.firstName}"/></td>
+          	 <td><input required name="empAddress" value="${emp.address}"/></td>
           	 <%-- <td>${emp.city}</td>--%>
           	 <%-- <td>${emp.state}</td>--%>
-          	 <td>${emp.zipcode}</td>
-          	 <td>${emp.telephone}</td>
-          	 <td><input type="hidden" name="idOfEmp" value="${emp.id}"/>${emp.ssn}</td>
-             <td>${emp.startDate}</td>
-             <td>${emp.hourlyRate}</td>
+          	 <td><input required name="empZipcode" value="${emp.zipcode}"/></td></td>
+          	 <td><input required name="empTelephone" value="${emp.telephone}"/></td>
+
+             <td><input required name="empStartDate" value="${emp.startDate}"/></td></td>
+             <td><input required name="empHourly" value="${emp.hourlyRate}"/></td></td>
+	                        
           </form>
           </tr>
        </c:forEach>
     </table>
+    
+ <script>
+
+function refresh() {
+    location.reload();
+}
+</script>
  </body>
 </html>

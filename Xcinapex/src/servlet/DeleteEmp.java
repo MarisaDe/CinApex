@@ -48,14 +48,11 @@ public class DeleteEmp extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
 			allEmps= DBUtils.getEmployees(conn);
-			String ssn= request.getParameter("ssnOfEmp");
-			int id= Integer.parseInt(request.getParameter("idOfEmp"));
+			String ssn= request.getParameter("ssnOfEmp2");
+			int id= Integer.parseInt(request.getParameter("idOfEmp2"));
 			DBUtils.deleteEmployee(conn, ssn, id);
 			
 			System.out.println(ssn);
-			
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
 			allEmps= DBUtils.getEmployees(conn);
 			conn.commit();
 			
@@ -72,7 +69,7 @@ public class DeleteEmp extends HttpServlet {
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("EmpList", allEmps);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
+                .getRequestDispatcher("/WEB-INF/view/DeleteEmp.jsp");
         dispatcher.forward(request, response);
    	}
    	

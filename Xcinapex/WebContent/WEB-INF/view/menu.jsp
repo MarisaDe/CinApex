@@ -106,7 +106,7 @@ margin-bottom: 0px;
           <ul class="dropdown-menu">
             <li><a href="/Cinapex1/AddEmp">Add Employees</a></li>
             <li><a href="/Cinapex1/EditDelEmp">Edit Employees</a></li>
-            <li><a href="/Cinapex1/EditDelEmp">Delete Employees</a></li>
+            <li><a href="/Cinapex1/DeleteEmp">Delete Employees</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/Cinapex1/AddMovie">Add Movies</a></li>
             <li><a href="/Cinapex1/EditDelMovie">Edit Movies</a></li>
