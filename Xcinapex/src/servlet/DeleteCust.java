@@ -46,10 +46,8 @@ public class DeleteCust extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, pass);
 			allCusts= DBUtils.getCustomers(conn);
 			String id= request.getParameter("custId");
-			String ssn= request.getParameter("PersonSSN");
-			DBUtils.deleteCustomer(conn, ssn, id);
+			DBUtils.deleteCustomer(conn, id, id);
 			
-			System.out.println(ssn);
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
