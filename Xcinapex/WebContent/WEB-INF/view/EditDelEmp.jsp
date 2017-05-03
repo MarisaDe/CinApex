@@ -21,7 +21,7 @@ function del(x) {
     <h3 align = "center">Employee List</h3>
  <p style="color: red;">${errorString}</p>
 
- <form action="/Cinapex1/DeleteEmp">
+
     <table class="table table-striped" id = "empTable">
        <tr>
        <th></th>
@@ -39,6 +39,7 @@ function del(x) {
        </tr>
        <c:forEach items="${EmpList}" var="emp" >
           <tr>
+           <form action="/Cinapex1/DeleteEmp">
           	 <td> <button type = "submit" class="btn-danger">X</button></td>
           	 <td> <input type="hidden" name="ssnOfEmp" value="${emp.ssn}"/>${emp.ssn}</td>
           	 <td id="fName">${emp.firstName}</td>
@@ -51,10 +52,9 @@ function del(x) {
           	 <td><input type="hidden" name="idOfEmp" value="${emp.id}"/>${emp.ssn}</td>
              <td>${emp.startDate}</td>
              <td>${emp.hourlyRate}</td>
-             
+          </form>
           </tr>
        </c:forEach>
     </table>
-    </form>
  </body>
 </html>

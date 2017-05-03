@@ -42,16 +42,18 @@ public class MovieList extends HttpServlet {
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			allMovies= DBUtils.queryMovies(conn);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+			conn.commit();
+   		}catch (Exception e) {
+   	        // Any error is grounds for rollback
+   	        try { 
+   	          conn.rollback();
+   	          System.out.println("Rolling back..");
+   	          e.printStackTrace();
+   	        }
+   	        catch (SQLException ignored) { } 
+   	      }
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovies);
 		RequestDispatcher dispatcher = request.getServletContext()

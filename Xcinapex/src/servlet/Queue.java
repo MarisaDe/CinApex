@@ -76,19 +76,19 @@ public class Queue extends HttpServlet{
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/Queue.jsp");
         dispatcher.forward(request, response);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
 		}catch (java.lang.NullPointerException e){
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
 	        dispatcher.forward(request, response);
-		}
+   		}catch (Exception e) {
+        // Any error is grounds for rollback
+        try { 
+          conn.rollback();
+          System.out.println("Rolling back..");
+          e.printStackTrace();
+        }
+        catch (SQLException ignored) { } 
+      }
 		
 		
    	}

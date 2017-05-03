@@ -71,6 +71,7 @@ public class EditMovie extends HttpServlet{
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			allMovie= DBUtils.queryMovies(conn);
 			
 			int id = Integer.parseInt(movieId);
@@ -98,21 +99,21 @@ public class EditMovie extends HttpServlet{
 				DBUtils.updateMovieNumCopies(conn, nC, id);
 			}
 				
-			
+			conn.commit();
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allMovie = DBUtils.queryMovies(conn);
 
 			
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {
+	        // Any error is grounds for rollback
+	        try { 
+	          conn.rollback();
+	          System.out.println("Rolling back..");
+	          e.printStackTrace();
+	        }
+	        catch (SQLException ignored) { } 
+	      }
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovie);
 		RequestDispatcher dispatcher = request.getServletContext()

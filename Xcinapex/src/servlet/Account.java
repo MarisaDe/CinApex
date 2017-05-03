@@ -38,26 +38,26 @@ public class Account extends HttpServlet{
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
 		
-		
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
 
+   		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
-
+   		
    		java.sql.Connection conn = null;
 	   	
 		String errorString = null;
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			
+			conn.setAutoCommit(false);
 			String name=request.getParameter("user").trim();
 			System.out.println(name);
 			String personType= request.getParameter("personType");
 			
 			Person emp;
 			emp = DBUtils.loginChoice(conn, name,personType);
+			conn.commit();
 			
 			if(emp != null){		
 				 session.setAttribute("loggedInUser", emp);
@@ -67,6 +67,7 @@ public class Account extends HttpServlet{
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
 	        dispatcher.forward(request, response);
+
 			}else{
 				System.out.println("WRONG");
 				RequestDispatcher dispatcher = request.getServletContext()
@@ -85,7 +86,16 @@ public class Account extends HttpServlet{
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
 	        dispatcher.forward(request, response);
-		}
+	        
+   		}catch (Exception e) {
+        // Any error is grounds for rollback
+        try { 
+          conn.rollback();
+          System.out.println("Rolling back..");
+          e.printStackTrace();
+        }
+        catch (SQLException ignored) { } 
+      }
 	}
 
 	/**
