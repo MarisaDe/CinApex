@@ -723,6 +723,31 @@ public class DBUtils {
 		return list;
 	}
 	
+	public static List<ActiveRented> listOfActivelyRentedMovies(Connection conn) throws SQLException{
+		String sql = "SELECT M.ID, M.Name, M.Rating, O.NumOrders FROM OrderList O, Movie M WHERE O.MovieId = M.ID AND O.NumOrders >= (SELECT MAX(R.NumOrders) FROM OrderList R)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<ActiveRented> list = new ArrayList<ActiveRented>();
+		while(rs.next()){
+			int id = rs.getInt("Id");
+			String name = rs.getString("Name");
+			int rating = rs.getInt("Rating");
+			int numOrders = rs.getInt("NumOrders");
+			
+			ActiveRented AR = new ActiveRented();
+			
+			AR.setId(id);
+			AR.setName(name);
+			AR.setRating(rating);
+			AR.setNumOrders(numOrders);
+			
+			list.add(AR);
+		}
+		
+		return list;
+	}
+	
 	/**
 	 * END OF Manager Level Transaction
 	 * @throws SQLException 
