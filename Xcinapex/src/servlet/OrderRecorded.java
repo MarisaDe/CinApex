@@ -79,19 +79,21 @@ public class OrderRecorded extends HttpServlet {
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			
 			// Exec the queries and insert the data into the database
 			DBUtils.insertMovieOrder(conn, movieOrder);
 			DBUtils.insertRental(conn, rental);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+			conn.commit();
+   		}catch (Exception e) {
+   	        // Any error is grounds for rollback
+   	        try { 
+   	          conn.rollback();
+   	          System.out.println("Rolling back..");
+   	          e.printStackTrace();
+   	        }
+   	        catch (SQLException ignored) { } 
+   	      }
 
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/OrderRecorded.jsp");

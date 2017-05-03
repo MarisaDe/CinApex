@@ -65,30 +65,33 @@ public class History extends HttpServlet{
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			Customer cus =(Customer) session.getAttribute("loggedInUser");
 			
 			String id = cus.getCustId();
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomerHistory(conn, id);
+			conn.commit();
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("MovieList", allMovies);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/History.jsp");
 	        dispatcher.forward(request, response);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
 		}catch (java.lang.NullPointerException e){
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
 	        dispatcher.forward(request, response);
-		}
+		
+		}catch (Exception e) {
+	        // Any error is grounds for rollback
+	        try { 
+	          conn.rollback();
+	          System.out.println("Rolling back..");
+	          e.printStackTrace();
+	        }
+	        catch (SQLException ignored) { } 
+	      }
 		
 		
    	}

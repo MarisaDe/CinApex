@@ -107,6 +107,10 @@ public class EditCust extends HttpServlet{
 				int nC = Integer.parseInt(numCopies);
 				DBUtils.updateMovieNumCopies(conn, nC, id);
 			}
+			if(state != null && zip.length() != 0){
+				int nC = Integer.parseInt(numCopies);
+				DBUtils.updateMovieNumCopies(conn, nC, id);
+			}
 				
 			
 			Class.forName(jdbc_driver).newInstance();

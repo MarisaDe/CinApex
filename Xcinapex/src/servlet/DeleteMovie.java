@@ -36,29 +36,12 @@ public class DeleteMovie extends HttpServlet{
    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
-   		//Don't forget to change this
-<<<<<<< HEAD
-		
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		
-   		
-/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
-=======
-
+ 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
    		
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
 
    		java.sql.Connection conn = null;
 	   	
@@ -69,6 +52,7 @@ public class DeleteMovie extends HttpServlet{
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			allMovie= DBUtils.queryMovies(conn);
 			
 			int id = Integer.parseInt(request.getParameter("MovieId2"));
@@ -88,17 +72,17 @@ public class DeleteMovie extends HttpServlet{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allMovie = DBUtils.queryMovies(conn);
-
+			conn.commit();
 			
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {
+	        // Any error is grounds for rollback
+	        try { 
+	          conn.rollback();
+	          System.out.println("Rolling back..");
+	          e.printStackTrace();
+	        }
+	        catch (SQLException ignored) { } 
+	      }
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovie);
 		RequestDispatcher dispatcher = request.getServletContext()

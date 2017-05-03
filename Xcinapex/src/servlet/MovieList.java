@@ -28,15 +28,11 @@ public class MovieList extends HttpServlet {
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-<<<<<<< HEAD
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-=======
+
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
+
    		
    		
    		java.sql.Connection conn = null;
@@ -46,16 +42,18 @@ public class MovieList extends HttpServlet {
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			allMovies= DBUtils.queryMovies(conn);
-		}catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
+			conn.commit();
+   		}catch (Exception e) {
+   	        // Any error is grounds for rollback
+   	        try { 
+   	          conn.rollback();
+   	          System.out.println("Rolling back..");
+   	          e.printStackTrace();
+   	        }
+   	        catch (SQLException ignored) { } 
+   	      }
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovies);
 		RequestDispatcher dispatcher = request.getServletContext()

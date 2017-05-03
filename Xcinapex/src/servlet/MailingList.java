@@ -12,73 +12,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Beans.Employee;
-import Beans.Movie;
+import Beans.Customer;
 import utils.DBUtils;
 import utils.MyUtils;
 import utils.setUpConnection;
 
-@WebServlet("/DeleteEmp")
-public class DeleteEmp extends HttpServlet {
+@WebServlet("/MailingList")
+public class MailingList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public DeleteEmp() {
+    public MailingList() {
         super();
     }
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   		HttpSession session=request.getSession(true);
-   		//Don't forget to change this
-
-		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
+
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
+
    		
    		
    		java.sql.Connection conn = null;
-		List<Employee> allEmps=null;
+   		List<String> email = null;
+		List<Customer> allCust=null;
 		String errorString = null;
-		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			allEmps= DBUtils.getEmployees(conn);
-			String ssn= request.getParameter("ssnOfEmp");
-			int id= Integer.parseInt(request.getParameter("idOfEmp"));
-			DBUtils.deleteEmployee(conn, ssn, id);
-			
-			System.out.println(ssn);
-			
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			allEmps= DBUtils.getEmployees(conn);
+			allCust = DBUtils.getCustomers(conn);
 			conn.commit();
 			
-		}catch (Exception e) {
-	        // Any error is grounds for rollback
-	        try { 
-	          conn.rollback();
-	          System.out.println("Rolling back..");
-	          e.printStackTrace();
-	        }
-	        catch (SQLException ignored) { } 
-	      }
-		
+   		}catch (Exception e) {
+   	        // Any error is grounds for rollback
+   	        try { 
+   	          conn.rollback();
+   	          System.out.println("Rolling back..");
+   	          e.printStackTrace();
+   	        }
+   	        catch (SQLException ignored) { } 
+   	      }
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("EmpList", allEmps);
+		request.setAttribute("MailingList", allCust);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
+                .getRequestDispatcher("/WEB-INF/view/MailingList.jsp");
         dispatcher.forward(request, response);
-   	}
-   	
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

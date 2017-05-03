@@ -29,30 +29,19 @@ public class BestSeller extends HttpServlet {
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-<<<<<<< HEAD
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
-=======
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
->>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
-   		java.sql.Connection conn = null;
-   		
+
+   		java.sql.Connection conn = null; 		
 		List<Movie> allMovies=null;
 		String errorString = null;
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+	   		conn.setAutoCommit(false);
 			allMovies= DBUtils.getBestSeller(conn);
+			conn.commit();
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {

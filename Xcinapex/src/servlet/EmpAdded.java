@@ -85,23 +85,27 @@ public class EmpAdded extends HttpServlet {
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false);
 			
 			DBUtils.insertLocation( conn, location);
 			DBUtils.insertPerson(conn, person);
 			DBUtils.insertEmployee(conn, employee);
 			
+			conn.commit();
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/EmpAdded.jsp");
 	        dispatcher.forward(request, response);
 				
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}catch (Exception e) {
+	        // Any error is grounds for rollback
+	        try { 
+	          conn.rollback();
+	          System.out.println("Rolling back..");
+	          e.printStackTrace();
+	        }
+	        catch (SQLException ignored) { } 
+	      }
 		
 	}
 	
