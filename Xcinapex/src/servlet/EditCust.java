@@ -64,50 +64,8 @@ public class EditCust extends HttpServlet{
 			System.out.println(first);
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-<<<<<<< HEAD
-			allMovie= DBUtils.queryMovies(conn);
-			
-			int id = Integer.parseInt(movieId);
-			
-			
-			if(first != null && first.length() != 0){
-				DBUtils.updateMovieName(conn, name, id);
-			}
-			
-			if(last != null && last.length() != 0)
-				DBUtils.updateMovieType(conn, type, id);
-			
-			if(rating != null && rating.length() != 0){
-				int r =Integer.parseInt(rating);
-				DBUtils.updateMovieRating(conn, r, id);
-			}
-			
-			if(address != null&& address.length() != 0){
-				int df = Integer.parseInt(distrFee);
-				DBUtils.updateMovieDistrFee(conn, df, id);
-			}
-			
-			if(city != null && city.length() != 0){
-				int nC = Integer.parseInt(numCopies);
-				DBUtils.updateMovieNumCopies(conn, nC, id);
-			}
-			
-			if(zip != null && zip.length() != 0){
-				int nC = Integer.parseInt(numCopies);
-				DBUtils.updateMovieNumCopies(conn, nC, id);
-			}
-			if(state != null && zip.length() != 0){
-				int nC = Integer.parseInt(numCopies);
-				DBUtils.updateMovieNumCopies(conn, nC, id);
-			}
-				
-			
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			allCusts = DBUtils.queryMovies(conn);
-=======
+
 			DBUtils.updateCustomer(conn,id,first,last,address,zip,phone,email,cCard,rating);
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()

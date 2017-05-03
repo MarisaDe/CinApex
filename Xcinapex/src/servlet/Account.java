@@ -38,21 +38,11 @@ public class Account extends HttpServlet{
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
 		
-<<<<<<< HEAD
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
    		
-=======
-		
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-
-		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
-   		String user = setUpConnection.USERNAME;
-   		String pass = setUpConnection.PASSWORD;
-
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
    		java.sql.Connection conn = null;
 	   	
 		String errorString = null;
@@ -76,9 +66,6 @@ public class Account extends HttpServlet{
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
 	        dispatcher.forward(request, response);
-<<<<<<< HEAD
-
-=======
 			}else{
 				System.out.println("WRONG");
 				RequestDispatcher dispatcher = request.getServletContext()
@@ -93,7 +80,6 @@ public class Account extends HttpServlet{
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 		}catch (java.lang.NullPointerException e){
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/404.jsp");

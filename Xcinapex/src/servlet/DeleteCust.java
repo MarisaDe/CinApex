@@ -42,25 +42,15 @@ public class DeleteCust extends HttpServlet {
 		String errorString = null;
 		
 		try{
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-<<<<<<< HEAD
 			conn.setAutoCommit(false);
-			allCusts= DBUtils.getCustomers(conn);
-			String id= request.getParameter("custId");
-			DBUtils.deleteCustomer(conn, id, id);
-			allCusts = DBUtils.getCustomers(conn);
-			conn.commit();
-=======
 			changethisCust= DBUtils.getCustomers(conn);
 			String id= request.getParameter("custId");
 			DBUtils.deleteCustomer(conn, id, id);
 			
-			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			changethisCust = DBUtils.getCustomers(conn);
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
+			conn.commit();
 			
 		}catch (Exception e) {
 	        // Any error is grounds for rollback

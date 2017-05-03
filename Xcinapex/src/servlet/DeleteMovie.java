@@ -13,94 +13,85 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import Beans.Movie;
 import utils.DBUtils;
 import utils.setUpConnection;
 
 @WebServlet("/DeleteMovie")
-public class DeleteMovie extends HttpServlet{
+public class DeleteMovie extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteMovie() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-   
-   	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
-<<<<<<< HEAD
- 
-=======
-   		//Don't forget to change this
+	public DeleteMovie() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+
+		String jdbc_driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
-   		String user = setUpConnection.USERNAME;
-   		String pass = setUpConnection.PASSWORD;
-<<<<<<< HEAD
-   		
-=======
->>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
+		String user = setUpConnection.USERNAME;
+		String pass = setUpConnection.PASSWORD;
 
-   		java.sql.Connection conn = null;
-	   	
-   		
+		java.sql.Connection conn = null;
+
 		List<Movie> allMovie = null;
 		String errorString = null;
-		
-		try{
+
+		try {
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			allMovie= DBUtils.queryMovies(conn);
-			
+			allMovie = DBUtils.queryMovies(conn);
+
 			int id = Integer.parseInt(request.getParameter("MovieId2"));
 			System.out.println("Trying to delete MovieId : " + id);
-			
-			//Delete Rental by MovieId
+
+			// Delete Rental by MovieId
 			DBUtils.deleteRentalByMovieId(conn, id);
-			//Delete MovieOrder by MovieId
+			// Delete MovieOrder by MovieId
 			DBUtils.deleteMovieOrderByMovieId(conn, id);
-			//Delete AppearedIn by MovieId
+			// Delete AppearedIn by MovieId
 			DBUtils.deleteAppearedInByMovieId(conn, id);
-			//Delete MovieQ by MovieId
+			// Delete MovieQ by MovieId
 			DBUtils.deleteMovieQByMovieId(conn, id);
-			//Delete Movie
+			// Delete Movie
 			DBUtils.deleteMovie(conn, id);
-			
+
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allMovie = DBUtils.queryMovies(conn);
 			conn.commit();
-			
-		}catch (Exception e) {
-	        // Any error is grounds for rollback
-	        try { 
-	          conn.rollback();
-	          System.out.println("Rolling back..");
-	          e.printStackTrace();
-	        }
-	        catch (SQLException ignored) { } 
-	      }
+
+		} catch (Exception e) {
+			// Any error is grounds for rollback
+			try {
+				conn.rollback();
+				System.out.println("Rolling back..");
+				e.printStackTrace();
+			} catch (SQLException ignored) {
+			}
+		}
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovie);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/DeleteMovie.jsp");
-        dispatcher.forward(request, response);
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+				.getRequestDispatcher("/WEB-INF/view/DeleteMovie.jsp");
+		dispatcher.forward(request, response);
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }
