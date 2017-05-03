@@ -928,9 +928,7 @@ public class DBUtils {
 	
 	public static List<Movie> getCustomerHistory(Connection conn, String custId) throws SQLException{
 		int id = getAccountIdFromCustomerId(conn,custId);
-		String sql = "SELECT * FROM Rental r JOIN movie m WHERE AccountId =? AND EXISTS( SELECT"+
-				 " ReturnDate FROM MovieOrder WHERE OrderId = Id) and r.mov"+
-				"ieid = m.id;";
+		String sql = "SELECT * FROM Rental r JOIN movie m JOIN movieorder b WHERE r.AccountId =? AND EXISTS( SELECT ReturnDate FROM MovieOrder WHERE OrderId = Id) and r.movieid = m.id and b.id=r.orderid ORDER BY b.dateandtime desc;";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
