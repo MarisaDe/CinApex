@@ -37,12 +37,12 @@
           	 <td><button type = "submit" class="btn-danger" name = "save" onclick="refresh()">Save</button></td>
           	 <td><input type="hidden" name="ssnOfEmp" value="${emp.ssn}"/>${emp.ssn}</td>
           	 <td><input type="hidden" name="idOfEmp" value="${emp.id}"/>${emp.id}</td>
-          	 <td><input required name="empLastName" value="${emp.lastName}"/></td>
+          	 <td><input name="empLastName" value="${emp.lastName}"/></td>
           	 <td><input name="empFirstName" value="${emp.firstName}"/></td>
           	 <td><input required name="empAddress" value="${emp.address}"/></td>
           	 <%-- <td>${emp.city}</td>--%>
           	 <%-- <td>${emp.state}</td>--%>
-          	 <td><input required name="empZipcode" value="${emp.zipcode}"/></td></td>
+          	 <td><input type="hidden" name="empZipcode" value="${emp.zipcode}"/>${emp.zipcode}</td>
           	 <td><input required name="empTelephone" value="${emp.telephone}"/></td>
 
              <td><input required name="empStartDate" value="${emp.startDate}"/></td></td>

@@ -49,7 +49,6 @@ public class DeleteMovie extends HttpServlet {
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
-			allMovie = DBUtils.queryMovies(conn);
 
 			int id = Integer.parseInt(request.getParameter("MovieId2"));
 			System.out.println("Trying to delete MovieId : " + id);
@@ -63,12 +62,13 @@ public class DeleteMovie extends HttpServlet {
 			// Delete MovieQ by MovieId
 			DBUtils.deleteMovieQByMovieId(conn, id);
 			// Delete Movie
+			
+			conn.commit();
+			
 			DBUtils.deleteMovie(conn, id);
 
-			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			allMovie = DBUtils.queryMovies(conn);
 			conn.commit();
+			allMovie = DBUtils.queryMovies(conn);
 
 		} catch (Exception e) {
 			// Any error is grounds for rollback
@@ -82,7 +82,7 @@ public class DeleteMovie extends HttpServlet {
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovie);
 		RequestDispatcher dispatcher = request.getServletContext()
-				.getRequestDispatcher("/WEB-INF/view/DeleteMovie.jsp");
+				.getRequestDispatcher("/WEB-INF/view/EditDelMovie.jsp");
 		dispatcher.forward(request, response);
 	}
 
