@@ -12,10 +12,10 @@
 <jsp:include page="menu.jsp"></jsp:include>
 
 
-    <h3 align = "center">Employee List</h3>
+    <h3 align = "center">Delete Employee List</h3>
  <p style="color: red;">${errorString}</p>
 
-
+<div = "container">
     <table class="table table-striped" id = "empTable">
        <tr>
 
@@ -35,7 +35,7 @@
        <c:forEach items="${EmpList}" var="emp" >
           <tr>
            <form id = "empForm" action = "/Cinapex1/DeleteEmp">
-          	 <td><button type = "submit" class="btn-danger">X</button></td>
+          	 <td><button type = "submit" class="btn btn-danger">X</button></td>
           	 <td><input type="hidden" name="ssnOfEmp2" value="${emp.ssn}"/>${emp.ssn}</td>
           	 <td><input type="hidden" name="idOfEmp2" value="${emp.id}"/>${emp.id}</td>
           	 <td><input type="hidden" name="empLastName2" value="${emp.lastName}"/>${emp.lastName}</td>
@@ -53,7 +53,7 @@
           </tr>
        </c:forEach>
     </table>
-    
+  </div>  
  <script>
 
 function save() {

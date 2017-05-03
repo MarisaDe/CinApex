@@ -43,6 +43,7 @@ public class EditCust extends HttpServlet{
    		java.sql.Connection conn = null;
 	   	
 		String errorString = null;
+		List<Customer> allCusts=null;
 		
 		try{
 			
@@ -65,8 +66,11 @@ public class EditCust extends HttpServlet{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			DBUtils.updateCustomer(conn,id,first,last,address,zip,phone,email,cCard,rating);
+			allCusts= DBUtils.getCustomers(conn); //get updated list of customers
+			
 			
 			request.setAttribute("errorString", errorString);
+			request.setAttribute("CustList", allCusts); //return updated list of customers
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
 	        dispatcher.forward(request, response);
