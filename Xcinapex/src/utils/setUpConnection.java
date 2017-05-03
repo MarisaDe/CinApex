@@ -19,12 +19,7 @@ public class setUpConnection {
 	public static String DATABASENAME = "CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	public static String USERNAME = "manager";
 	public static String PASSWORD = "manager";
-<<<<<<< HEAD
-	*/
-=======
-	
 
->>>>>>> 176e0873c312f99791f11c712655ae57ccc52a6d
 	/*
 
 	public static String DATABASENAME = "c305";

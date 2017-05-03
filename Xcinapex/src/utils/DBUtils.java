@@ -671,9 +671,10 @@ public class DBUtils {
 	}
 	
 	public static List<RentedMovies> ListOfRentalMoviesByName(Connection conn, String name) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		name = "%" + name + "%";
 		pstm.setString(1, name);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -687,9 +688,10 @@ public class DBUtils {
 	}
 	
 	public static List<RentedMovies> ListOfRentalMoviesByType(Connection conn, String type) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Type = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Type LIKE ?  AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		type = "%" + type + "%";
 		pstm.setString(1, type);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -704,9 +706,10 @@ public class DBUtils {
 	
 	
 	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		firstName = "%" + firstName + "%";
 		pstm.setString(1, firstName);
 		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();

@@ -44,7 +44,8 @@ public class FindMovie extends HttpServlet {
 		*/
 		String keyword = request.getParameter("search");
 		String selector=request.getParameter("selector");
-		System.out.println(keyword+" "+selector);
+		
+		System.out.println(keyword+" : "+selector);
 		
 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
