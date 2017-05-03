@@ -64,9 +64,8 @@ public class EditCust extends HttpServlet{
 			System.out.println(first);
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-
 			DBUtils.updateCustomer(conn,id,first,last,address,zip,phone,email,cCard,rating);
-
+			
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");

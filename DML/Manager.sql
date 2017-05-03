@@ -86,9 +86,9 @@ FROM   Movie;
 
 --- Produce a list of movie rentals by movie name, movie type or customer name [WORKING]
 
-SELECT  *
-FROM    Rental R, Movie M
-WHERE   R.MovieId = M.Id AND M.Name = "The GodFather";
+SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies 
+FROM    Rental R, Movie M, Person P, Account A
+WHERE   R.MovieId = M.Id AND M.Name = "The GodFather" AND A.CustomerId = P.SSN AND R.AccountId = A.Id;
 
 SELECT  *
 FROM    Rental R, Movie M

@@ -567,6 +567,86 @@ public class DBUtils {
 		return activelyRentedMovies;
 	}
 	
+	public static RentedMovies buildRentedMovies(ResultSet rs) throws SQLException{
+		RentedMovies rentedMovies = new RentedMovies();
+				
+		int accountId = rs.getInt("AccountId");
+		String firstName = rs.getString("FirstName");
+		String lastName= rs.getString("LastName");
+		int custRepId = rs.getInt("CustRepId");
+		int orderId = rs.getInt("OrderId");
+		int movieId = rs.getInt("MovieId");
+		String name = rs.getString("Name");
+		String type = rs.getString("Type");
+		int rating = rs.getInt("Rating");
+		int distrFee = rs.getInt("DistrFee");
+		int numCopies = rs.getInt("NumCopies");
+
+		rentedMovies.setAccountId(accountId);
+		rentedMovies.setFirstName(firstName);
+		rentedMovies.setLastName(lastName);
+		rentedMovies.setCustRepId(custRepId);
+		rentedMovies.setOrderId(orderId);
+		rentedMovies.setMovieId(movieId);
+		rentedMovies.setName(name);
+		rentedMovies.setType(type);
+		rentedMovies.setRating(rating);
+		rentedMovies.setDistrFee(distrFee);
+		rentedMovies.setNumCopies(numCopies);
+		
+		return rentedMovies;
+	}
+	
+	public static List<RentedMovies> ListOfRentalMoviesByName(Connection conn, String name) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, name);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<RentedMovies> list = new ArrayList<RentedMovies>();
+		while(rs.next()){
+			RentedMovies RM = buildRentedMovies(rs);
+			list.add(RM);
+		}
+		
+		return list;
+	}
+	
+	public static List<RentedMovies> ListOfRentalMoviesByType(Connection conn, String type) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Type = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, type);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<RentedMovies> list = new ArrayList<RentedMovies>();
+		while(rs.next()){
+			RentedMovies RM = buildRentedMovies(rs);
+			list.add(RM);
+		}
+		
+		return list;
+	}
+	
+	
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName, String lastName) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND P.LastName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, firstName);
+		pstm.setString(2, lastName);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<RentedMovies> list = new ArrayList<RentedMovies>();
+		while(rs.next()){
+			RentedMovies RM = buildRentedMovies(rs);
+			list.add(RM);
+		}
+		
+		return list;
+	}
+	
 	/**
 	 * END OF Manager Level Transaction
 	 * @throws SQLException 
