@@ -69,7 +69,7 @@ CREATE VIEW Name(CustId, AcctId, FirstName, LastName, Rating)
 AS
 SELECT C.Id, A.Id, P.FirstName, P.LastName, C.Rating
 FROM Customer C, Account A, Person P
-WHERE C.Id = A.Customer AND C.Id = P.SSN
+WHERE C.Id = A.Id AND C.Id = P.SSN
 
 SELECT R.OrderId, M.Id, M.Type, N.CustId
 FROM Movie M, Rental R, Name N

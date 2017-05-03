@@ -38,20 +38,20 @@ public class DeleteCust extends HttpServlet {
    		String pass = setUpConnection.PASSWORD;
    		
    		java.sql.Connection conn = null;
-		List<Customer> allCusts=null;
+		List<Customer> changethisCust=null;
 		String errorString = null;
 		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allCusts= DBUtils.getCustomers(conn);
+			changethisCust= DBUtils.getCustomers(conn);
 			String id= request.getParameter("custId");
 			DBUtils.deleteCustomer(conn, id, id);
 			
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			allCusts = DBUtils.getCustomers(conn);
+			changethisCust = DBUtils.getCustomers(conn);
 			
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
@@ -63,10 +63,7 @@ public class DeleteCust extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("CustList", allCusts);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
-        dispatcher.forward(request, response);
+		
    	}
    	
 

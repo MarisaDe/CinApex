@@ -53,12 +53,12 @@ public class EditDelCust extends HttpServlet{
 	        dispatcher.forward(request, response);
 		   return;
 		}
-		
+
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
-   		
+
 
    		java.sql.Connection conn = null;
 	   	

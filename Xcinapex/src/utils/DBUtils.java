@@ -345,7 +345,22 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	public static void updateCustomer(Connection conn, String id, String first, String last, String address, int zip, String phone, String email, String cCard, int rating )throws SQLException{
+		String sql="UPDAte person p,customer c SEt p.lastname=? ,p.firstname=?,p.address=?, p.zipcode=?"
+				+ " , p.telephone=?, c.email=?,c.rating=?,creditcardnumber=? where p.ssn=c.id and c.id=? ;";
 
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, last);
+		pstm.setString(2, first);
+		pstm.setString(3, address);
+		pstm.setInt(4,zip);
+		pstm.setString(5, phone);
+		pstm.setString(6, email);
+		pstm.setInt(7, rating);
+		pstm.setString(8, cCard);
+		pstm.setString(9, id);
+		pstm.executeUpdate();
+	}
 	// updates employee's hourly rate, really the only thing you could change in
 	// an employee
 	public static void updateEmployee(Connection conn, int rate, int id) throws SQLException {
