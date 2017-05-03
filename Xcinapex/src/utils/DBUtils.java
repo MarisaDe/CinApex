@@ -35,6 +35,21 @@ public class DBUtils {
 	}
 	
 
+	public static List<Movie> listAllMovies(Connection conn) throws SQLException {
+		String sql = "Select * From movie;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> allMovies = new ArrayList<Movie>();
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			allMovies.add(movie);
+		}
+		
+		return allMovies;
+	}
+	
+	
 	public static List<Movie> queryMovies(Connection conn) throws SQLException {
 		String sql = "Select * From movie where numcopies>0;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
