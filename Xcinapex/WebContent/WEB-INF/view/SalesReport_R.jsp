@@ -11,10 +11,11 @@
 <body>
 	<jsp:include page="_menuEmp.jsp"></jsp:include>
 		
-		<h2>Monthly Sales for :</h2>
-		<h2>${salesReport.date}</h2>
-		<h3>$ ${salesReport.totalSales}</h3>
-	
+		<h2>Monthly Sales for : ${salesReport.date}</h2>
+		<h3>Sum : $ ${salesReport.totalSales}</h3>
+		
+		<br><br>
+		<h2>Accounts:</h2>
 		<table border="1" cellpadding="5" cellspacing="1" align = "center" class="table table-striped">
         <tr>
           <th>Account Id</th>
