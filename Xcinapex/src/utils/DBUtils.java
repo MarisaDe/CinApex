@@ -433,9 +433,12 @@ public class DBUtils {
 			Employee emp=new Employee();
 			if(rs.next()){
 				emp = buildEmployee(rs);
+				System.out.println(emp.getFirstName());
+				return emp;
+			}else{
+				return null;
 			}
-			System.out.println(emp.getFirstName());
-			return emp;
+			
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
@@ -901,9 +904,14 @@ public class DBUtils {
 
 	public static Person loginChoice(Connection conn, String name, String personType) throws SQLException {
 		if (personType.equals("Employee")){
+			System.out.println("empl");
 			return getEmployee(conn,name);
-		}else{
+		}else if (personType.equals("Customer")){
+			System.out.print("Cust");
 			return getCustomer(conn,name);
+		}else{
+			System.out.println("wrong");
+			return null;
 		}
 	}
 	
@@ -947,9 +955,12 @@ public class DBUtils {
 		Customer cus=new Customer();
 		if(rs.next()){
 			cus = buildCustomer(rs);
+			System.out.println(cus.getFirstName()+cus.getLastName());
+			return cus;
+		}else{
+			return null;
 		}
-		System.out.println(cus.getFirstName()+cus.getLastName());
-		return cus;
+		
 	}
 
 

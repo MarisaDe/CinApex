@@ -66,12 +66,17 @@ public class Account extends HttpServlet{
 			if(emp != null){		
 				 session.setAttribute("loggedInUser", emp);
 				 session.setAttribute("personType", personType);
-			}
+			
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
 	        dispatcher.forward(request, response);
-			
+			}else{
+				System.out.println("WRONG");
+				RequestDispatcher dispatcher = request.getServletContext()
+		                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+		        dispatcher.forward(request, response);
+			}
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
