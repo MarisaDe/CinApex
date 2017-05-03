@@ -10,7 +10,18 @@
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
 
-
+<script>
+function save() {
+		form=document.getElementById("someForm");
+        form.action="/Cinapex1/EditCust"
+        form.submit();
+}
+function del() {
+		form=document.getElementById("someForm");
+        form.action="/Cinapex1/DeleteCust"
+        form.submit();
+}
+</script>
 
 <div class="container">
     <h3 align = "center">Customer List</h3>
@@ -32,8 +43,11 @@
 
 <br><br>
 <h2> Edit Customer</h2>
+<div class="container">
+    <div class="form-group row">
     <table class="table table-striped" id = "custTable">
        <tr>
+       		<th></th>
        		<th></th>
           <th>Customer Id</th>
           <th>Last Name</th>
@@ -48,9 +62,11 @@
           <th>Rating</th>
        </tr>
        <c:forEach items="${CustList}" var="cust" >
-	       <form action="/Cinapex1/EditCust">
+	       <form id = "someForm" action = "/Cinapex1/EditCust">
 	          <tr>
-	          	<td><button type = "submit" class="btn-danger" onclick="refresh()">Save</button></td>
+	          	<td>
+	          	 <td> <button type = "submit" class="btn-danger" name = "del" onclick="del();">X</button></td>
+	          	<td><button type = "submit" class="btn-danger" name = "save" onclick="save(); refresh();">Save</button></td>
 	          	 <td> <input type="hidden" name="custId" value="${cust.custId}"/>${cust.custId}
 	          	 <input type="hidden" name="personSSN" value="${cust.SSN}"/> </td>
 	          	 <td><input required name="custFirstName" value="${cust.firstName}"/></td>
@@ -67,6 +83,8 @@
           </tr></form>
        </c:forEach>
     </table>
+    </div>
+    </div>
  </body>
  <script>
 function refresh() {
