@@ -1,7 +1,7 @@
 --- Add, Edit and Delete movies  [ TESTED AND WORKING ]
 INSERT INTO Movie(Id, Name, Type, Rating, DistrFee, NumCopies )
             VALUES 
-                 (1, "The GodFather", "Drama", 5, 10000, 3);
+                 (5, "The Departed", "Drama", 5, 5000, 3);
 
 UPDATE Movie
 SET    Rating = 3

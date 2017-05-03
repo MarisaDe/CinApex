@@ -37,19 +37,25 @@ WHERE SSN='123-45-6789'
 #3. Obtain a sales report (i.e. the overall income from all active subscriptions) for a particular month
 
 CREATE TABLE Cost (
-AcctType     AccountType,
-MonthlyFee   CURRENCY,
+AcctType     CHAR(50),
+MonthlyFee   INT,
 PRIMARY KEY(AcctType)  )	
 
-INSERT INTO Cost			INSERT INTO Cost
-VALUES('Limited', 10)             VALUES('Unlimited-1', 15)
+INSERT INTO Cost			
+VALUES('Limited', 10)             
 
-INSERT INTO Cost			 INSERT INTO Cost
-VALUES('Unlimited-2', 20)		VALUES('Unlimited-3', 25)
+INSERT INTO Cost
+VALUES('Unlimited-1', 15)
+
+INSERT INTO Cost
+VALUES('Unlimited-3', 25)
+
+INSERT INTO Cost			 
+VALUES('Unlimited-2', 20)		
 
 SELECT SUM(C.MonthlyFee)
 FROM Account A, Cost C
-WHERE A.DateOpened >'2004-11-1' AND A.Type = C.AcctType
+WHERE A.DateOpened >'2004-11-1' AND A.AccType = C.AcctType
 
 #4. Produce a comprehensive listing of all movies
 
