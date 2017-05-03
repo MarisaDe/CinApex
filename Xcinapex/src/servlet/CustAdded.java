@@ -81,9 +81,8 @@ public class CustAdded extends HttpServlet {
 			
 			
 			Class.forName(jdbc_driver).newInstance();
-	   		conn.setAutoCommit(false);
 			conn = DriverManager.getConnection(url, user, pass);
-			
+			conn.setAutoCommit(false);
 			DBUtils.insertLocation( conn, location);
 			DBUtils.insertPerson(conn, person);
 			DBUtils.insertCustomer(conn, cust);
