@@ -33,6 +33,7 @@ public class BestSeller extends HttpServlet {
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
+
    		java.sql.Connection conn = null;
    		
 		List<Movie> allMovies=null;

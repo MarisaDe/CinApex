@@ -376,15 +376,20 @@ public class DBUtils {
 
 	// Obtain a Sales Report
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
-		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >'?' AND A.AccType = C.AcctType";
+		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >? AND A.AccType = C.AcctType";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		// DATE FORMAT 2004-11-1
+		System.out.println(Date);
 		java.sql.Date date = java.sql.Date.valueOf(Date);
 		pstm.setDate(1, date);
 
 		ResultSet rs = pstm.executeQuery();
-		int sum = rs.getInt(1);
+		int sum = 0;
+		if(rs.next()){
+			sum = rs.getInt("SUM(C.MonthlyFee)");
+		}
+		System.out.println("MONTHLY SUM : " + sum);
 
 		return sum;
 	}
