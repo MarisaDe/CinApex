@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Beans.Movie;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/MovieAdded")
 public class MovieAdded extends HttpServlet {
@@ -27,9 +28,10 @@ public class MovieAdded extends HttpServlet {
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-		String user = "root";
-		String pass = "serverplz!";
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
+   		
 		java.sql.Connection conn = null;
    	
 		String errorString = null;
