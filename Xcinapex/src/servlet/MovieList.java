@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import Beans.Movie;
 import utils.DBUtils;
 import utils.MyUtils;
+import utils.setUpConnection;
 
 @WebServlet("/Movie")
 public class MovieList extends HttpServlet {
@@ -27,16 +28,16 @@ public class MovieList extends HttpServlet {
     
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
+<<<<<<< HEAD
 		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
    		String pass = "serverplz!";
+=======
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
+>>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
    		
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
    		
    		java.sql.Connection conn = null;
    		

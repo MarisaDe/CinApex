@@ -17,6 +17,7 @@ import Beans.Employee;
 import Beans.Movie;
 import Beans.Customer;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/Queue")
 public class Queue extends HttpServlet{
@@ -53,16 +54,10 @@ public class Queue extends HttpServlet{
 		}
 		
 		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
-   		String user = "root";
-   		String pass = "pass";
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
    		
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
    		java.sql.Connection conn = null;
 	   	
    		List<Movie> allMovies=null;

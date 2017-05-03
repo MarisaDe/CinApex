@@ -17,6 +17,7 @@ import Beans.Employee;
 import Beans.Person;
 import Beans.Customer;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/Account")
 public class Account extends HttpServlet{
@@ -39,6 +40,7 @@ public class Account extends HttpServlet{
 		
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
+<<<<<<< HEAD
 		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
    		String pass = "serverplz!";
@@ -49,6 +51,12 @@ public class Account extends HttpServlet{
    		String user = "manager";
    		String pass = "manager";
 		*/
+=======
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
+		
+>>>>>>> c6fe99a0466fb2fc27312b12410d4b259690570a
    		java.sql.Connection conn = null;
 	   	
 		String errorString = null;
