@@ -597,6 +597,20 @@ public class DBUtils {
 		return rentedMovies;
 	}
 	
+	public static List<RentedMovies> findRentals(Connection conn, String keyword, String selector) throws SQLException{
+		if(selector.equals("Title")){
+			String percent="%";
+			String name=percent+keyword+percent;
+			return ListOfRentalMoviesByName(conn,name);
+		}else if (selector.equals("Id")){
+			return ListOfRentalMoviesByType(conn,keyword);
+		}else if(selector.equals("Customer")){
+			return ListOfRentalMoviesByCustName(conn, keyword);
+		}
+		
+		return null;
+	}
+	
 	public static List<RentedMovies> ListOfRentalMoviesByName(Connection conn, String name) throws SQLException{
 		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
@@ -630,12 +644,12 @@ public class DBUtils {
 	}
 	
 	
-	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName, String lastName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND P.LastName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, firstName);
-		pstm.setString(2, lastName);
+		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
 		
 		List<RentedMovies> list = new ArrayList<RentedMovies>();
