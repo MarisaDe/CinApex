@@ -38,18 +38,29 @@ public class DeleteCust extends HttpServlet {
    		String pass = setUpConnection.PASSWORD;
    		
    		java.sql.Connection conn = null;
-		List<Customer> allCusts=null;
+		List<Customer> changethisCust=null;
 		String errorString = null;
 		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+<<<<<<< HEAD
 			conn.setAutoCommit(false);
 			allCusts= DBUtils.getCustomers(conn);
 			String id= request.getParameter("custId");
 			DBUtils.deleteCustomer(conn, id, id);
 			allCusts = DBUtils.getCustomers(conn);
 			conn.commit();
+=======
+			changethisCust= DBUtils.getCustomers(conn);
+			String id= request.getParameter("custId");
+			DBUtils.deleteCustomer(conn, id, id);
+			
+			
+			Class.forName(jdbc_driver).newInstance();
+			conn = DriverManager.getConnection(url, user, pass);
+			changethisCust = DBUtils.getCustomers(conn);
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 			
 		}catch (Exception e) {
 	        // Any error is grounds for rollback
@@ -62,10 +73,7 @@ public class DeleteCust extends HttpServlet {
 	      }
 		
 		request.setAttribute("errorString", errorString);
-		request.setAttribute("CustList", allCusts);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
-        dispatcher.forward(request, response);
+		
    	}
    	
 

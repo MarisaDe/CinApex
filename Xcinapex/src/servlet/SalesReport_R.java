@@ -18,11 +18,11 @@ import utils.DBUtils;
 import utils.MyUtils;
 import utils.setUpConnection;
 
-@WebServlet("/MonthlySales")
-public class MonthlySales extends HttpServlet {
+@WebServlet("/SalesReport_R")
+public class SalesReport_R extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    public MonthlySales() {
+    public SalesReport_R() {
         super();
     }
     
@@ -35,14 +35,14 @@ public class MonthlySales extends HttpServlet {
    		String date = request.getParameter("date");
    		java.sql.Connection conn = null;
    		
+   		
+   		int sumOfSales = 0;
+   		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			try{
-				int sumOfSales = DBUtils.obtainSalesReport(conn, date);
-			}catch(Exception e){
-				String sumOfSales = "---";
-			}
+			sumOfSales = DBUtils.obtainSalesReport(conn, date);
+
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -52,10 +52,11 @@ public class MonthlySales extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-
-		request.setAttribute("Sum", sumOfSales);
+		
+		request.setAttribute("sum", sumOfSales);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/SalesReport.jsp");
+                .getRequestDispatcher("/WEB-INF/view/SalesReport_R.jsp");
+		
         dispatcher.forward(request, response);
 	}
 

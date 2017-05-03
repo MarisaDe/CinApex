@@ -58,7 +58,11 @@ public class EditDelCust extends HttpServlet{
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
+<<<<<<< HEAD
    		
+=======
+
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 
    		java.sql.Connection conn = null;
 	   	

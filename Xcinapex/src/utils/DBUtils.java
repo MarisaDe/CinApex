@@ -345,7 +345,22 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	public static void updateCustomer(Connection conn, String id, String first, String last, String address, int zip, String phone, String email, String cCard, int rating )throws SQLException{
+		String sql="UPDAte person p,customer c SEt p.lastname=? ,p.firstname=?,p.address=?, p.zipcode=?"
+				+ " , p.telephone=?, c.email=?,c.rating=?,creditcardnumber=? where p.ssn=c.id and c.id=? ;";
 
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, last);
+		pstm.setString(2, first);
+		pstm.setString(3, address);
+		pstm.setInt(4,zip);
+		pstm.setString(5, phone);
+		pstm.setString(6, email);
+		pstm.setInt(7, rating);
+		pstm.setString(8, cCard);
+		pstm.setString(9, id);
+		pstm.executeUpdate();
+	}
 	// updates employee's hourly rate, really the only thing you could change in
 	// an employee
 	public static void updateEmployee(Connection conn, int rate, int id) throws SQLException {
@@ -361,15 +376,20 @@ public class DBUtils {
 
 	// Obtain a Sales Report
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
-		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >'?' AND A.AccType = C.AcctType";
+		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >? AND A.AccType = C.AcctType";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		// DATE FORMAT 2004-11-1
+		System.out.println(Date);
 		java.sql.Date date = java.sql.Date.valueOf(Date);
 		pstm.setDate(1, date);
 
 		ResultSet rs = pstm.executeQuery();
-		int sum = rs.getInt(1);
+		int sum = 0;
+		if(rs.next()){
+			sum = rs.getInt("SUM(C.MonthlyFee)");
+		}
+		System.out.println("MONTHLY SUM : " + sum);
 
 		return sum;
 	}
@@ -417,9 +437,12 @@ public class DBUtils {
 			Employee emp=new Employee();
 			if(rs.next()){
 				emp = buildEmployee(rs);
+				System.out.println(emp.getFirstName());
+				return emp;
+			}else{
+				return null;
 			}
-			System.out.println(emp.getFirstName());
-			return emp;
+			
 		}
 		
 	public static void insertEmployee(Connection conn, Employee employee) throws SQLException {
@@ -885,9 +908,14 @@ public class DBUtils {
 
 	public static Person loginChoice(Connection conn, String name, String personType) throws SQLException {
 		if (personType.equals("Employee")){
+			System.out.println("empl");
 			return getEmployee(conn,name);
-		}else{
+		}else if (personType.equals("Customer")){
+			System.out.print("Cust");
 			return getCustomer(conn,name);
+		}else{
+			System.out.println("wrong");
+			return null;
 		}
 	}
 	
@@ -931,9 +959,12 @@ public class DBUtils {
 		Customer cus=new Customer();
 		if(rs.next()){
 			cus = buildCustomer(rs);
+			System.out.println(cus.getFirstName()+cus.getLastName());
+			return cus;
+		}else{
+			return null;
 		}
-		System.out.println(cus.getFirstName()+cus.getLastName());
-		return cus;
+		
 	}
 
 

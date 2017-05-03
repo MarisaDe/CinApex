@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import Beans.Customer;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/EditCust")
 public class EditCust extends HttpServlet{
@@ -35,47 +36,35 @@ public class EditCust extends HttpServlet{
    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
-   		//Don't forget to change this
-		
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		
-   		
-		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-   		*/
-
+		String jdbc_driver= "com.mysql.jdbc.Driver";  
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
    		java.sql.Connection conn = null;
 	   	
-   		
-		List<Customer> allCusts = null;
 		String errorString = null;
 		
 		try{
 			
-			
-			String first = request.getParameter("CustFName");
-			String last = request.getParameter("CusLName");
-			String id = request.getParameter("CusId");
-			String address = request.getParameter("CusAddress");
-			String city= request.getParameter("CusCity");
-			String zip = request.getParameter("CusZip");
-			String state = request.getParameter("CusState");
-			String phone = request.getParameter("CusPhone");
-			String email = request.getParameter("Email");
-			String cCard = request.getParameter("cCard");
-			String rating = request.getParameter("rating");
+			String first = request.getParameter("custFirstName");
+			String last = request.getParameter("custLastName");
+			String id = request.getParameter("custId");
+			String address = request.getParameter("custAddress");
+			//String city= request.getParameter("CusCity");
+			String szip = request.getParameter("custZipcode");
+			//String state = request.getParameter("CusState");
+			String phone = request.getParameter("custTelephone");
+			String email = request.getParameter("custEmail");
+			String cCard = request.getParameter("custCCard");
+			String srating = request.getParameter("custRating");
 	      
+			int zip = Integer.parseInt(szip);
+			int rating =  Integer.parseInt(srating);
 			
-			//Movie movie = DBUtils.findMovieById(conn, Integer.parseInt(movieId));
-			
+			System.out.println(first);
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
+<<<<<<< HEAD
 			allMovie= DBUtils.queryMovies(conn);
 			
 			int id = Integer.parseInt(movieId);
@@ -116,8 +105,14 @@ public class EditCust extends HttpServlet{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allCusts = DBUtils.queryMovies(conn);
+=======
+			DBUtils.updateCustomer(conn,id,first,last,address,zip,phone,email,cCard,rating);
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 
-			
+			request.setAttribute("errorString", errorString);
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
+	        dispatcher.forward(request, response);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -127,11 +122,7 @@ public class EditCust extends HttpServlet{
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("CustList", allCusts);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/EditDelCust.jsp");
-        dispatcher.forward(request, response);
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

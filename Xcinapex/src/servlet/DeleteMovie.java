@@ -36,12 +36,20 @@ public class DeleteMovie extends HttpServlet{
    
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
+<<<<<<< HEAD
  
+=======
+   		//Don't forget to change this
+
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
+<<<<<<< HEAD
    		
+=======
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 
    		java.sql.Connection conn = null;
 	   	

@@ -29,11 +29,20 @@ public class BestSeller extends HttpServlet {
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
+<<<<<<< HEAD
+=======
+
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
 
+<<<<<<< HEAD
    		java.sql.Connection conn = null; 		
+=======
+   		java.sql.Connection conn = null;
+   		
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
 		List<Movie> allMovies=null;
 		String errorString = null;
 		try{

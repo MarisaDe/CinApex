@@ -59,7 +59,10 @@ public class Settings extends HttpServlet{
    		String user = setUpConnection.USERNAME;
    		String pass = setUpConnection.PASSWORD;
    		
+<<<<<<< HEAD
 
+=======
+>>>>>>> efee68c4f132649c4beecbada809d60b219aa1c9
    		
    		java.sql.Connection conn = null;
 	   	
