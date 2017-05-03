@@ -247,3 +247,14 @@ WHERE M.Type IN (SELECT O.Type FROM PastOrder O
 		WHERE O.CustId = '444-44-4444') 
 AND M.Id NOT IN (SELECT O.MovieId FROM PastOrder O
 	     WHERE O.CustId = '444-44-4444'
+
+
+
+
+SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies
+FROM    Rental R, Movie M, Person P, Account A 
+WHERE   
+	R.MovieId = M.Id AND
+	M.Name LIKE "%The%" AND
+	A.CustomerId = P.SSN AND
+	R.AccountId = A.Id;
