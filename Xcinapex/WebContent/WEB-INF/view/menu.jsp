@@ -93,8 +93,8 @@ margin-bottom: 0px;
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/Cinapex1/AddCust">Add Customer</a></li>
-            <li><a href="/Cinapex1/EditDelCus">Edit Customers</a></li>
-            <li><a href="/Cinapex1/EditDelCus">Delete Customers</a></li>
+            <li><a href="/Cinapex1/EditDelCust">Edit Customers</a></li>
+            <li><a href="/Cinapex1/EditDelCust">Delete Customers</a></li>
                         <li role="separator" class="divider"></li>
             <li><a href="#">Produce Customer Mailing List</a></li>
             <li><a href="#">Produce a list of movie suggestions</a></li>

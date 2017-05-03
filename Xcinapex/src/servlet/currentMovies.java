@@ -46,6 +46,11 @@ public class currentMovies extends HttpServlet{
 		        dispatcher.forward(request, response);
 			   return; //necessary to make the redirect happen right now
 			 }
+		}else if(session.getAttribute("loggedInUser")==null){
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+	        dispatcher.forward(request, response);
+		   return;
 		}
    		
 		String jdbc_driver= "com.mysql.jdbc.Driver";  
