@@ -34,7 +34,7 @@ public class DBUtils {
 	
 
 	public static List<Movie> queryMovies(Connection conn) throws SQLException {
-		String sql = "Select * From movie;";
+		String sql = "Select * From movie where numcopies>0;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 
@@ -95,7 +95,7 @@ public class DBUtils {
 
 
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
-		String sql = "Select * from Movie where Type=?";
+		String sql = "Select * from Movie where Type=? and numcopies>0";
 
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -114,7 +114,7 @@ public class DBUtils {
 
 	
 	public static List<Movie> findMovieByName(Connection conn, String name) throws SQLException {
-		String sql = "SELECT *  FROM Movie WHERE Name LIKE ?;";
+		String sql = "SELECT *  FROM Movie WHERE Name LIKE ? and numcopies>0;";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, name);
@@ -179,7 +179,7 @@ public class DBUtils {
 		
 		// use Movie Id to compose a list of movies with that Id;
 		for(int i = 0; i < movieId.size(); i++){
-			String sql2 = "SELECT * from Movie WHERE Id = ?";
+			String sql2 = "SELECT * from Movie WHERE Id = ? and numcopies>0";
 			
 			int Id = movieId.get(i);
 			PreparedStatement pstm = conn.prepareStatement(sql2);

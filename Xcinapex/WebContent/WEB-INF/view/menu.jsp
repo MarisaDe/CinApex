@@ -50,7 +50,7 @@ margin-bottom: 0px;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/Cinapex1/">
       <img alt="Logo" href="/Cinapex1/" src="${pageContext.request.contextPath}/CinApex.png" style="max-width:150px; margin-top: -5px;">
       </a>
     </div>
@@ -74,16 +74,42 @@ margin-bottom: 0px;
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
-        <li><a href="#">Your Personalized List</a></li>
-         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/Cinapex1/Login">Login</a></li>
             <li><a href="/Cinapex1/Settings">Settings</a></li>
+            <li role="separator" class="divider"></li>
             <li><a href="/Cinapex1/Queue">Queue</a></li>
             <li><a href="/Cinapex1/History">History</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Current Movies Held</a></li>
+            <li><a href="/Cinapex1/personalList">Your Personalized List</a></li>
+            <li><a href="/Cinapex1/currentMovies">Current Movies Held</a></li>
+            <li><a href="#">Rate Your Movies</a></li>
+          </ul>
+        </li>
+        
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Cinapex1/AddCust">Add Customer</a></li>
+            <li><a href="/Cinapex1/EditDelCus">Edit Customers</a></li>
+            <li><a href="/Cinapex1/EditDelCus">Delete Customers</a></li>
+                        <li role="separator" class="divider"></li>
+            <li><a href="#">Produce Customer Mailing List</a></li>
+            <li><a href="#">Produce a list of movie suggestions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Cinapex1/AddEmp">Add Employees</a></li>
+            <li><a href="/Cinapex1/EditDelEmp">Edit Employees</a></li>
+            <li><a href="/Cinapex1/EditDelEmp">Delete Employees</a></li>
+                        <li role="separator" class="divider"></li>
+            <li><a href="#">Sales Report</a></li>
+            <li><a href="#">All Movie Listings</a></li>
           </ul>
         </li>
       </ul>
@@ -92,7 +118,7 @@ margin-bottom: 0px;
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+Hello <b>${loggedInUser.firstName}!</b>
 <!-- Scripts -->	
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    

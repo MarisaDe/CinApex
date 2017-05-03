@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Beans.Movie;
 import utils.DBUtils;
@@ -31,6 +32,15 @@ public class FindMovie extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute("loggedInUser").getClass());
+		/* 
+		if(!"admin".equals(usertype))
+		 {
+		   response.sendRedirect("unauthorized.jsp");
+		   return; //necessary to make the redirect happen right now
+		 }
+		*/
 		String keyword = request.getParameter("search");
 		String selector=request.getParameter("selector");
 		System.out.println(keyword+" "+selector);

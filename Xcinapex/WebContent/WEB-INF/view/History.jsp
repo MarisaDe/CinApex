@@ -8,8 +8,7 @@
     <meta charset="UTF-8">
     <title>All Movies</title>
  </head>
- <body>
- <jsp:include page="_menu.jsp"></jsp:include>
+ <body><jsp:include page="menu.jsp"></jsp:include>
  
     <h3 align = "center">Order History</h3>
  <p style="color: red;">${errorString}</p>

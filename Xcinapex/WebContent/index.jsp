@@ -14,7 +14,6 @@
 <body>
 <body bgcolor = "grey">
 <jsp:include page="/WEB-INF/view/menu.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/view/footer.jsp"></jsp:include>
 	<h1>CinApex</h1>
  
   <%

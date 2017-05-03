@@ -59,6 +59,11 @@ public class Queue extends HttpServlet{
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomerQueue(conn, id);
+			request.setAttribute("errorString", errorString);
+		request.setAttribute("MovieList", allMovies);
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/Queue.jsp");
+        dispatcher.forward(request, response);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -67,12 +72,12 @@ public class Queue extends HttpServlet{
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		}catch (java.lang.NullPointerException e){
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+	        dispatcher.forward(request, response);
 		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/Queue.jsp");
-        dispatcher.forward(request, response);
+		
 		
    	}
 	/**

@@ -9,7 +9,7 @@
     <title>Add Movie</title>
  </head>
  <body>
- <jsp:include page="_menuEmp.jsp"></jsp:include>
+<jsp:include page="menu.jsp"></jsp:include>ude>
 
 
 <div class="container">

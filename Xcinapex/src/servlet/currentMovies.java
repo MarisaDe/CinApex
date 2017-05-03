@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
 import Beans.Movie;
+import Beans.Person;
 import Beans.Customer;
 import utils.DBUtils;
 
@@ -34,7 +35,19 @@ public class currentMovies extends HttpServlet{
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
+   		HttpSession session = request.getSession(true);
+		//System.out.println(session.getAttribute("loggedInUser").getClass());
+		if (session.getAttribute("loggedInUser")!=null){//make sure someone is logged in to check
+			Object usertype = session.getAttribute("loggedInUser");
+			if(!(usertype instanceof Customer)) 
+			 {
+				RequestDispatcher dispatcher = request.getServletContext()
+		                .getRequestDispatcher("/WEB-INF/view/404CustOnly.jsp");
+		        dispatcher.forward(request, response);
+			   return; //necessary to make the redirect happen right now
+			 }
+		}
+   		
 		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/c305";
    		String user = "root";
@@ -59,6 +72,11 @@ public class currentMovies extends HttpServlet{
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomersHeldMovies(conn, id);
+			request.setAttribute("errorString", errorString);
+			request.setAttribute("MovieList", allMovies);
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/currentMovies.jsp");
+	        dispatcher.forward(request, response);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -67,12 +85,12 @@ public class currentMovies extends HttpServlet{
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		}catch (java.lang.NullPointerException e){
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+	        dispatcher.forward(request, response);
 		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/currentMovies.jsp");
-        dispatcher.forward(request, response);
+		
 		
    	}
 	/**

@@ -59,6 +59,11 @@ public class History extends HttpServlet{
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomerHistory(conn, id);
+			request.setAttribute("errorString", errorString);
+			request.setAttribute("MovieList", allMovies);
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/History.jsp");
+	        dispatcher.forward(request, response);
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
 		} catch (java.sql.SQLException e) {
@@ -67,12 +72,12 @@ public class History extends HttpServlet{
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		}catch (java.lang.NullPointerException e){
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+	        dispatcher.forward(request, response);
 		}
-		request.setAttribute("errorString", errorString);
-		request.setAttribute("MovieList", allMovies);
-		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/History.jsp");
-        dispatcher.forward(request, response);
+		
 		
    	}
 	/**

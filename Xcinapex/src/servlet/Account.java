@@ -80,6 +80,10 @@ public class Account extends HttpServlet{
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		}catch (java.lang.NullPointerException e){
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/404.jsp");
+	        dispatcher.forward(request, response);
 		}
 	}
 

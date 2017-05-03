@@ -9,7 +9,7 @@
     <title>Add Employee</title>
  </head>
  <body>
- <jsp:include page="_menuEmp.jsp"></jsp:include>
+<jsp:include page="menu.jsp"></jsp:include>
 
 <script>
 function del(x) {

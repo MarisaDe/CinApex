@@ -20,6 +20,8 @@
           <th>Name</th>
           <th>Type</th>
           <th>Rating</th>
+          <th>Distribution Fee ($)</th>
+          <th>Copies Available</th>
        </tr>
        <c:forEach items="${MovieList}" var="movie" >
           <tr>
@@ -27,6 +29,8 @@
              <td>${movie.name}</td>
              <td>${movie.type}</td>
              <td>${movie.rating}</td>
+             <td>${movie.distrFee}</td>
+             <td>${movie.numCopies}</td>
              
           </tr>
        </c:forEach>
