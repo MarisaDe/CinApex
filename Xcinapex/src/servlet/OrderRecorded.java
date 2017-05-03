@@ -82,7 +82,8 @@ public class OrderRecorded extends HttpServlet {
 			conn.setAutoCommit(false);
 			
 			// Exec the queries and insert the data into the database
-			DBUtils.insertMovieOrder(conn, movieOrder);
+			
+			DBUtils.decrementMovie(conn,movieId ,movieOrder);
 			DBUtils.insertRental(conn, rental);
 			conn.commit();
    		}catch (Exception e) {

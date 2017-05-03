@@ -815,6 +815,18 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static void decrementMovie(Connection conn, int movieId,MovieOrder movieO) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql="UPDATE movie set numcopies=numcopies-1 where id=? and numcopies>0;";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		
+		pstm.setInt(1, movieId);
+		pstm.executeUpdate();
+		insertMovieOrder(conn,movieO);
+		
+	}
+
+
 	public static void insertRental(Connection conn, Rental rental) throws SQLException{
 		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?)";
 		
