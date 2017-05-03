@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp.*;
+import java.sql.Date.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -713,8 +715,15 @@ public class DBUtils {
 		pstm.setInt(1, movieOrder.getId());
 		pstm.setString(2, movieOrder.getAccountId());
 		pstm.setInt(3, movieOrder.getMovieId());
-		pstm.setString(4, movieOrder.getDateAndTime());
-		pstm.setInt(5, movieOrder.getReturnDate());
+		
+		System.out.println(" DNT :" + movieOrder.getDateAndTime());
+		System.out.println(" RD  :" + movieOrder.getReturnDate());
+		
+		java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+		java.sql.Date returnDate = java.sql.Date.valueOf(movieOrder.getReturnDate());
+		
+		pstm.setTimestamp(4, date);
+		pstm.setDate(5, returnDate);
 		
 		pstm.executeUpdate();
 	}
