@@ -404,7 +404,35 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-
+	
+	public static List<Account> AccountsForAGivenMonth(Connection conn, String Date) throws SQLException{
+		String sql = "SELECT * FROM Account where DateOpened > ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		java.sql.Date date = java.sql.Date.valueOf(Date);
+		pstm.setDate(1, date);
+		
+		List<Account> list = new ArrayList<Account>();
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			Account acc = new Account();
+			int id = rs.getInt("Id");
+			String dateOpened = rs.getString("DateOpened");
+			String customerId = rs.getString("CustomerId");
+			String type = rs.getString("AccType");
+			
+			acc.setId(id);
+			acc.setDate(dateOpened);
+			acc.setCustomerId(customerId);
+			acc.setType(type);
+			
+			list.add(acc);
+		}
+		
+		return list;
+		
+	}
 	// Obtain a Sales Report
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
 		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >? AND A.AccType = C.AcctType";
