@@ -28,9 +28,9 @@ public class BestSeller extends HttpServlet {
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
+		String url = "jdbc:mysql://localhost:3306/cinapex";
    		String user = "root";
-   		String pass = "pass";
+   		String pass = "serverplz!";
    		
    		/*
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
