@@ -15,6 +15,7 @@ import Beans.Employee;
 import Beans.Location;
 import Beans.Person;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/EmpAdded")
 public class EmpAdded extends HttpServlet {
@@ -28,25 +29,13 @@ public class EmpAdded extends HttpServlet {
 	
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		
-   		
+		
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
-   		String user = "root";
-   		String pass = "pass";
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
    		
-   		/*
-
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-		*/
-   		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver"; 
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-		String user = "root";
-		String pass = "serverplz!";
-		*/
+   		
 		java.sql.Connection conn = null;
    		
 		String errorString = null;

@@ -15,6 +15,7 @@ import Beans.Customer;
 import Beans.Location;
 import Beans.Person;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/CustAdded")
 public class CustAdded extends HttpServlet {
@@ -28,12 +29,13 @@ public class CustAdded extends HttpServlet {
 	
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		
+   		java.sql.Connection conn = null;
+
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-		String user = "root";
-		String pass = "serverplz!";
-		java.sql.Connection conn = null;
-   	
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
+		
 		String errorString = null;
 		
 		

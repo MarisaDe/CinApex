@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import Beans.*;
 import utils.DBUtils;
 import utils.MyUtils;
+import utils.setUpConnection;
 
 @WebServlet("/OrderRecorded")
 public class OrderRecorded extends HttpServlet {
@@ -36,18 +37,12 @@ public class OrderRecorded extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*
-		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/c305";
-   		String user = "root";
-   		String pass = "pass";
-   		*/
 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
-
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
+   		
    		
    		
    		java.sql.Connection conn = null;

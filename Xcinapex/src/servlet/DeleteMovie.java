@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import Beans.Movie;
 import utils.DBUtils;
+import utils.setUpConnection;
 
 @WebServlet("/DeleteMovie")
 public class DeleteMovie extends HttpServlet{
@@ -36,18 +37,11 @@ public class DeleteMovie extends HttpServlet{
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
    		//Don't forget to change this
-		/*
-   		String jdbc_driver= "com.mysql.jdbc.Driver";  
-		String url = "jdbc:mysql://localhost:3306/cinapex";
-   		String user = "root";
-   		String pass = "serverplz!";
-   		*/
-   		
 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
-   		String url = "jdbc:mysql://localhost/CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-   		String user = "manager";
-   		String pass = "manager";
+		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
+   		String user = setUpConnection.USERNAME;
+   		String pass = setUpConnection.PASSWORD;
    		
 
    		java.sql.Connection conn = null;
