@@ -71,7 +71,6 @@ public class personalList extends HttpServlet{
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getPersonalizeMovieSuggestions(conn, id);
-			conn.commit();
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("MovieList", allMovies);
 			RequestDispatcher dispatcher = request.getServletContext()
@@ -85,12 +84,7 @@ public class personalList extends HttpServlet{
 		
    		}catch (Exception e) {
         // Any error is grounds for rollback
-        try { 
-          conn.rollback();
-          System.out.println("Rolling back..");
-          e.printStackTrace();
-        }
-        catch (SQLException ignored) { } 
+        { } 
       }
 		
 		

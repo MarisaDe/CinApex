@@ -35,6 +35,21 @@ public class DBUtils {
 	}
 	
 
+	public static List<Movie> listAllMovies(Connection conn) throws SQLException {
+		String sql = "Select * From movie;";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+
+		List<Movie> allMovies = new ArrayList<Movie>();
+		while (rs.next()) {
+			Movie movie = buildMovie(rs);
+			allMovies.add(movie);
+		}
+		
+		return allMovies;
+	}
+	
+	
 	public static List<Movie> queryMovies(Connection conn) throws SQLException {
 		String sql = "Select * From movie where numcopies>0;";
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -613,6 +628,20 @@ public class DBUtils {
 		return rentedMovies;
 	}
 	
+	public static List<RentedMovies> findRentals(Connection conn, String keyword, String selector) throws SQLException{
+		if(selector.equals("Title")){
+			String percent="%";
+			String name=percent+keyword+percent;
+			return ListOfRentalMoviesByName(conn,name);
+		}else if (selector.equals("Id")){
+			return ListOfRentalMoviesByType(conn,keyword);
+		}else if(selector.equals("Customer")){
+			return ListOfRentalMoviesByCustName(conn, keyword);
+		}
+		
+		return null;
+	}
+	
 	public static List<RentedMovies> ListOfRentalMoviesByName(Connection conn, String name) throws SQLException{
 		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
@@ -646,12 +675,12 @@ public class DBUtils {
 	}
 	
 	
-	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName, String lastName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND P.LastName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setString(1, firstName);
-		pstm.setString(2, lastName);
+		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
 		
 		List<RentedMovies> list = new ArrayList<RentedMovies>();
@@ -831,6 +860,18 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static void decrementMovie(Connection conn, int movieId,MovieOrder movieO) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql="UPDATE movie set numcopies=numcopies-1 where id=? and numcopies>0;";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		
+		pstm.setInt(1, movieId);
+		pstm.executeUpdate();
+		insertMovieOrder(conn,movieO);
+		
+	}
+
+
 	public static void insertRental(Connection conn, Rental rental) throws SQLException{
 		String sql = "INSERT INTO rental(AccountId, CustRepId, OrderId, MovieId) VALUES (?, ?, ?,?)";
 		
@@ -944,9 +985,7 @@ public class DBUtils {
 	
 	public static List<Movie> getCustomerHistory(Connection conn, String custId) throws SQLException{
 		int id = getAccountIdFromCustomerId(conn,custId);
-		String sql = "SELECT * FROM Rental r JOIN movie m WHERE AccountId =? AND EXISTS( SELECT"+
-				 " ReturnDate FROM MovieOrder WHERE OrderId = Id) and r.mov"+
-				"ieid = m.id;";
+		String sql = "SELECT * FROM Rental r JOIN movie m JOIN movieorder b WHERE r.AccountId =? AND EXISTS( SELECT ReturnDate FROM MovieOrder WHERE OrderId = Id) and r.movieid = m.id and b.id=r.orderid ORDER BY b.dateandtime desc;";
 		
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		pstm.setInt(1, id);
