@@ -92,7 +92,20 @@ public class DBUtils {
 		return null;
 	}
 
+	public static Movie findMovieById(Connection conn, int id) throws SQLException{
+		String sql = "Select * from Movie where Id = ?";
 
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, id);
+
+		ResultSet rs = pstm.executeQuery();
+		
+		Movie movie = new Movie();
+		movie = buildMovie(rs);
+		
+		return movie;
+	}
 
 	public static List<Movie> findMovieByType(Connection conn, String type) throws SQLException {
 		String sql = "Select * from Movie where Type=? and numcopies>0";
@@ -223,6 +236,47 @@ public class DBUtils {
 	/**
 	 * Manager Level Transaction ONLY
 	 */
+	
+	public static void deleteMovieOrderByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM  movieOrder WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteRentalByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM  rental WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteMovieQByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM movieq WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteAppearedInByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM appearedIn WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
 	public static void deleteMovie(Connection conn, int id) throws SQLException {
 		String sql = "DELETE FROM Movie WHERE Id = ?";
 
@@ -232,9 +286,21 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+	
+	public static void updateMovieName(Connection conn, String name, int id) throws SQLException {
+		String sql = "UPDATE Movie SET Name = ? WHERE  Id = ?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, name);
+		pstm.setInt(2, id);
+
+		pstm.executeUpdate();
+
+	}
 
 	public static void updateMovieType(Connection conn, String type, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Type = ?";
+		String sql = "UPDATE Movie SET Type = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -246,7 +312,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieRating(Connection conn, int rating, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  Rating = ?";
+		String sql = "UPDATE Movie SET Rating = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -257,7 +323,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieDistrFee(Connection conn, int fee, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  DistrFee = ?";
+		String sql = "UPDATE Movie SET DistrFee = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -268,7 +334,7 @@ public class DBUtils {
 	}
 
 	public static void updateMovieNumCopies(Connection conn, int NumCopies, int id) throws SQLException {
-		String sql = "UPDATE Movie SET Rating = ? WHERE  NumCopies = ?";
+		String sql = "UPDATE Movie SET NumCopies = ? WHERE  Id = ?";
 
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
@@ -412,6 +478,18 @@ public class DBUtils {
 		PreparedStatement pstm = conn.prepareStatement(sql);
 
 		pstm.setInt(1, custId);
+
+		pstm.executeUpdate();
+
+	}
+	
+	
+	public static void deleteAccount(Connection conn, String custId) throws SQLException {
+		String sql = "DELETE FROM Account WHERE CustomerId=?";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setString(1, custId);
 
 		pstm.executeUpdate();
 
@@ -713,6 +791,23 @@ public class DBUtils {
 		
 	}
 	
+	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
+		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
+		//PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		//pstm.setInt(1, custId);
+		//ResultSet rs = pstm.executeQuery();
+			
+		deleteAccount(conn, custId);	
+		String sql2 = "DELETE FROM Customer WHERE Id=?";
+		PreparedStatement pstm2 = conn.prepareStatement(sql2);
+
+		pstm2.setString(1, custId);
+		pstm2.executeUpdate();
+		deletePerson(conn, ssn);
+
+	}
+	
 	public static void insertCustomer(Connection conn, Customer customer) throws SQLException{
 		String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?)";
 
@@ -820,7 +915,7 @@ public class DBUtils {
 	}
 	
 	
-	//Get all Employees
+	//Get all Customers
 	public static List<Customer> getCustomers(Connection conn) throws SQLException {
 		String sql = "Select * From Customer e JOIN Person p Where e.Id = p.SSN;";
 		PreparedStatement pstm = conn.prepareStatement(sql);

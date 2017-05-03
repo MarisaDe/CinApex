@@ -9,7 +9,7 @@
     <title>Edit Delete Movie</title>
  </head>
  <body>
-<jsp:include page="menu.jsp"></jsp:include>
+ <jsp:include page="_menuEmp.jsp"></jsp:include>
 
 
     <h3 align = "center">Movie List</h3>

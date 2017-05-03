@@ -17,14 +17,14 @@ import javax.servlet.http.HttpSession;
 import Beans.Movie;
 import utils.DBUtils;
 
-@WebServlet("/DeleteMovie")
-public class DeleteMovie extends HttpServlet{
+@WebServlet("/EditMovie")
+public class EditMovie extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMovie() {
+    public EditMovie() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,23 +57,53 @@ public class DeleteMovie extends HttpServlet{
 		String errorString = null;
 		
 		try{
+			
+			
+			String movieId = request.getParameter("MovieId");
+			String name = request.getParameter("MovieName");
+			String rating = request.getParameter("MovieRating");
+			String type = request.getParameter("MovieType");
+			String distrFee = request.getParameter("MovieDistFee");
+			String numCopies = request.getParameter("MovieNumCopies");
+			
+			System.out.println(movieId);
+			System.out.println(name);
+			System.out.println(rating);
+			System.out.println(type);
+			System.out.println(distrFee);
+			System.out.println(numCopies);
+			
+			//Movie movie = DBUtils.findMovieById(conn, Integer.parseInt(movieId));
+			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			allMovie= DBUtils.queryMovies(conn);
 			
-			int id = Integer.parseInt(request.getParameter("MovieId2"));
-			System.out.println("Trying to delete MovieId : " + id);
+			int id = Integer.parseInt(movieId);
 			
-			//Delete Rental by MovieId
-			DBUtils.deleteRentalByMovieId(conn, id);
-			//Delete MovieOrder by MovieId
-			DBUtils.deleteMovieOrderByMovieId(conn, id);
-			//Delete AppearedIn by MovieId
-			DBUtils.deleteAppearedInByMovieId(conn, id);
-			//Delete MovieQ by MovieId
-			DBUtils.deleteMovieQByMovieId(conn, id);
-			//Delete Movie
-			DBUtils.deleteMovie(conn, id);
+			
+			if(name != null && name.length() != 0){
+				DBUtils.updateMovieName(conn, name, id);
+			}
+			
+			if(type != null && type.length() != 0)
+				DBUtils.updateMovieType(conn, type, id);
+			
+			if(rating != null && rating.length() != 0){
+				int r =Integer.parseInt(rating);
+				DBUtils.updateMovieRating(conn, r, id);
+			}
+			
+			if(distrFee != null&& distrFee.length() != 0){
+				int df = Integer.parseInt(distrFee);
+				DBUtils.updateMovieDistrFee(conn, df, id);
+			}
+			
+			if(numCopies != null && numCopies.length() != 0){
+				int nC = Integer.parseInt(numCopies);
+				DBUtils.updateMovieNumCopies(conn, nC, id);
+			}
+				
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
@@ -92,7 +122,7 @@ public class DeleteMovie extends HttpServlet{
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovie);
 		RequestDispatcher dispatcher = request.getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/DeleteMovie.jsp");
+                .getRequestDispatcher("/WEB-INF/view/EditDelMovie.jsp");
         dispatcher.forward(request, response);
 	}
 	
