@@ -236,6 +236,47 @@ public class DBUtils {
 	/**
 	 * Manager Level Transaction ONLY
 	 */
+	
+	public static void deleteMovieOrderByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM  movieOrder WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteRentalByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM  rental WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteMovieQByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM movieq WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
+	public static void deleteAppearedInByMovieId(Connection conn, int id)throws SQLException {
+		String sql = "DELETE FROM appearedIn WHERE MovieId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, id);
+
+		pstm.executeUpdate();
+	}
+	
 	public static void deleteMovie(Connection conn, int id) throws SQLException {
 		String sql = "DELETE FROM Movie WHERE Id = ?";
 

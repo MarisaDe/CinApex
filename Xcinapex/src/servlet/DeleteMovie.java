@@ -64,12 +64,14 @@ public class DeleteMovie extends HttpServlet{
 			int id = Integer.parseInt(request.getParameter("MovieId2"));
 			System.out.println("Trying to delete MovieId : " + id);
 			
-			//Delete MovieOrder by MovieId
-			
 			//Delete Rental by MovieId
-			
+			DBUtils.deleteRentalByMovieId(conn, id);
+			//Delete MovieOrder by MovieId
+			DBUtils.deleteMovieOrderByMovieId(conn, id);
 			//Delete AppearedIn by MovieId
-			
+			DBUtils.deleteAppearedInByMovieId(conn, id);
+			//Delete MovieQ by MovieId
+			DBUtils.deleteMovieQByMovieId(conn, id);
 			//Delete Movie
 			DBUtils.deleteMovie(conn, id);
 			

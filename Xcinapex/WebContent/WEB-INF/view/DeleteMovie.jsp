@@ -6,7 +6,7 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>Delete Movies</title>
+    <title>Edit Delete Movie</title>
  </head>
  <body>
  <jsp:include page="_menuEmp.jsp"></jsp:include>
@@ -16,6 +16,49 @@
  <p style="color: red;">${errorString}</p>
 
  <form action="/Cinapex1/DeleteMovie">
+ <div class="form-group row">
+ <h2>Delete Movie</h2>
+     <div class="col-xs-4">
+        <label for="ex3">Movie Id</label>
+        <input class="form-control" id="ex3" type="number" name="MovieId2" placeholder="1" required autofocus>
+      </div>
+      <br>
+<input type="submit" value="Submit">
+</div>
+ </form>
+
+ <form action="/Cinapex1/EditMovie">
+ <div class="form-group row">
+ <h2>Edit Movie</h2>
+     <div class="col-xs-4">
+        <label for="ex3">Id</label>
+        <input class="form-control" id="ex3" type="number" name="MovieId" placeholder="1" required autofocus>
+      </div>
+         <div class="col-xs-4">
+        <label for="ex3">Name</label>
+        <input class="form-control" id="ex3" type="text" name="MovieName" placeholder="Departed" >
+      </div>
+         <div class="col-xs-4">
+        <label for="ex3">Type</label>
+        <input class="form-control" id="ex3" type="text" name="MovieType" placeholder="Drama" >
+      </div>
+         <div class="col-xs-4">
+        <label for="ex3">Rating</label>
+        <input class="form-control" id="ex3" type="number" name="MovieRating" placeholder="2" >
+      </div>
+         <div class="col-xs-4">
+        <label for="ex3">DistFee</label>
+        <input class="form-control" id="ex3" type="number" name="MovieDistFee" placeholder="4000" >
+      </div>
+         <div class="col-xs-4">
+        <label for="ex3">NumCopies</label>
+        <input class="form-control" id="ex3" type="number" name="MovieNumCopies" placeholder="5">
+      </div>
+      <br>
+<input type="submit" value="Submit">
+</div>
+ </form>
+ 
     <table class="table table-striped" id = "movieTable">
        <tr>
        <th></th>
@@ -29,8 +72,7 @@
        </tr>
        <c:forEach items="${MovieList}" var="movie" >
           <tr>
-          	 <td> <button type = "submit" class="btn-danger">X</button></td>
-          	 <td> <input type="hidden" name="MovieId2" value="${movie.id}"/>${movie.id}</td>
+          	 <td>${movie.id}</td>
           	 <td>${movie.name}</td>
           	 <td>${movie.type}</td>
           	 <td>${movie.rating}</td>
@@ -39,6 +81,6 @@
           </tr>
        </c:forEach>
     </table>
-    </form>
+    
  </body>
 </html>
