@@ -65,20 +65,19 @@ function del() {
 	       <form id = "someForm" action = "/Cinapex1/EditCust">
 	          <tr>
 	          	<td>
-	          	 <td> <button type = "submit" class="btn-danger" name = "del" onclick="del();">X</button></td>
-	          	<td><button type = "submit" class="btn-danger" name = "save" onclick="save(); refresh();">Save</button></td>
+	          	<td><button type = "submit" class="btn btn-primary" name = "save" onclick="save(); refresh();">Save</button></td>
 	          	 <td> <input type="hidden" name="custId" value="${cust.custId}"/>${cust.custId}
 	          	 <input type="hidden" name="personSSN" value="${cust.SSN}"/> </td>
-	          	 <td><input required name="custFirstName" value="${cust.firstName}"/></td>
-	          	 <td><input required name="custLastName" value="${cust.lastName}"/></td>
-	          	 <td><input required name="custAddress" value="${cust.address}"/></td>
+	          	 <td><input name="custFirstName" value="${cust.firstName}"/></td>
+	          	 <td><input name="custLastName" value="${cust.lastName}"/></td>
+	          	 <td><input name="custAddress" value="${cust.address}"/></td>
 	          	 <%-- <td><input required name="custCity" value="${cust.city}"/></td>--%>
 	          	 <%-- <td><input required name="custState" value="${cust.state}"/></td>--%>
-	          	 <td><input required name="custZipcode" value="${cust.zipcode}"/></td>
-	          	 <td><input required name="custTelephone" value="${cust.telephone}"/></td>
-	          	 <td><input required name="custEmail" value="${cust.email}"/></td>
-	             <td><input required name="custCCard" value="${cust.cCard}"/></td>
-	             <td><input required name="custRating" value="${cust.rating}"/></td>
+	          	 <td><input type = "hidden" name="custZipcode" value="${cust.zipcode}"/>${cust.zipcode}</td>
+	          	 <td><input name="custTelephone" value="${cust.telephone}"/></td>
+	          	 <td><input name="custEmail" value="${cust.email}"/></td>
+	             <td><input name="custCCard" value="${cust.cCard}"/></td>
+	             <td><input name="custRating" value="${cust.rating}"/></td>
 	     
           </tr></form>
        </c:forEach>
