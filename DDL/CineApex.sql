@@ -30,6 +30,14 @@ CREATE TABLE Employee (
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE );
 
+CREATE TABLE Manager (
+	ManagerId       CHAR(15),
+	
+    PRIMARY KEY (ManagerId),
+	FOREIGN KEY (ManagerId) REFERENCES Employee (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE );
+
 CREATE TABLE Customer (
 	Id               CHAR(15),
 	Email            CHAR(32),

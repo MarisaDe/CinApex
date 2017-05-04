@@ -136,3 +136,32 @@ FROM     Rental R, Movie M
 WHERE    M.Id = R.MovieId
 GROUP BY MovieId
 HAVING   totalCount >= 2;    -- If a movie is rented 2 or more time then its actively rented
+
+
+
+
+---- MANAGER ----
+CREATE TABLE Manager (
+	ManagerId       CHAR(15),
+	
+    PRIMARY KEY (ManagerId),
+	FOREIGN KEY (ManagerId) REFERENCES Employee (Id)
+		ON DELETE NO ACTION
+		ON UPDATE CASCADE );
+
+
+INSERT INTO Location(ZipCode, City, State)
+            VALUES
+            (223344, "Stony Brook", "NY");
+
+INSERT INTO Person(SSN, LastName, FirstName, Address, ZipCode, Telephone)
+                VALUES 
+                    ("121-21-2121", "Scott", "Smolka", "213 Data Base", "11794", "321-123-3213");
+
+INSERT INTO Employee(Id, SSN, StartDate, HourlyRate)
+                VALUES
+                    (0, "121-21-2121", 20060202, 150);
+
+INSERT INTO Manager(ManagerId)
+        VALUES
+            (0);
