@@ -13,6 +13,7 @@
  
     <h3 align = "center">Movie List</h3>
  <p style="color: red;">${errorString}</p>
+ <div class = "container">
     <table class = "table table-striped">
        <tr>
           <th>Movie Id</th>
@@ -34,7 +35,7 @@
           </tr>
        </c:forEach>
     </table>
- 
+ </div>
     
  </body>
 </html>

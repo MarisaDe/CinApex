@@ -11,10 +11,11 @@
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
  
+     <h3 align = "center">Customer Mailing List</h3>
  <div class="container">
  <div class="form-group row">
  
-    <h3 align = "center">Customer Mailing List</h3>
+
  <p style="color: red;">${errorString}</p>
     <table class = "table table-striped">
        <tr>

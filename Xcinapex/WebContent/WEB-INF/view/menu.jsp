@@ -91,15 +91,11 @@ margin-bottom: 0px;
 	      </form>
 	       </div>
 
-<<<<<<< HEAD
       <ul class="nav navbar-nav navbar-right">
-=======
-      <ul class="nav navbar-nav navbar-right"> 
-      <li><a href="/Cinapex1/Movie">Available Movies</a></li>
-        <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
->>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
       <c:if test="${loggedInUser eq null}">  
-              <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
+
+        <li><a href="/Cinapex1/Movie">Available Movies</a></li>
+        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>
         <li><a href="/Cinapex1/Login">Login</a></li>
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
         </c:if>
@@ -107,6 +103,7 @@ margin-bottom: 0px;
         
  <c:if test="${personType eq 'Customer' }">       
         <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
+                <li><a href="/Cinapex1/Movie">Available Movies</a></li>
          <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
@@ -160,32 +157,27 @@ margin-bottom: 0px;
       </c:if>  
       
    <c:if test="${(personType eq 'Employee')}">
-     		<li><a href="/Cinapex1/Logout">Logout</a></li> 
-     	        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>  
+     	<li><a href="/Cinapex1/Logout">Logout</a></li> 
+     	<li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>  
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/Cinapex1/AddCust">Add Customer</a></li>
             <li><a href="/Cinapex1/EditDelCust">Edit Customers</a></li>
             <li><a href="/Cinapex1/EditDelCust">Delete Customers</a></li>
-                        <li role="separator" class="divider"></li>
+            <li role="separator" class="divider"></li>
             <li><a href="/Cinapex1/MailingList">Produce Customer Mailing List</a></li>
             <li><a href="/Cinapex1/MovieSugg">Produce a list of movie suggestions</a></li>
             <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
             <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
+            <li><a href="/Cinapex1/Movie">View Available Movies</a></li>
           </ul>
         </li>
-<<<<<<< HEAD
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
    </c:if>
    
-    <c:if test="${personType eq 'Manager' }">  
-        <li><a href="/Cinapex1/Logout">Logout</a></li> 
-        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
-=======
-   </c:if>
    <c:if test="${(personType eq 'Manager')}">
->>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
+     <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -201,7 +193,10 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/FindRentedMovies">List Rentals</a></li>
             <li><a href="/Cinapex1/SalesReport">Sales Report</a></li>
             <li><a href="/Cinapex1/AllMovies">All Movie Listings</a></li>
+            <li><a href="/Cinapex1/Movie">All Available Movie Listings</a></li>
             <li><a href="/Cinapex1/Backup">Backup DataBase</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/Cinapex1/Logout">       <span class="glyphicon glyphicon-log-out"></span> Logout</span></a></li>
           </ul>
         </li>
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
