@@ -77,7 +77,7 @@ public class CustAdded extends HttpServlet {
 			cust.setTelephone(phone);
 			cust.setEmail(email);
 			cust.setRating(Integer.parseInt(rating));
-			cust.setcCard(cCard);
+			cust.setCCard(cCard);
 			
 			
 			Class.forName(jdbc_driver).newInstance();

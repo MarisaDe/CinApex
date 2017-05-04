@@ -20,16 +20,13 @@ public class setUpConnection {
 	public static String USERNAME = "manager";
 	public static String PASSWORD = "manager";
 	*/
-<<<<<<< HEAD
-=======
-	/*
->>>>>>> 85e664152848b338924b7d2ce8d9238b72755c41
+	
 	public static String DATABASENAME = "c305";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "pass";
-*/
+	/*
 	public static String DATABASENAME = "cinapex";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "serverplz!";
-	
+	*/
 }

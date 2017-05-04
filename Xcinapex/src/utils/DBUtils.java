@@ -968,7 +968,7 @@ public class DBUtils {
 		pstm.setString(1, customer.getCustId());
 		pstm.setString(2, customer.getEmail());
 		pstm.setInt(3, customer.getRating());
-		pstm.setString(4, customer.getcCard());
+		pstm.setString(4, customer.getCCard());
 
 		pstm.executeUpdate();
 
@@ -1064,7 +1064,7 @@ public class DBUtils {
 		cust.setZipcode(rs.getInt("ZipCode"));
 		cust.setEmail(rs.getString("Email"));
 		cust.setRating(rs.getInt("Rating"));
-		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCCard(rs.getString("CreditCardNumber"));
 		cust.setCustId(rs.getString("ID"));
 
 		return cust;
@@ -1110,7 +1110,7 @@ public class DBUtils {
 		emp.setLastName(rs.getString("LastName"));
 		emp.setTelephone(rs.getString("Telephone"));
 		emp.setZipcode(rs.getInt("ZipCode"));
-		emp.setcCard(rs.getString("CreditCardNumber"));
+		emp.setCCard(rs.getString("CreditCardNumber"));
 		emp.setRating(rs.getInt("Rating"));
 		emp.setEmail(rs.getString("Email"));
 		emp.setCustId(rs.getString("Id"));
