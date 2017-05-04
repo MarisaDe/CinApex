@@ -19,7 +19,7 @@
  <div class="form-group row">
      <div class="col-xs-4">
         <label for="ex3">Customer Id</label>
-        <input class="form-control" id="ex3" type="number" name="cIdPersonal" placeholder="1" required autofocus>
+        <input class="form-control" id="ex3" type="text" name="cIdPersonal" placeholder="1" required autofocus>
       </div>
       <br>
 <button type="submit" value="Submit" class="btn btn-primary">Produce</button>

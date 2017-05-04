@@ -146,7 +146,7 @@ margin-bottom: 0px;
             <li class="divider"></li>
             <li><a href="/Cinapex1/currentMovies">Current Movies Held <span class="glyphicon glyphicon-facetime-video pull-right"></span></a></li>
             <li class="divider"></li>
-            <li><a href="#">Rate Your Movies <span class="glyphicon glyphicon-thumbs-up pull-right"></span></a></li>
+            <li><a href="/Cinapex1/History">Rate Your Movies <span class="glyphicon glyphicon-thumbs-up pull-right"></span></a></li>
             <li class="divider"></li>
             
             <li><a href="/Cinapex1/Logout">Logout<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
