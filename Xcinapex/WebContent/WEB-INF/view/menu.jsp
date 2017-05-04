@@ -97,7 +97,7 @@ margin-bottom: 0px;
         <li><a href="/Cinapex1/Movie">Available Movies</a></li>
         <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>
         <li><a href="/Cinapex1/Login">Login</a></li>
-        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
+<li><a href="${pageContext.request.contextPath}/UserGuide.pdf"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
         </c:if>
         
         
@@ -152,7 +152,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/Logout">Logout<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                     </ul>
                 </li>
-             <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
+             <li><a href="${pageContext.request.contextPath}/UserGuide.pdf"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
                 
       </c:if>  
       
@@ -175,7 +175,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/Logout">       <span class="glyphicon glyphicon-log-out"></span> Logout</span></a></li>
           </ul>
         </li>
-        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
+<li><a href="${pageContext.request.contextPath}/UserGuide.pdf"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
    </c:if>
    
    <c:if test="${(personType eq 'Manager')}">
@@ -201,7 +201,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/Logout">       <span class="glyphicon glyphicon-log-out"></span> Logout</span></a></li>
           </ul>
         </li>
-        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
+<li><a href="${pageContext.request.contextPath}/UserGuide.pdf"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
       </ul>
 </c:if>
    
