@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class setUpConnection {
-	/*
+	
 	public static String DATABASENAME = "CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	public static String USERNAME = "manager";
 	public static String PASSWORD = "manager";
+<<<<<<< HEAD
 	*/
 	/*
 	public static String DATABASENAME = "c305";
@@ -26,16 +27,27 @@ public class setUpConnection {
 	public static String PASSWORD = "pass";
 */
 	
+=======
+>>>>>>> 48a9ddab61272b3dcf64bd2a2274bc5de5758ec1
 	
+
+
+	/*
 	public static String DATABASENAME = "c305";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "pass";
-
+	*/
 	/*
+<<<<<<< HEAD
 	 /*
+=======
+>>>>>>> 48a9ddab61272b3dcf64bd2a2274bc5de5758ec1
 	public static String DATABASENAME = "cinapex";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "serverplz!";
 	*/
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 48a9ddab61272b3dcf64bd2a2274bc5de5758ec1
 }
