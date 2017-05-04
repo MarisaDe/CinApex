@@ -45,7 +45,7 @@ public class DBUtils {
 		if(rs.next()){
 			managerId = rs.getInt("ManagerId");
 			String SSN = rs.getString("SSN");
-			String firstName = rs.getString("FistName");
+			String firstName = rs.getString("FirstName");
 			String lastName = rs.getString("lastName");
 			
 			manager.setSsn(SSN);
@@ -1204,7 +1204,14 @@ public class DBUtils {
 	public static Person loginChoice(Connection conn, String name, String personType) throws SQLException {
 		if (personType.equals("Employee")){
 			System.out.println("empl");
-			return getEmployee(conn,name);
+			Employee emp = getEmployee(conn,name);
+			Manager manager = getManager(conn);
+			
+			if(manager.getManagerId() == emp.getId()){
+				return manager;
+			}
+			
+			return emp;
 		}else if (personType.equals("Customer")){
 			System.out.print("Cust");
 			return getCustomer(conn,name);
