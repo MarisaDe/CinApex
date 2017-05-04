@@ -14,7 +14,6 @@ import Beans.*;
 
 public class DBUtils {
 
-	
 	public static Movie buildMovie(ResultSet rs) throws SQLException {
 		int distrFee = rs.getInt("DistrFee");
 		int id = rs.getInt("Id");
@@ -32,6 +31,32 @@ public class DBUtils {
 		movie.setType(type);
 
 		return movie;
+	}
+	
+	public static Manager getManager(Connection conn) throws SQLException{
+		
+		Manager manager = new Manager();
+		int managerId = 0;
+		
+		String sql = " SELECT * FROM Manager m, Employee e, Person p Where m.ManagerId = e.Id AND e.SSN = p.SSN";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		// ManagerId | Id | SSN | StartDate  | HourlyRate | SSN | LastName | FirstName | Address | ZipCode | Telephone 
+		if(rs.next()){
+			managerId = rs.getInt("ManagerId");
+			String SSN = rs.getString("SSN");
+			String firstName = rs.getString("FistName");
+			String lastName = rs.getString("lastName");
+			
+			manager.setSsn(SSN);
+			manager.setFirstName(firstName);
+			manager.setLastName(lastName);
+		}
+			
+		
+		manager.setManagerId(managerId);
+		
+		return manager;
 	}
 	
 
