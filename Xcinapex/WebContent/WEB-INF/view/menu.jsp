@@ -190,6 +190,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/FindRentedMovies">List Rentals</a></li>
             <li><a href="/Cinapex1/SalesReport">Sales Report</a></li>
             <li><a href="/Cinapex1/AllMovies">All Movie Listings</a></li>
+            <li><a href="/Cinapex1/Backup">Backup DataBase</a></li>
           </ul>
         </li>
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
