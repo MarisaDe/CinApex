@@ -45,12 +45,25 @@ public class DBUtils {
 		if(rs.next()){
 			managerId = rs.getInt("ManagerId");
 			String SSN = rs.getString("SSN");
-			String firstName = rs.getString("FirstName");
+			String startDate = rs.getString("StartDate");
+			int hourlyRate = rs.getInt("HourlyRate");
 			String lastName = rs.getString("lastName");
+			String firstName = rs.getString("FirstName");
+			String address = rs.getString("Address");
+			int zip = rs.getInt("ZipCode");
+			String phone = rs.getString("Telephone");
+			
 			
 			manager.setSsn(SSN);
 			manager.setFirstName(firstName);
 			manager.setLastName(lastName);
+			manager.setId(managerId);
+			manager.setAddress(address);
+			manager.setZipcode(zip);
+			manager.setTelephone(phone);
+			manager.setHourlyRate(hourlyRate);
+			manager.setStartDate(startDate);
+			
 		}
 			
 		
@@ -90,7 +103,7 @@ public class DBUtils {
 	}
 	
 	public static List<Movie> getBestSeller(Connection conn) throws SQLException {
-		String sql = "SELECT M.Id, M.Name, M.Type, M.Rating, N.NumOrders FROM MovieOrder N, Movie M WHERE N.MovieId = M.Id ORDER BY N.NumOrders DESC";
+		String sql = "Select * from movie order by rating desc limit 3";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 

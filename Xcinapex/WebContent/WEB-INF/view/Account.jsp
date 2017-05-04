@@ -6,29 +6,54 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>All Movies</title>
+<<<<<<< HEAD
+    <title>Your Account</title>
+=======
+    <title>Cinapex</title>
+>>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
  </head>
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
- 
-    <h3 align = "center">Your Account</h3>
- <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" align = "center">
-      
-       <h3>${personType}</h3>
-         <h3>Last Name:${loggedInUser.lastName}</h3>
-         <h3>First Name:${loggedInUser.firstName}</h3>
-         <h3>Address :${loggedInUser.address } ${loggedInUser.zipcode}</h3>
-         <h3>Telephone Number:${loggedInUser.telephone}</h3>
-         <h3>Email Address:${loggedInUser.email}</h3>
-         <h3>Credit Card Number:${loggedInUser.CCard}</h3>
-         <h3>Rating:${loggedInUser.rating}</h3>
 
-         
-         
-         
-    </table>
- 
+<h3><center>Welcome back,  ${loggedInUser.firstName}!</center></h3>
+<div class = "container">
+<table class="table table-striped" id = "accTable">
+  <tr>
+    <th>Account- ${personType}</th>
+
+  </tr>
+  <tr>
+    <td>Last Name: ${loggedInUser.lastName}</td>
     
+  </tr>
+  <tr>
+    <td>First Name: ${loggedInUser.firstName}</td>
+  
+  </tr>
+  <tr>
+    <td>Address :${loggedInUser.address } ${loggedInUser.zipcode}</td>
+  
+  </tr>
+  <tr>
+   
+  </tr>
+  <tr>
+    <td>Telephone Number:${loggedInUser.telephone}</td>
+    
+  </tr>
+  <tr>
+    <td>Email Address:${loggedInUser.email}</td> 
+  </tr>
+  
+    <tr>
+    <td>Credit Card Number:${loggedInUser.CCard}</td> 
+  </tr>
+    <tr>
+    <td>Rating:${loggedInUser.rating}</td> 
+  </tr>
+  
+</table>
+</div>
+
  </body>
 </html>
