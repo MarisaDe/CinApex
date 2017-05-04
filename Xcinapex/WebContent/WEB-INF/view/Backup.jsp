@@ -26,12 +26,14 @@ function getfolder(e) {
 		
 			<h3>BackUp DataBase</h3>
 			<div class="form-group">
+				
 				<label>Path:</label> <input type="text" class="form-control" name="path" id="usr" required autofocus>
+				
 			</div>
 			<!-- 
 			<input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
 				 -->
-				 <button type="button" class="btn btn-success">Backup</button>
+				 <button type="submit" class="btn btn-success">Backup</button>
 				 
 		</form>
 

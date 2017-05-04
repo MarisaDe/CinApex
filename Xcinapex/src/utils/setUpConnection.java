@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 public class setUpConnection {
 	
+	public static String SQLDUMP = "/usr/local/bin/mysqldump";
 	public static String DATABASENAME = "CineApex?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	public static String USERNAME = "manager";
 	public static String PASSWORD = "manager";
