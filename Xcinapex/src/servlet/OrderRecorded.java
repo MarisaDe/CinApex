@@ -36,7 +36,7 @@ public class OrderRecorded extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession(true);
 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
@@ -51,7 +51,8 @@ public class OrderRecorded extends HttpServlet {
 			
 			int orderId = Integer.parseInt(request.getParameter("MOId"));
 			String accountId = request.getParameter("MOAId");
-			String custRepId = request.getParameter("MOCId");
+			Employee custrep= (Employee) session.getAttribute("loggedInUser");
+			int custRepId = custrep.getId();
 			int movieId =  Integer.parseInt(request.getParameter("MOMId"));			
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 			String returnDate = request.getParameter("MORD");
@@ -85,6 +86,13 @@ public class OrderRecorded extends HttpServlet {
 			
 			DBUtils.decrementMovie(conn,movieId ,movieOrder);
 			DBUtils.insertRental(conn, rental);
+			System.out.println("TEST ACC ID " + accountId);
+			System.out.println("TEST CUST ID " + DBUtils.getCustomerIdFromAccountId(conn, accountId));
+			
+			DBUtils.addUserRating(conn, (DBUtils.getCustomerIdFromAccountId(conn, rental.getAccountId())), movieOrder.getMovieId());
+
+
+			
 			conn.commit();
    		}catch (Exception e) {
    	        // Any error is grounds for rollback

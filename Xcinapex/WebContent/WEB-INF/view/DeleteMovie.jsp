@@ -80,7 +80,6 @@
              <td>${movie.numCopies}</td>
           </tr>
        </c:forEach>
-    </table>
-    
+    </table>  
  </body>
 </html>

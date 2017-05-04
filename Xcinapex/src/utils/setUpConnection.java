@@ -25,7 +25,9 @@ public class setUpConnection {
 	public static String DATABASENAME = "c305";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "pass";
-/*
+
+
+	/*
 	public static String DATABASENAME = "cinapex";
 	public static String USERNAME = "root";
 	public static String PASSWORD = "serverplz!";

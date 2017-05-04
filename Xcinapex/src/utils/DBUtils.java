@@ -160,6 +160,28 @@ public class DBUtils {
 		return list;
 	}
 
+	// Return an employee to build a list
+	public static UserRatings buildUserRating(ResultSet rs) throws SQLException {
+		UserRatings ur = new UserRatings ();
+		ur.setCustomerId(rs.getString("CustomerId"));
+		ur.setMovieId(rs.getInt("MovieId"));
+		ur.setRating(rs.getInt("Rating"));
+
+		return ur;
+	}
+	
+	public static void addUserRating(Connection conn, String custId, int movieId) throws SQLException {
+		String sql = "INSERT INTO userratings VALUES(?,?,NULL)";
+
+	    System.out.println(custId);
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, custId);
+		pstm.setInt(2, movieId);
+
+	    pstm.executeUpdate();
+	}
+
+	
 	public static List<Actors> findActorByName(Connection conn, String name) throws SQLException{
 		String sql = "SELECT *  FROM Actor WHERE Name LIKE ?;";
 		List<Actors> list = new ArrayList<Actors>();
@@ -766,6 +788,20 @@ public class DBUtils {
 		
 	}
 	
+	public static String getCustomerIdFromAccountId(Connection conn, String accid) throws SQLException{
+		String msql="SELECT a.Customerid FROM account a JOIN customer c  where a.customerid = c.id and a.id =?";
+		PreparedStatement ps = conn.prepareStatement(msql);
+		ps.setString(1, accid);
+		ResultSet rs= ps.executeQuery();
+		String i = null;
+		while (rs.next()){
+			i=rs.getString(1);
+		}
+		return i;
+		
+	}
+	
+	
 	public static List<Movie> getCustomersHeldMovies(Connection conn, String custid) throws SQLException {
 		int id=getAccountIdFromCustomerId(conn,custid);
 		
@@ -857,8 +893,8 @@ public class DBUtils {
 		
 		Rental rental  = new Rental();
 		
-		String custRepId = rs.getString("AccountId");
-		String accountId = rs.getString("CustRepId");
+		int custRepId = rs.getInt("CustRepId");
+		String accountId = rs.getString("AccountId");
 		int orderId = rs.getInt("OrderId");
 		int movieId = rs.getInt("MovieId");
 
@@ -935,8 +971,8 @@ public class DBUtils {
 		//ResultSet rs = pstm.executeQuery();
 		//Rental rental = buildRental(rs);
 		
-		pstm.setString(1, rental.getCustRepId());
-		pstm.setString(2, rental.getAccountId());
+		pstm.setString(1, rental.getAccountId());
+		pstm.setInt(2, rental.getCustRepId());
 		pstm.setInt(3, rental.getOrderId());
 		pstm.setInt(4, rental.getMovieId());
 		

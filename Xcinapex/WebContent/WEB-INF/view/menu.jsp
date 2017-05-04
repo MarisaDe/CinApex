@@ -98,6 +98,7 @@ margin-bottom: 0px;
                         <li role="separator" class="divider"></li>
             <li><a href="/Cinapex1/MailingList">Produce Customer Mailing List</a></li>
             <li><a href="#">Produce a list of movie suggestions</a></li>
+            <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
           </ul>
         </li>
         
