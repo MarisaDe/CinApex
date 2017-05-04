@@ -11,7 +11,7 @@
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
  
-    <h3 align = "center">Movie List</h3>
+    <h3 align = "center">All Available Movies List</h3>
  <p style="color: red;">${errorString}</p>
  <div class = "container">
     <table class = "table table-striped">
