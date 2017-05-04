@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import Beans.Customer;
 import Beans.Location;
 import Beans.Person;
+import Beans.Account;
 import utils.DBUtils;
 import utils.setUpConnection;
 
@@ -52,6 +55,8 @@ public class CustAdded extends HttpServlet {
 			String email = request.getParameter("Email");
 			String cCard = request.getParameter("cCard");
 			String rating = request.getParameter("rating");
+			String acctId = request.getParameter("acctId");
+			String acctType = request.getParameter("accountType");
 			
 			
 			Location location = new Location();
@@ -79,6 +84,14 @@ public class CustAdded extends HttpServlet {
 			cust.setRating(Integer.parseInt(rating));
 			cust.setCCard(cCard);
 			
+			String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+
+			Account acct = new Account();
+			acct.setId(Integer.parseInt(acctId));
+			acct.setDate(date);
+			acct.setType(acctType);
+			acct.setCustomerId(id);
+			
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
@@ -86,6 +99,8 @@ public class CustAdded extends HttpServlet {
 			DBUtils.insertLocation( conn, location);
 			DBUtils.insertPerson(conn, person);
 			DBUtils.insertCustomer(conn, cust);
+			DBUtils.insertAccount(conn, acct);
+			
 			conn.commit();
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext()

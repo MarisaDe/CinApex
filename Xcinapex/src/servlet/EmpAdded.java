@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 import Beans.Employee;
 import Beans.Location;
 import Beans.Person;
@@ -93,11 +95,14 @@ public class EmpAdded extends HttpServlet {
 			
 			conn.commit();
 			request.setAttribute("errorString", errorString);
-			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/EmpAdded.jsp");
-	        dispatcher.forward(request, response);
+			
 				
-		}catch (Exception e) {
+		}catch (MysqlDataTruncation se) {
+			RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/AddEmp.jsp");
+	        dispatcher.forward(request, response);
+	        return;
+		} catch (Exception e) {
 	        // Any error is grounds for rollback
 	        try { 
 	          conn.rollback();
@@ -106,6 +111,9 @@ public class EmpAdded extends HttpServlet {
 	        }
 	        catch (SQLException ignored) { } 
 	      }
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/EmpAdded.jsp");
+        dispatcher.forward(request, response);
 		
 	}
 	

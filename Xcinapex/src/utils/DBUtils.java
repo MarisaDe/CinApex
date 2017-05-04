@@ -286,6 +286,33 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static int  getZipBySSN(Connection conn, String ssn) throws SQLException{
+		String sql = "SELECT ZipCode from person where ssn = ?";
+		int zip = -1;
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, ssn);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		if(rs.next()){
+			zip = rs.getInt("ZipCode");
+		}
+		
+		return zip;
+	}
+	
+	public static void deleteLocation(Connection conn, int zip) throws SQLException{
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM Location where ZipCode = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, zip);
+		
+		pstm.executeUpdate();
+		
+	}
+	
 	public static void deleteRentalByMovieId(Connection conn, int id)throws SQLException {
 		String sql = "DELETE FROM  rental WHERE MovieId = ?";
 		
@@ -561,6 +588,28 @@ public class DBUtils {
 
 	}
 	
+	public static void deleteMovieOrderByAccount(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieOrder WHERE AccountId  = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
+
+
+	public static void deleteMovieQByAcctId(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieq WHERE AccountId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
 	
 	public static void deleteRental(Connection conn, int custId) throws SQLException {
 		String sql = "DELETE FROM Rental WHERE CustRepId=?";
@@ -727,12 +776,13 @@ public class DBUtils {
 	}
 	
 	
-	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String name) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? OR P.LastName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		firstName = "%" + firstName + "%";
-		pstm.setString(1, firstName);
+		name = "%" + name + "%";
+		pstm.setString(1, name);
+		pstm.setString(2, name);
 		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -1036,20 +1086,12 @@ public class DBUtils {
 		
 	}
 	
-	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
-		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
-		//PreparedStatement pstm = conn.prepareStatement(sql);
-		
-		//pstm.setInt(1, custId);
-		//ResultSet rs = pstm.executeQuery();
-			
-		deleteAccount(conn, custId);	
+	public static void deleteCustomer(Connection conn, String ssn) throws SQLException {
 		String sql2 = "DELETE FROM Customer WHERE Id=?";
 		PreparedStatement pstm2 = conn.prepareStatement(sql2);
 
-		pstm2.setString(1, custId);
+		pstm2.setString(1, ssn);
 		pstm2.executeUpdate();
-		deletePerson(conn, ssn);
 
 	}
 	
@@ -1234,5 +1276,19 @@ public class DBUtils {
 		pstm.setInt(2, movId);
 		pstm.executeUpdate();
 	}
+	public static void insertAccount(Connection conn, Account acct) throws SQLException {
+		
+		String sql = "INSERT INTO Account VALUES(?, ?, ?, ?);";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acct.getId());
+		pstm.setString(2, acct.getDate());
+		pstm.setString(3, acct.getType());
+		pstm.setString(4, acct.getCustomerId());
+
+		pstm.executeUpdate();
+	}
+
 	
 }
