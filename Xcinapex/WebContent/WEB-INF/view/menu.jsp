@@ -183,7 +183,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/ActivelyRentedMovies">List Active Movies</a></li>
             <li><a href="/Cinapex1/FindRentedMovies">List Rentals</a></li>
             <li><a href="/Cinapex1/SalesReport">Sales Report</a></li>
-            <li><a href="/Cinapex1/Movie">All Movie Listings</a></li>
+            <li><a href="/Cinapex1/AllMovies">All Movie Listings</a></li>
           </ul>
         </li>
         <li><a href="/Cinapex1/BestSellers">Help</a></li>
