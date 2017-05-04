@@ -44,15 +44,17 @@ public class MovieList extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
 			allMovies= DBUtils.queryMovies(conn);
-			conn.commit();
+			//conn.commit();
    		}catch (Exception e) {
    	        // Any error is grounds for rollback
-   	        try { 
+   	        /*try { 
    	          conn.rollback();
    	          System.out.println("Rolling back..");
    	          e.printStackTrace();
    	        }
-   	        catch (SQLException ignored) { } 
+   	        catch (SQLException ignored) {
+   	        	
+   	        } */
    	      }
 		request.setAttribute("errorString", errorString);
 		request.setAttribute("MovieList", allMovies);

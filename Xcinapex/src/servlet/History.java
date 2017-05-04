@@ -72,6 +72,7 @@ public class History extends HttpServlet{
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomerHistory(conn, id);
+			System.out.println("num movies="+allMovies.size());
 			conn.commit();
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("MovieList", allMovies);

@@ -2,7 +2,7 @@ package Beans;
 
 public class Account extends Customer{
 	
-	private String id;
+	private int id;
 	private String date;
 	private String type;
 	private String customerId;
@@ -11,18 +11,18 @@ public class Account extends Customer{
 		super();
 	}
 	
-	public Account(String id, String date, String type, String customerId){
+	public Account(int id, String date, String type, String customerId){
 		this.id = id;
 		this.date = date;
 		this.type = type;
 		this.customerId = customerId;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

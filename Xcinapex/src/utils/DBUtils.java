@@ -404,7 +404,35 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-
+	
+	public static List<Account> AccountsForAGivenMonth(Connection conn, String Date) throws SQLException{
+		String sql = "SELECT * FROM Account where DateOpened > ?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		java.sql.Date date = java.sql.Date.valueOf(Date);
+		pstm.setDate(1, date);
+		
+		List<Account> list = new ArrayList<Account>();
+		ResultSet rs = pstm.executeQuery();
+		
+		while(rs.next()){
+			Account acc = new Account();
+			int id = rs.getInt("Id");
+			String dateOpened = rs.getString("DateOpened");
+			String customerId = rs.getString("CustomerId");
+			String type = rs.getString("AccType");
+			
+			acc.setId(id);
+			acc.setDate(dateOpened);
+			acc.setCustomerId(customerId);
+			acc.setType(type);
+			
+			list.add(acc);
+		}
+		
+		return list;
+		
+	}
 	// Obtain a Sales Report
 	public static int obtainSalesReport(Connection conn, String Date) throws SQLException {
 		String sql = "SELECT SUM(C.MonthlyFee) FROM Account A, Cost C WHERE A.DateOpened >? AND A.AccType = C.AcctType";
@@ -643,9 +671,10 @@ public class DBUtils {
 	}
 	
 	public static List<RentedMovies> ListOfRentalMoviesByName(Connection conn, String name) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Name LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		name = "%" + name + "%";
 		pstm.setString(1, name);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -659,9 +688,10 @@ public class DBUtils {
 	}
 	
 	public static List<RentedMovies> ListOfRentalMoviesByType(Connection conn, String type) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Type = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND M.Type LIKE ?  AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		type = "%" + type + "%";
 		pstm.setString(1, type);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -676,9 +706,10 @@ public class DBUtils {
 	
 	
 	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName = ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		firstName = "%" + firstName + "%";
 		pstm.setString(1, firstName);
 		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
@@ -687,6 +718,31 @@ public class DBUtils {
 		while(rs.next()){
 			RentedMovies RM = buildRentedMovies(rs);
 			list.add(RM);
+		}
+		
+		return list;
+	}
+	
+	public static List<ActiveRented> listOfActivelyRentedMovies(Connection conn) throws SQLException{
+		String sql = "SELECT M.ID, M.Name, M.Rating, O.NumOrders FROM OrderList O, Movie M WHERE O.MovieId = M.ID AND O.NumOrders >= (SELECT MAX(R.NumOrders) FROM OrderList R)";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		
+		List<ActiveRented> list = new ArrayList<ActiveRented>();
+		while(rs.next()){
+			int id = rs.getInt("Id");
+			String name = rs.getString("Name");
+			int rating = rs.getInt("Rating");
+			int numOrders = rs.getInt("NumOrders");
+			
+			ActiveRented AR = new ActiveRented();
+			
+			AR.setId(id);
+			AR.setName(name);
+			AR.setRating(rating);
+			AR.setNumOrders(numOrders);
+			
+			list.add(AR);
 		}
 		
 		return list;
@@ -996,9 +1052,9 @@ public class DBUtils {
 
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
+			System.out.println(movie.getName());
 			list.add(movie);
 		}
-
 		return list;
 	}
 	
@@ -1116,6 +1172,31 @@ public class DBUtils {
 		emp.setCustId(rs.getString("Id"));
 		
 		return emp;
+	}
+
+
+	public static void editUserRating(Connection conn, String id, int movId, int userrating) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql= "update userratings set rating=? where customerid=? and movieid=?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, userrating);
+		pstm.setString(2, id);
+		pstm.setInt(3, movId);
+		pstm.executeUpdate();
+		changeMoviesRating(conn, movId);
+		
+	}
+
+
+	private static void changeMoviesRating(Connection conn, int movId) throws SQLException {
+		// TODO Auto-generated method stub\
+		String sql= "update movie m, (select avg(rating) avgrate from userratings where userratings.movieid=?) s SET m"
+				+ ".rating = s.avgrate where m.id=? ";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		pstm.setInt(1, movId);
+		pstm.setInt(2, movId);
+		pstm.executeUpdate();
 	}
 	
 }

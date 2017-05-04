@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Beans.Account;
 import Beans.Movie;
+import Beans.SaleReport;
 import utils.DBUtils;
 import utils.MyUtils;
 import utils.setUpConnection;
@@ -37,11 +40,21 @@ public class SalesReport_R extends HttpServlet {
    		
    		
    		int sumOfSales = 0;
+   		List<Account> accList = new ArrayList<Account>();
+   		SaleReport SR = new SaleReport();
    		
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			sumOfSales = DBUtils.obtainSalesReport(conn, date);
+			accList = DBUtils.AccountsForAGivenMonth(conn, date);
+			System.out.println("Sum" + sumOfSales);
+			System.out.println("List of accounts : " + accList.size());
+			SR.setTotalSales(sumOfSales);
+			SR.setAccounts(accList);
+			SR.setDate(date);
+			
+			
 
 		}catch (ClassNotFoundException e){
 			e.printStackTrace();
@@ -53,7 +66,7 @@ public class SalesReport_R extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("sum", sumOfSales);
+		request.setAttribute("salesReport", SR);
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/SalesReport_R.jsp");
 		
