@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 
 import Beans.Customer;
+import Beans.Employee;
 import utils.DBUtils;
 import utils.setUpConnection;
 
@@ -42,6 +43,8 @@ public class EditEmp extends HttpServlet{
    		String pass = setUpConnection.PASSWORD;
    		java.sql.Connection conn = null;
 	   	
+   		List<Employee> allEmps=null;
+   		
 		String errorString = null;
 		
 		try{
@@ -64,8 +67,10 @@ public class EditEmp extends HttpServlet{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
 			DBUtils.updateEmployeeAll(conn,ssn,first,last,address,zip,phone,startDate,hourR);
+			allEmps= DBUtils.getEmployees(conn);
 			
 			request.setAttribute("errorString", errorString);
+			request.setAttribute("EmpList", allEmps);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/EditDelEmp.jsp");
 	        dispatcher.forward(request, response);
