@@ -18,7 +18,7 @@ import Beans.Employee;
 import utils.DBUtils;
 import utils.setUpConnection;
 
-@WebServlet("/ViewEmployee")
+@WebServlet("/ViewEmployees")
 public class ViewEmployees extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     

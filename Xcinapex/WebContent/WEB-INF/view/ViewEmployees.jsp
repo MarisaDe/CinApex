@@ -32,16 +32,14 @@
        <c:forEach items="${EmpList}" var="emp" >
           <tr>
            <form id = "empForm">
-          	 <td><input type="hidden" name="ssnOfEmp" value="${emp.ssn}"/>${emp.ssn}</td>
-          	 <td><input type="hidden" name="idOfEmp" value="${emp.id}"/>${emp.id}</td>
-          	 <td><input type="hidden" name="empZipcode" value="${emp.zipcode}"/>${emp.zipcode}</td>
-          	 <td><input name="empLastName" value="${emp.lastName}"/></td>
-          	 <td><input name="empFirstName" value="${emp.firstName}"/></td>
-          	 <td><input required name="empAddress" value="${emp.address}"/></td>
-          	 <%-- <td>${emp.city}</td>--%>
-          	 <%-- <td>${emp.state}</td>--%>
-          	 <td><input required name="empTelephone" value="${emp.telephone}"/></td>
-             <td><input required name="empStartDate" value="${emp.startDate}"/></td>
+          	 <td>${emp.ssn}</td>
+          	 <td>${emp.id}</td>
+          	 <td>${emp.zipcode}</td>
+          	 <td>${emp.lastName}</td>
+          	 <td>${emp.firstName}</td>
+          	 <td>${emp.address}</td>
+          	 <td>${emp.telephone}</td>
+             <td>${emp.startDate}</td>
 	                  
           </form>
           </tr>
