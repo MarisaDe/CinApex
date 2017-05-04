@@ -165,6 +165,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/MailingList">Produce Customer Mailing List</a></li>
             <li><a href="/Cinapex1/MovieSugg">Produce a list of movie suggestions</a></li>
             <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
+            <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
           </ul>
         </li>
    
