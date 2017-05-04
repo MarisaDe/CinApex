@@ -91,7 +91,8 @@ margin-bottom: 0px;
 	      </form>
 	       </div>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right"> 
+      <li><a href="/Cinapex1/Movie">Available Movies</a></li>
         <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
       <c:if test="${loggedInUser eq null}">  
           
@@ -168,7 +169,8 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
           </ul>
         </li>
-   
+   </c:if>
+   <c:if test="${(personType eq 'Manager')}">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
           <ul class="dropdown-menu">

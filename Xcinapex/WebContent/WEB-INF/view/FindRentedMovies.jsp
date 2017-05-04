@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Find Rented Movies</title>
+<title>Cinapex</title>
 </head>
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>

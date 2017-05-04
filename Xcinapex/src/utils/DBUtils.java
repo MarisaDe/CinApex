@@ -90,7 +90,7 @@ public class DBUtils {
 	}
 	
 	public static List<Movie> getBestSeller(Connection conn) throws SQLException {
-		String sql = "SELECT M.Id, M.Name, M.Type, M.Rating, N.NumOrders FROM MovieOrder N, Movie M WHERE N.MovieId = M.Id ORDER BY N.NumOrders DESC";
+		String sql = "Select * from movie order by rating desc limit 3";
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
 
