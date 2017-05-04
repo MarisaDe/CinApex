@@ -116,7 +116,7 @@ margin-bottom: 0px;
                                         <table>
                                         <tr>
                                         <th>
-                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                            <img src = "${pageContext.request.contextPath}/icon.png" class="icon-size"></span>
                                             </th>
                                         </p>
                                     </div>
