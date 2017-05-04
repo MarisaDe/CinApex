@@ -11,15 +11,10 @@
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
 
-	<table border="1" cellpadding="5" cellspacing="1" align="center">
+	<center>
+		<h3>Movie Added!</h3>
+	</center>
 
-		<h3>Added :</h3>
-			<h3></h3>
-			<h3></h3>
-			<h3></h3>
-
-
-	</table>
 
 </body>
 </html>

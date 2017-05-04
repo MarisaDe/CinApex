@@ -12,7 +12,7 @@
  
     <h3 align = "center">Order History</h3>
  <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" align = "center">
+    <table border="1" cellpadding="5" cellspacing="1" align = "center" class="table table-striped">
       
        <h3>${sessionScope.personType} ${sessionScope.loggedInUser.firstName } ${sessionScope.loggedInUser.lastName}'s History</h3>
        

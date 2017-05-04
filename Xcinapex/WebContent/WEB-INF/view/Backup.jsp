@@ -10,16 +10,31 @@
 </head>
 <body><jsp:include page="menu.jsp"></jsp:include>
 
+<script type="text/javascript">
+function getfolder(e) {
+    var files = e.target.files;
+    var path = files[0].webkitRelativePath;
+    var Folder = path.split("/");
+    alert(Folder[0]);
+}
+</script>
+
+
 	<center>
 
 		<form action="/Cinapex1/DatabaseBacked">
 		
 			<h3>BackUp DataBase</h3>
 			<div class="form-group">
-				<label>Path:</label> <input type="text" class="form-control" name="path" id="usr" required autofocus>
-			</div>
-			<button type="submit" class="btn btn-success">BackUp</button>
 				
+				<label>Path:</label> <input type="text" class="form-control" name="path" id="usr" required autofocus>
+				
+			</div>
+			<!-- 
+			<input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
+				 -->
+				 <button type="submit" class="btn btn-success">Backup</button>
+				 
 		</form>
 
 	</center>

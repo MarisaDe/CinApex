@@ -13,7 +13,7 @@
  
     <h3 align = "center">Movie List</h3>
  <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" align = "center">
+    <table border="1" cellpadding="5" cellspacing="1" align = "center" class="table table-striped">
        <tr>
           <th>Movie Id</th>
           <th>Name</th>

@@ -38,7 +38,6 @@ public class DatabaseBacked extends HttpServlet {
    		String pass = setUpConnection.PASSWORD;
    		
    		java.sql.Connection conn = null;
-		List<Customer> changethisCust=null;
 		String errorString = null;
 		
 		try{
@@ -47,18 +46,20 @@ public class DatabaseBacked extends HttpServlet {
 			
 			conn.setAutoCommit(false);
 			String path= request.getParameter("path");
-			System.out.println(path);			
-
+			//System.out.println(path);			
+			String sqlDump = setUpConnection.SQLDUMP;
 	        //String cmd = "/usr/local/bin/mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + setUpConnection.DATABASENAME + " -r " + path + "/backup.sql";
-	        //String cmd = "/usr/local/bin/mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + "CineApex" + " -r " + path + "//backup.sql";
-	        String cmd = "mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + setUpConnection.DATABASENAME + " -r " + path + "/backup.sql";
-
+	        //String cmd = "/usr/local/bin/mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + "CineApex" + " -r " + path + "/backup.sql";
+	        //String cmd = "mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + setUpConnection.DATABASENAME + " -r " + path + "/backup.sql";
+			String cmd = sqlDump + " -u " + user + " -p " + pass + " setUpConnection.DATABASENAME "  + " > "+  path + "/backup.sql";
+			
 			System.out.println(cmd);
 	        
 	        Process runtimeProcess;
 	        try {
 	 
-	            runtimeProcess = Runtime.getRuntime().exec(cmd);
+	        	Runtime runtime = Runtime.getRuntime();
+	        	runtimeProcess = runtime.exec(cmd);
 	            int processComplete = runtimeProcess.waitFor();
 	 
 	            if (processComplete == 0) {
@@ -74,20 +75,9 @@ public class DatabaseBacked extends HttpServlet {
 			conn.commit();
 			
 			Class.forName(jdbc_driver).newInstance();
-			conn = DriverManager.getConnection(url, user, pass);
-			changethisCust = DBUtils.getCustomers(conn);
-			
+			conn = DriverManager.getConnection(url, user, pass);			
 		}catch (Exception e) {
 	        // Any error is grounds for rollback
-	        try { 
-	          conn.rollback();
-	          System.out.println("Rolling back..");
-	  		RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
-	        dispatcher.forward(request, response);
-	          e.printStackTrace();
-	        }
-	        catch (SQLException ignored) { } 
 	      }
 		RequestDispatcher dispatcher = request.getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/DatabaseBacked.jsp");

@@ -10,8 +10,10 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
-<h1> Error!</h1>
-<h3>You may need to be logged in to an employee account to view this page.</h3>
-<h3>Perhaps try logging in to an employee account first!</h3>
+	<center>
+		<h1 style="color: #c62929;">Error!</h1>
+		<h3>You may need to be logged in to an employee to view this page.</h3>
+		<h4>Perhaps try logging in to an employee account first!</h4>
+	</center>
 </body>
 </html>
