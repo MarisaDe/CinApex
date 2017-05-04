@@ -157,7 +157,7 @@ margin-bottom: 0px;
       </c:if>  
       
    <c:if test="${(personType eq 'Employee')}">
-     	<li><a href="/Cinapex1/Logout">Logout</a></li> 
+
      	<li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>  
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
@@ -171,6 +171,8 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
             <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
             <li><a href="/Cinapex1/Movie">View Available Movies</a></li>
+             <li role="separator" class="divider"></li>
+            <li><a href="/Cinapex1/Logout">       <span class="glyphicon glyphicon-log-out"></span> Logout</span></a></li>
           </ul>
         </li>
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
