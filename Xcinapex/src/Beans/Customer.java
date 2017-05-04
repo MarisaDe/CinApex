@@ -21,7 +21,7 @@ public class Customer extends Person{
 		   this.email = email;
 	   }
 	
-	public void setcCard(String cCard){
+	public void setCCard(String cCard){
 		   this.CCard = cCard;
 	   }
 	
@@ -37,7 +37,7 @@ public class Customer extends Person{
 		   return email;
 	   }
 	
-	public String getcCard(){
+	public String getCCard(){
 		   return CCard;
 	   }
 	

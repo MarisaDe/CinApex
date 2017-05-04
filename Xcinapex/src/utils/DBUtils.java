@@ -943,8 +943,8 @@ public class DBUtils {
 		
 		Rental rental  = new Rental();
 		
-		String custRepId = rs.getString("AccountId");
-		String accountId = rs.getString("CustRepId");
+		int custRepId = rs.getInt("CustRepId");
+		String accountId = rs.getString("AccountId");
 		int orderId = rs.getInt("OrderId");
 		int movieId = rs.getInt("MovieId");
 
@@ -1022,7 +1022,7 @@ public class DBUtils {
 		//Rental rental = buildRental(rs);
 		
 		pstm.setString(1, rental.getAccountId());
-		pstm.setString(2, rental.getCustRepId());
+		pstm.setInt(2, rental.getCustRepId());
 		pstm.setInt(3, rental.getOrderId());
 		pstm.setInt(4, rental.getMovieId());
 		
@@ -1102,7 +1102,7 @@ public class DBUtils {
 		pstm.setString(1, customer.getCustId());
 		pstm.setString(2, customer.getEmail());
 		pstm.setInt(3, customer.getRating());
-		pstm.setString(4, customer.getcCard());
+		pstm.setString(4, customer.getCCard());
 
 		pstm.executeUpdate();
 
@@ -1130,9 +1130,9 @@ public class DBUtils {
 
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
+			System.out.println(movie.getName());
 			list.add(movie);
 		}
-
 		return list;
 	}
 	
@@ -1152,6 +1152,7 @@ public class DBUtils {
 		}
 		return bestSellerList;
 	}
+	
 	
 	public static List<Movie> getPersonalizeMovieSuggestions(Connection conn, String custId) throws SQLException{
 		int id=getAccountIdFromCustomerId(conn,custId);
@@ -1198,7 +1199,7 @@ public class DBUtils {
 		cust.setZipcode(rs.getInt("ZipCode"));
 		cust.setEmail(rs.getString("Email"));
 		cust.setRating(rs.getInt("Rating"));
-		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCCard(rs.getString("CreditCardNumber"));
 		cust.setCustId(rs.getString("ID"));
 
 		return cust;
@@ -1244,7 +1245,7 @@ public class DBUtils {
 		emp.setLastName(rs.getString("LastName"));
 		emp.setTelephone(rs.getString("Telephone"));
 		emp.setZipcode(rs.getInt("ZipCode"));
-		emp.setcCard(rs.getString("CreditCardNumber"));
+		emp.setCCard(rs.getString("CreditCardNumber"));
 		emp.setRating(rs.getInt("Rating"));
 		emp.setEmail(rs.getString("Email"));
 		emp.setCustId(rs.getString("Id"));
@@ -1253,6 +1254,29 @@ public class DBUtils {
 	}
 
 
+	public static void editUserRating(Connection conn, String id, int movId, int userrating) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql= "update userratings set rating=? where customerid=? and movieid=?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, userrating);
+		pstm.setString(2, id);
+		pstm.setInt(3, movId);
+		pstm.executeUpdate();
+		changeMoviesRating(conn, movId);
+		
+	}
+
+
+	private static void changeMoviesRating(Connection conn, int movId) throws SQLException {
+		// TODO Auto-generated method stub\
+		String sql= "update movie m, (select avg(rating) avgrate from userratings where userratings.movieid=?) s SET m"
+				+ ".rating = s.avgrate where m.id=? ";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		pstm.setInt(1, movId);
+		pstm.setInt(2, movId);
+		pstm.executeUpdate();
+	}
 	public static void insertAccount(Connection conn, Account acct) throws SQLException {
 		
 		String sql = "INSERT INTO Account VALUES(?, ?, ?, ?);";
@@ -1266,8 +1290,6 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
-
-
 
 	
 }

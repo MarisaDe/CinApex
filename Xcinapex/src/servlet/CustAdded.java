@@ -82,7 +82,7 @@ public class CustAdded extends HttpServlet {
 			cust.setTelephone(phone);
 			cust.setEmail(email);
 			cust.setRating(Integer.parseInt(rating));
-			cust.setcCard(cCard);
+			cust.setCCard(cCard);
 			
 			String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 

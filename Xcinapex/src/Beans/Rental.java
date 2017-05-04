@@ -3,7 +3,7 @@ package Beans;
 public class Rental {
 	
 	private String accountId;
-	private String custRepId;
+	private int custRepId;
 	private int OrderId;
 	private int movieId;
 	
@@ -11,7 +11,7 @@ public class Rental {
 		
 	}
 
-	public Rental(String accountId, String custRepId, int orderId, int movieId) {
+	public Rental(String accountId, int custRepId, int orderId, int movieId) {
 		this.accountId = accountId;
 		this.custRepId = custRepId;
 		OrderId = orderId;
@@ -26,12 +26,12 @@ public class Rental {
 		this.accountId = accountId;
 	}
 
-	public String getCustRepId() {
+	public int getCustRepId() {
 		return custRepId;
 	}
 
-	public void setCustRepId(String custRepId) {
-		this.custRepId = custRepId;
+	public void setCustRepId(int custRepId2) {
+		this.custRepId = custRepId2;
 	}
 
 	public int getOrderId() {

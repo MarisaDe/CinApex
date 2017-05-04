@@ -10,7 +10,7 @@
  </head>
 
  <body>
- <jsp:include page="_menuEmp.jsp"></jsp:include>
+ <jsp:include page="menu.jsp"></jsp:include>
 
 
 <div class="container">
@@ -29,10 +29,6 @@
         <label for="ex3">Movie Order Id</label>
         <input class="form-control" type="number" name="MOId" placeholder="1" required autofocus>
       </div>
-      <div class="col-xs-4">
-        <label for="ex3">CustRep Id</label>
-        <input class="form-control"  type="number" name="MOCId" placeholder="2" required autofocus>
-      </div>
             <div class="col-xs-4">
         <label for="ex3">Account Id</label>
         <input class="form-control"  type="number" name="MOAId" placeholder="2" required autofocus>
@@ -41,9 +37,6 @@
         <label for="ex3">Movie Id</label>
         <input class="form-control"  type="number" name="MOMId" placeholder="3" required autofocus>
       </div>
-	
-
-
       <br><br><br>
       <div class="col-xs-4">
         <label for="ex3">ReturnDate</label>
