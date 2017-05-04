@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import Beans.Customer;
 import Beans.Employee;
+import Beans.Manager;
 import utils.DBUtils;
 import utils.MyUtils;
 import utils.setUpConnection;

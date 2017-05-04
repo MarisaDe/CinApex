@@ -67,6 +67,20 @@ WHERE m1.Type = (
 	SELECT m.Type
 	From Movie m, Rental r
 	WHERE m.Id=r.MovieId AND r.AccountId=1)
+
+
+	select * 
+	from movie
+	where id not in(
+		select MovieId
+		from rental 
+		where accountid=1)
+		and type in(
+			select type
+			from rental, movie
+			where accountid =1 and id=movieid
+		
+	);
 ---10.	Rate the movies they have rented
 INSERT INTO UserRatings(CustomerId, MovieId, Rating)
 	Values('111-11-1111', 3, 1);
