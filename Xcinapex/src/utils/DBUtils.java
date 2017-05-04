@@ -1323,5 +1323,19 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 
+
+	public static List<Customer> listOfActiveCustomers(Connection conn) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql="select distinct c.*,p.* from person p, customer c, movieorder m where m.dateandtime>=DATE_SUB(NOW(),INTERVAL 1 YEAR) and c.id=p.ssn;";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		ResultSet rs= pstm.executeQuery();
+		List<Customer> ls= new ArrayList<Customer>();
+		while(rs.next()){
+			Customer c=buildCustomers(rs);
+			ls.add(c);
+		}
+		return ls;
+	}
+
 	
 }
