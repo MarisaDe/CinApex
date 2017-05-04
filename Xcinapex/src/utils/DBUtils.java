@@ -1111,6 +1111,7 @@ public class DBUtils {
 		return bestSellerList;
 	}
 	
+	
 	public static List<Movie> getPersonalizeMovieSuggestions(Connection conn, String custId) throws SQLException{
 		int id=getAccountIdFromCustomerId(conn,custId);
 		String sql = "select *  from movie where id not in( select MovieId from rental where accountid=?) and type in( select type from rental, movie where accountid =? and id=movieid );";
