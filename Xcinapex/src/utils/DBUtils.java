@@ -705,12 +705,13 @@ public class DBUtils {
 	}
 	
 	
-	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String name) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? OR P.LastName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		firstName = "%" + firstName + "%";
-		pstm.setString(1, firstName);
+		name = "%" + name + "%";
+		pstm.setString(1, name);
+		pstm.setString(2, name);
 		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -1172,6 +1173,21 @@ public class DBUtils {
 		emp.setCustId(rs.getString("Id"));
 		
 		return emp;
+	}
+
+
+	public static void insertAccount(Connection conn, Account acct) throws SQLException {
+		
+		String sql = "INSERT INTO Account VALUES(?, ?, ?, ?);";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acct.getId());
+		pstm.setString(2, acct.getDate());
+		pstm.setString(3, acct.getType());
+		pstm.setString(4, acct.getCustomerId());
+
+		pstm.executeUpdate();
 	}
 	
 }
