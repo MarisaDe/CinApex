@@ -89,6 +89,7 @@ margin-bottom: 0px;
           </ul>
         </li>
         
+        
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -99,6 +100,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/MailingList">Produce Customer Mailing List</a></li>
             <li><a href="/Cinapex1/MovieSugg">Produce a list of movie suggestions</a></li>
             <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
+            <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
           </ul>
         </li>
         
