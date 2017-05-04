@@ -34,7 +34,7 @@ public class FindMovie extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println(session.getAttribute("loggedInUser").getClass());
+		//System.out.println(session.getAttribute("loggedInUser").getClass());
 		/* 
 		if(!"admin".equals(usertype))
 		 {

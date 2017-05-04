@@ -15,12 +15,10 @@
 	<p style="color: red;">${errorString}</p>
 
 	<table border="1" cellpadding="5" cellspacing="1" align="center">
-
-		<h3>Added :</h3>
-			<h3></h3>
-			<h3></h3>
-			<h3></h3>
-
+	
+	<center>
+		<h3>Employee Added!</h3>
+	</center>
 
 	</table>
 
