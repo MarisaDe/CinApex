@@ -91,7 +91,13 @@ margin-bottom: 0px;
 	      </form>
 	       </div>
 
+<<<<<<< HEAD
       <ul class="nav navbar-nav navbar-right">
+=======
+      <ul class="nav navbar-nav navbar-right"> 
+      <li><a href="/Cinapex1/Movie">Available Movies</a></li>
+        <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
+>>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
       <c:if test="${loggedInUser eq null}">  
               <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
         <li><a href="/Cinapex1/Login">Login</a></li>
@@ -169,12 +175,17 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
           </ul>
         </li>
+<<<<<<< HEAD
         <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
    </c:if>
    
     <c:if test="${personType eq 'Manager' }">  
         <li><a href="/Cinapex1/Logout">Logout</a></li> 
         <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
+=======
+   </c:if>
+   <c:if test="${(personType eq 'Manager')}">
+>>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
           <ul class="dropdown-menu">

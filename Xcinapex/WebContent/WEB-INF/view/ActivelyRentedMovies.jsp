@@ -6,7 +6,7 @@
 <html>
  <head>
     <meta charset="UTF-8">
-    <title>List Of Actively Rented Movies</title>
+<title>Cinapex</title>
  </head>
  <body><jsp:include page="menu.jsp"></jsp:include>
  

@@ -6,7 +6,11 @@
 <html>
  <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <title>Your Account</title>
+=======
+    <title>Cinapex</title>
+>>>>>>> 9995afd9e3a50e9eb2e6a9b7ea7625856a04fc62
  </head>
  <body>
  <jsp:include page="menu.jsp"></jsp:include>
