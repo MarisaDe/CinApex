@@ -72,27 +72,20 @@ public class currentMovies extends HttpServlet{
 		try{
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
-			conn.setAutoCommit(false);
 			Customer cus =(Customer) session.getAttribute("loggedInUser");
 			
 			String id = cus.getCustId();		
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomersHeldMovies(conn, id);
-			conn.commit();
+
 			
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("MovieList", allMovies);
 			RequestDispatcher dispatcher = request.getServletContext()
 	                .getRequestDispatcher("/WEB-INF/view/currentMovies.jsp");
 	        dispatcher.forward(request, response);
-			}catch (Exception e) {
-	        // Any error is grounds for rollback
-	        try { 
-	          conn.rollback();
-	          System.out.println("Rolling back..");
-	          e.printStackTrace();
-	        }
-	        catch (SQLException ignored) { } 
+			}catch (Exception e) { 
+				   e.printStackTrace();
 	      }
 		
 		

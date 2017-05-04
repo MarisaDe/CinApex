@@ -13,7 +13,8 @@
  
     <h3 align = "center">Best Sellers</h3>
  <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" align = "center">
+ <div class = "container">
+    <table class="table table-striped">
        <tr>
           <th>Movie Id</th>
           <th>Name</th>
@@ -30,6 +31,6 @@
           </tr>
        </c:forEach>
     </table>
-
+</div>
  </body>
 </html>

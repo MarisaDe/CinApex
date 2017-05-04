@@ -15,7 +15,7 @@
     <h3 align = "center">Employee List</h3>
  <p style="color: red;">${errorString}</p>
 
-
+<div class = "container">
     <table class="table table-striped" id = "empTable">
        <tr>
           <th>SSN</th>
@@ -45,7 +45,7 @@
           </tr>
        </c:forEach>
     </table>
-    
+  </div>  
  <script>
 
 function refresh() {

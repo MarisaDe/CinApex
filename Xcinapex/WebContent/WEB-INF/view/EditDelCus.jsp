@@ -23,8 +23,8 @@ function del() {
 }
 </script>
 
+ <h3 align = "center">Edit/Delete Customer List</h3>
 <div class="container">
-    <h3 align = "center">Customer List</h3>
  <p style="color: red;">${errorString}</p>
 
  <form action="/Cinapex1/DeleteCust">

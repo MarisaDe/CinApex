@@ -17,7 +17,6 @@
    <div class="form-group row">
  <form action="/Cinapex1/ProducedMovieSugg">
  <div class="form-group row">
- <h2>Customer Id</h2>
      <div class="col-xs-4">
         <label for="ex3">Customer Id</label>
         <input class="form-control" id="ex3" type="number" name="cIdPersonal" placeholder="1" required autofocus>
@@ -29,7 +28,8 @@
  
  
  <p style="color: red;">${errorString}</p>
-    <table border="1" cellpadding="5" cellspacing="1" align = "center">
+ <div class = "container">
+    <table class = "table table-striped">
       
        <h3>${movie.id} Personalized List</h3>
        
@@ -49,7 +49,7 @@
           </tr>
        </c:forEach>
     </table>
- 
+ </div>
     
  </body>
 </html>
