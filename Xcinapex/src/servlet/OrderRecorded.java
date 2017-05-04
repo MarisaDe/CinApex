@@ -85,6 +85,13 @@ public class OrderRecorded extends HttpServlet {
 			
 			DBUtils.decrementMovie(conn,movieId ,movieOrder);
 			DBUtils.insertRental(conn, rental);
+			System.out.println("TEST ACC ID " + accountId);
+			System.out.println("TEST CUST ID " + DBUtils.getCustomerIdFromAccountId(conn, accountId));
+			
+			DBUtils.addUserRating(conn, (DBUtils.getCustomerIdFromAccountId(conn, rental.getAccountId())), movieOrder.getMovieId());
+
+
+			
 			conn.commit();
    		}catch (Exception e) {
    	        // Any error is grounds for rollback
