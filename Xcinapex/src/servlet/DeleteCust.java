@@ -47,11 +47,26 @@ public class DeleteCust extends HttpServlet {
 			
 			conn.setAutoCommit(false);
 			changethisCust= DBUtils.getCustomers(conn);
-			String id= request.getParameter("custId");
-			DBUtils.deleteCustomer(conn, id, id);
+			String custid= request.getParameter("custId");
+			int AcctId = DBUtils.getAccountIdFromCustomerId(conn, custid);
+			
+			DBUtils.deleteMovieQByAcctId(conn, AcctId);
+			System.out.println("Deleted MovieQ");
+			DBUtils.deleteRental(conn, AcctId);
+			System.out.println("Deleted Rental");
+			DBUtils.deleteMovieOrderByAccount(conn, AcctId);
+			System.out.println("Deleted MovieOrder");
+			DBUtils.deleteAccount(conn, custid);
+			System.out.println("Deleted Account");
+			DBUtils.deleteCustomer(conn, custid);
+			System.out.println("Deleted Customer");
+			DBUtils.deletePerson(conn, custid);
+			System.out.println("Deleted Person");
+			int zip = DBUtils.getZipBySSN(conn, custid);
+			DBUtils.deleteLocation(conn, zip);
+			
 			changethisCust= DBUtils.getCustomers(conn);
 			conn.commit();
-			DBUtils.deleteCustomer(conn, id, id);
 			
 			Class.forName(jdbc_driver).newInstance();
 			conn = DriverManager.getConnection(url, user, pass);
@@ -62,11 +77,16 @@ public class DeleteCust extends HttpServlet {
 	        try { 
 	          conn.rollback();
 	          System.out.println("Rolling back..");
+	  		RequestDispatcher dispatcher = request.getServletContext()
+	                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
+	        dispatcher.forward(request, response);
 	          e.printStackTrace();
 	        }
 	        catch (SQLException ignored) { } 
 	      }
-		
+		RequestDispatcher dispatcher = request.getServletContext()
+                .getRequestDispatcher("/WEB-INF/view/EditDelCus.jsp");
+        dispatcher.forward(request, response);
 		request.setAttribute("errorString", errorString);
 		
    	}

@@ -36,7 +36,7 @@ public class OrderRecorded extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession(true);
 
    		String jdbc_driver= "com.mysql.jdbc.Driver";  
 		String url = "jdbc:mysql://localhost:3306/" + setUpConnection.DATABASENAME;
@@ -51,7 +51,8 @@ public class OrderRecorded extends HttpServlet {
 			
 			int orderId = Integer.parseInt(request.getParameter("MOId"));
 			String accountId = request.getParameter("MOAId");
-			String custRepId = request.getParameter("MOCId");
+			Employee custrep= (Employee) session.getAttribute("loggedInUser");
+			int custRepId = custrep.getId();
 			int movieId =  Integer.parseInt(request.getParameter("MOMId"));			
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 			String returnDate = request.getParameter("MORD");

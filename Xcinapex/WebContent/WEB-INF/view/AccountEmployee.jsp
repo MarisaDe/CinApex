@@ -16,16 +16,13 @@
     <table border="1" cellpadding="5" cellspacing="1" align = "center">
       
        <h3>${personType}</h3>
-         <h3>Last Name:${loggedInUser.lastName}</h3>
+      	 <h3>Last Name:${loggedInUser.lastName}</h3>
          <h3>First Name:${loggedInUser.firstName}</h3>
          <h3>Address :${loggedInUser.address } ${loggedInUser.zipcode}</h3>
          <h3>Telephone Number:${loggedInUser.telephone}</h3>
-         <h3>Email Address:${loggedInUser.email}</h3>
-         <h3>Credit Card Number:${loggedInUser.CCard}</h3>
-         <h3>Rating:${loggedInUser.rating}</h3>
-
-         
-         
+       
+         <h3>Start Date:${loggedInUser.startDate}</h3>
+         <h3>Hourly Rate:$${loggedInUser.hourlyRate}</h3>
          
     </table>
  

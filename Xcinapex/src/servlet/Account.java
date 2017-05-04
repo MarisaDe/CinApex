@@ -63,9 +63,15 @@ public class Account extends HttpServlet{
 				 session.setAttribute("personType", personType);
 			
 			request.setAttribute("errorString", errorString);
-			RequestDispatcher dispatcher = request.getServletContext()
-	                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
-	        dispatcher.forward(request, response);
+				if(personType.equals("Customer")){
+					RequestDispatcher dispatcher = request.getServletContext()
+			                .getRequestDispatcher("/WEB-INF/view/Account.jsp");
+					dispatcher.forward(request, response);
+				}else{
+					RequestDispatcher dispatcher = request.getServletContext()
+			                .getRequestDispatcher("/WEB-INF/view/AccountEmployee.jsp");
+					dispatcher.forward(request, response);
+				}
 			}else{
 				System.out.println("WRONG");
 				RequestDispatcher dispatcher = request.getServletContext()

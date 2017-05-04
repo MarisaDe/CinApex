@@ -286,6 +286,33 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static int  getZipBySSN(Connection conn, String ssn) throws SQLException{
+		String sql = "SELECT ZipCode from person where ssn = ?";
+		int zip = -1;
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, ssn);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		if(rs.next()){
+			zip = rs.getInt("ZipCode");
+		}
+		
+		return zip;
+	}
+	
+	public static void deleteLocation(Connection conn, int zip) throws SQLException{
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM Location where ZipCode = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, zip);
+		
+		pstm.executeUpdate();
+		
+	}
+	
 	public static void deleteRentalByMovieId(Connection conn, int id)throws SQLException {
 		String sql = "DELETE FROM  rental WHERE MovieId = ?";
 		
@@ -561,6 +588,28 @@ public class DBUtils {
 
 	}
 	
+	public static void deleteMovieOrderByAccount(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieOrder WHERE AccountId  = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
+
+
+	public static void deleteMovieQByAcctId(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieq WHERE AccountId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
 	
 	public static void deleteRental(Connection conn, int custId) throws SQLException {
 		String sql = "DELETE FROM Rental WHERE CustRepId=?";
@@ -727,12 +776,13 @@ public class DBUtils {
 	}
 	
 	
-	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String firstName) throws SQLException{
-		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
+	public static List<RentedMovies> ListOfRentalMoviesByCustName(Connection conn, String name) throws SQLException{
+		String sql = "SELECT  R.AccountId, P.FirstName, P.LastName, R.CustRepId , R.OrderId ,R.MovieId, M.Name, M.Type, M.Rating, M.DistrFee, M.NumCopies  FROM    Rental R, Movie M, Person P, Account A WHERE   R.MovieId = M.Id AND P.FirstName LIKE ? OR P.LastName LIKE ? AND A.CustomerId = P.SSN AND R.AccountId = A.Id";
 	
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		firstName = "%" + firstName + "%";
-		pstm.setString(1, firstName);
+		name = "%" + name + "%";
+		pstm.setString(1, name);
+		pstm.setString(2, name);
 		//pstm.setString(2, lastName);
 		ResultSet rs = pstm.executeQuery();
 		
@@ -893,8 +943,8 @@ public class DBUtils {
 		
 		Rental rental  = new Rental();
 		
-		String custRepId = rs.getString("AccountId");
-		String accountId = rs.getString("CustRepId");
+		int custRepId = rs.getInt("CustRepId");
+		String accountId = rs.getString("AccountId");
 		int orderId = rs.getInt("OrderId");
 		int movieId = rs.getInt("MovieId");
 
@@ -972,7 +1022,7 @@ public class DBUtils {
 		//Rental rental = buildRental(rs);
 		
 		pstm.setString(1, rental.getAccountId());
-		pstm.setString(2, rental.getCustRepId());
+		pstm.setInt(2, rental.getCustRepId());
 		pstm.setInt(3, rental.getOrderId());
 		pstm.setInt(4, rental.getMovieId());
 		
@@ -1036,20 +1086,12 @@ public class DBUtils {
 		
 	}
 	
-	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
-		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
-		//PreparedStatement pstm = conn.prepareStatement(sql);
-		
-		//pstm.setInt(1, custId);
-		//ResultSet rs = pstm.executeQuery();
-			
-		deleteAccount(conn, custId);	
+	public static void deleteCustomer(Connection conn, String ssn) throws SQLException {
 		String sql2 = "DELETE FROM Customer WHERE Id=?";
 		PreparedStatement pstm2 = conn.prepareStatement(sql2);
 
-		pstm2.setString(1, custId);
+		pstm2.setString(1, ssn);
 		pstm2.executeUpdate();
-		deletePerson(conn, ssn);
 
 	}
 	
@@ -1060,7 +1102,7 @@ public class DBUtils {
 		pstm.setString(1, customer.getCustId());
 		pstm.setString(2, customer.getEmail());
 		pstm.setInt(3, customer.getRating());
-		pstm.setString(4, customer.getcCard());
+		pstm.setString(4, customer.getCCard());
 
 		pstm.executeUpdate();
 
@@ -1088,9 +1130,9 @@ public class DBUtils {
 
 		while (rs.next()) {
 			Movie movie = buildMovie(rs);
+			System.out.println(movie.getName());
 			list.add(movie);
 		}
-
 		return list;
 	}
 	
@@ -1157,7 +1199,7 @@ public class DBUtils {
 		cust.setZipcode(rs.getInt("ZipCode"));
 		cust.setEmail(rs.getString("Email"));
 		cust.setRating(rs.getInt("Rating"));
-		cust.setcCard(rs.getString("CreditCardNumber"));
+		cust.setCCard(rs.getString("CreditCardNumber"));
 		cust.setCustId(rs.getString("ID"));
 
 		return cust;
@@ -1203,12 +1245,51 @@ public class DBUtils {
 		emp.setLastName(rs.getString("LastName"));
 		emp.setTelephone(rs.getString("Telephone"));
 		emp.setZipcode(rs.getInt("ZipCode"));
-		emp.setcCard(rs.getString("CreditCardNumber"));
+		emp.setCCard(rs.getString("CreditCardNumber"));
 		emp.setRating(rs.getInt("Rating"));
 		emp.setEmail(rs.getString("Email"));
 		emp.setCustId(rs.getString("Id"));
 		
 		return emp;
 	}
+
+
+	public static void editUserRating(Connection conn, String id, int movId, int userrating) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql= "update userratings set rating=? where customerid=? and movieid=?";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		
+		pstm.setInt(1, userrating);
+		pstm.setString(2, id);
+		pstm.setInt(3, movId);
+		pstm.executeUpdate();
+		changeMoviesRating(conn, movId);
+		
+	}
+
+
+	private static void changeMoviesRating(Connection conn, int movId) throws SQLException {
+		// TODO Auto-generated method stub\
+		String sql= "update movie m, (select avg(rating) avgrate from userratings where userratings.movieid=?) s SET m"
+				+ ".rating = s.avgrate where m.id=? ";
+		PreparedStatement pstm=conn.prepareStatement(sql);
+		pstm.setInt(1, movId);
+		pstm.setInt(2, movId);
+		pstm.executeUpdate();
+	}
+	public static void insertAccount(Connection conn, Account acct) throws SQLException {
+		
+		String sql = "INSERT INTO Account VALUES(?, ?, ?, ?);";
+
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acct.getId());
+		pstm.setString(2, acct.getDate());
+		pstm.setString(3, acct.getType());
+		pstm.setString(4, acct.getCustomerId());
+
+		pstm.executeUpdate();
+	}
+
 	
 }

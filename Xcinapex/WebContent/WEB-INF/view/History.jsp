@@ -23,16 +23,24 @@
           <th>Rating</th>
        </tr>
        <c:forEach items="${MovieList}" var="movie" >
-          <tr>
-             <td>${movie.id}</td>
-             <td>${movie.name}</td>
-             <td>${movie.type}</td>
-             <td>${movie.rating}</td>
+       <form action="/Cinapex1/AddRating">
+          <tr>   
+         	 <td><input type="hidden" name="movieId" value="${movie.id}"/>${movie.id}</td>
+             <td><input type="hidden" name="movieName" value="${movie.name}"/>${movie.name}</td>
+             <td><input type="hidden" name="movieType" value="${movie.type}"/>${movie.type}</td>
+             <td><input type="number" name="movieRating" value="${movie.rating}" onsubmit="refresh()" /></td>
              
           </tr>
+         </form>
        </c:forEach>
     </table>
  
     
  </body>
+ 
+ <script>
+function refresh() {
+    location.reload();
+}
+</script>
 </html>

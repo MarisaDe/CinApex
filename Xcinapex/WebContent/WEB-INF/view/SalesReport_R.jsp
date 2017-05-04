@@ -9,7 +9,7 @@
 <title>SalesReport</title>
 </head>
 <body>
-	<jsp:include page="_menuEmp.jsp"></jsp:include>
+	<jsp:include page="menu.jsp"></jsp:include>
 		
 		<h2>Monthly Sales for : ${salesReport.date}</h2>
 		<h3>Sum : $ ${salesReport.totalSales}</h3>

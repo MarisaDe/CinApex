@@ -19,14 +19,14 @@ import Beans.Customer;
 import utils.DBUtils;
 import utils.setUpConnection;
 
-@WebServlet("/History")
-public class History extends HttpServlet{
+@WebServlet("/AddRating")
+public class AddRating extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public History() {
+    public AddRating() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -67,12 +67,20 @@ public class History extends HttpServlet{
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false);
 			Customer cus =(Customer) session.getAttribute("loggedInUser");
-			
+			String movieid=request.getParameter("movieId");
+			String userrate=request.getParameter("movieRating");
+			int movId=Integer.parseInt(movieid);
+			int userrating=Integer.parseInt(userrate);
+			if(userrating>5){
+				userrating=5;
+			}else if(userrating<1){
+				userrating=1;
+			}
 			String id = cus.getCustId();
+			DBUtils.editUserRating(conn,id,movId,userrating);
 			
 			System.out.println(cus +" "+ id+" "+cus.getCustId());
 			allMovies= DBUtils.getCustomerHistory(conn, id);
-			System.out.println("num movies="+allMovies.size());
 			conn.commit();
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("MovieList", allMovies);

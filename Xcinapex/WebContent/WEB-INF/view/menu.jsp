@@ -119,6 +119,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/Movie">All Movie Listings</a></li>
           </ul>
         </li>
+        <li><a href="/Cinapex1/BestSellers">Help</a></li>
       </ul>
 
    
