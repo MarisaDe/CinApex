@@ -48,10 +48,12 @@ public class DatabaseBacked extends HttpServlet {
 			conn.setAutoCommit(false);
 			String path= request.getParameter("path");
 			System.out.println(path);			
-			
-			
-	        String cmd = "mysqldump -u " + user + " -p" + pass + setUpConnection.DATABASENAME + " -r " + path;
-	        System.out.println(cmd);
+
+	        //String cmd = "/usr/local/bin/mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + setUpConnection.DATABASENAME + " -r " + path + "/backup.sql";
+	        //String cmd = "/usr/local/bin/mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + "CineApex" + " -r " + path + "//backup.sql";
+	        String cmd = "mysqldump -u " + user + " -p" + pass + " --add-drop-database -B " + setUpConnection.DATABASENAME + " -r " + path + "/backup.sql";
+
+			System.out.println(cmd);
 	        
 	        Process runtimeProcess;
 	        try {
