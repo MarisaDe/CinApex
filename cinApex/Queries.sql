@@ -106,21 +106,19 @@ GROUP BY N.CustId
 
 SELECT N.CustId, N.FirstName, N.LastName, N.Rating, C.NumOrders
 FROM CountOrders C, Name N
-WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders) 
-					                                          FROM CountOrders D)
+WHERE N.CustId = C.CustId AND C.NumOrders >= (SELECT MAX(D.NumOrders) FROM CountOrders D)
 
 #8. Produce a list of most actively rented movies
 
-CREATE VIEW MovieOrder(MovieId, NumOrders)
+CREATE VIEW OrderList(MovieId, NumOrders)
 AS
 SELECT R.MovieId, COUNT(R.MovieId) 
 FROM Rental R
 GROUP BY R.MovieId
 
-SELECT M.ID, M.Name, M.RATING, O.NumOrders
-FROM MovieOrder O, Movie M
-WHERE O.MovieId = M.ID AND O.NumOrders >= (SELECT MAX(R.NumOrders)
-					                                      FROM MovieOrder R)
+SELECT M.ID, M.Name, M.Rating, O.NumOrders
+FROM OrderList O, Movie M
+WHERE O.MovieId = M.ID AND O.NumOrders >= (SELECT MAX(R.NumOrders) FROM OrderList R)
 
 Customer Representative Level Transactions
 
