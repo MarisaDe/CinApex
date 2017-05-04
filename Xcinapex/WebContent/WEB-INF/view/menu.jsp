@@ -89,18 +89,18 @@ margin-bottom: 0px;
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	      </form>
-	       </div>     
+	       </div>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
       <c:if test="${loggedInUser eq null}">  
-          
+              <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
         <li><a href="/Cinapex1/Login">Login</a></li>
+        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
         </c:if>
         
         
  <c:if test="${personType eq 'Customer' }">       
-        
+        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
          <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
@@ -149,12 +149,13 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/Logout">Logout<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                     </ul>
                 </li>
-                
+             <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>   
                 
       </c:if>  
       
    <c:if test="${(personType eq 'Employee')}">
-     		<li><a href="/Cinapex1/Logout">Logout</a></li>   
+     		<li><a href="/Cinapex1/Logout">Logout</a></li> 
+     	        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li>  
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -168,7 +169,12 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/ViewEmployees">View Employees</a></li>
           </ul>
         </li>
+        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
+   </c:if>
    
+    <c:if test="${personType eq 'Manager' }">  
+        <li><a href="/Cinapex1/Logout">Logout</a></li> 
+        <li><a href="/Cinapex1/BestSellers">  <span class="glyphicon glyphicon-fire"></span> Best Sellers</a></li> 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -186,14 +192,13 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/AllMovies">All Movie Listings</a></li>
           </ul>
         </li>
-        <li><a href="/Cinapex1/BestSellers">Help</a></li>
+        <li><a href="/Cinapex1/BestSellers"><span class = "glyphicon glyphicon-question-sign"></span></a></li>
       </ul>
 </c:if>
    
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-Hello <b>${loggedInUser.firstName}!</b>
 
 
 

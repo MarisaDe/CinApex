@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Beans.Employee;
+import Beans.Manager;
 import Beans.Person;
 import Beans.Customer;
 import utils.DBUtils;
@@ -56,6 +57,9 @@ public class Account extends HttpServlet{
 			
 			Person emp;
 			emp = DBUtils.loginChoice(conn, name,personType);
+			if (emp instanceof Manager){
+				personType="Manager";
+			}
 			conn.commit();
 			
 			if(emp != null){		

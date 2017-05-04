@@ -45,12 +45,25 @@ public class DBUtils {
 		if(rs.next()){
 			managerId = rs.getInt("ManagerId");
 			String SSN = rs.getString("SSN");
-			String firstName = rs.getString("FirstName");
+			String startDate = rs.getString("StartDate");
+			int hourlyRate = rs.getInt("HourlyRate");
 			String lastName = rs.getString("lastName");
+			String firstName = rs.getString("FirstName");
+			String address = rs.getString("Address");
+			int zip = rs.getInt("ZipCode");
+			String phone = rs.getString("Telephone");
+			
 			
 			manager.setSsn(SSN);
 			manager.setFirstName(firstName);
 			manager.setLastName(lastName);
+			manager.setId(managerId);
+			manager.setAddress(address);
+			manager.setZipcode(zip);
+			manager.setTelephone(phone);
+			manager.setHourlyRate(hourlyRate);
+			manager.setStartDate(startDate);
+			
 		}
 			
 		
