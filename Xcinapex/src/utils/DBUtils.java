@@ -264,6 +264,33 @@ public class DBUtils {
 		pstm.executeUpdate();
 	}
 	
+	public static int  getZipBySSN(Connection conn, String ssn) throws SQLException{
+		String sql = "SELECT ZipCode from person where ssn = ?";
+		int zip = -1;
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setString(1, ssn);
+		
+		ResultSet rs = pstm.executeQuery();
+		
+		if(rs.next()){
+			zip = rs.getInt("ZipCode");
+		}
+		
+		return zip;
+	}
+	
+	public static void deleteLocation(Connection conn, int zip) throws SQLException{
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM Location where ZipCode = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, zip);
+		
+		pstm.executeUpdate();
+		
+	}
+	
 	public static void deleteRentalByMovieId(Connection conn, int id)throws SQLException {
 		String sql = "DELETE FROM  rental WHERE MovieId = ?";
 		
@@ -539,6 +566,28 @@ public class DBUtils {
 
 	}
 	
+	public static void deleteMovieOrderByAccount(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieOrder WHERE AccountId  = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
+
+
+	public static void deleteMovieQByAcctId(Connection conn, int acctId) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM  movieq WHERE AccountId = ?";
+		
+		PreparedStatement pstm = conn.prepareStatement(sql);
+
+		pstm.setInt(1, acctId);
+
+		pstm.executeUpdate();
+	}
 	
 	public static void deleteRental(Connection conn, int custId) throws SQLException {
 		String sql = "DELETE FROM Rental WHERE CustRepId=?";
@@ -936,8 +985,8 @@ public class DBUtils {
 		//ResultSet rs = pstm.executeQuery();
 		//Rental rental = buildRental(rs);
 		
-		pstm.setString(1, rental.getCustRepId());
-		pstm.setString(2, rental.getAccountId());
+		pstm.setString(1, rental.getAccountId());
+		pstm.setString(2, rental.getCustRepId());
 		pstm.setInt(3, rental.getOrderId());
 		pstm.setInt(4, rental.getMovieId());
 		
@@ -1001,20 +1050,12 @@ public class DBUtils {
 		
 	}
 	
-	public static void deleteCustomer(Connection conn, String ssn, String custId) throws SQLException {
-		//String sql = "SELECT custRepId FROM Rental r WHERE ?= r.custRepId";
-		//PreparedStatement pstm = conn.prepareStatement(sql);
-		
-		//pstm.setInt(1, custId);
-		//ResultSet rs = pstm.executeQuery();
-			
-		deleteAccount(conn, custId);	
+	public static void deleteCustomer(Connection conn, String ssn) throws SQLException {
 		String sql2 = "DELETE FROM Customer WHERE Id=?";
 		PreparedStatement pstm2 = conn.prepareStatement(sql2);
 
-		pstm2.setString(1, custId);
+		pstm2.setString(1, ssn);
 		pstm2.executeUpdate();
-		deletePerson(conn, ssn);
 
 	}
 	
@@ -1189,5 +1230,8 @@ public class DBUtils {
 
 		pstm.executeUpdate();
 	}
+
+
+
 	
 }
