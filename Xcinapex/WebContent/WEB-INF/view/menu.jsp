@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -37,6 +38,24 @@
 margin-bottom: 0px;
 }
 
+.icon-size
+{
+    font-size: 87px;
+}
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
 
 </style>
 
@@ -59,7 +78,7 @@ margin-bottom: 0px;
  
            <form class="navbar-form navbar-left" action="/Cinapex1/FindMovie">
                 <div class='input-prepend'>
-                        <font color = "red">Category: </font>
+                    <font color = "red">Category: </font>
                     <select id="select" name="selector" style="width: 80px; height: 30px">
                         <option>Title </option>
                         <option>Genre</option>
@@ -74,22 +93,68 @@ margin-bottom: 0px;
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
-        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Customer<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/Cinapex1/Login">Login</a></li>
-            <li><a href="/Cinapex1/Settings">Settings</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/Cinapex1/Queue">Queue</a></li>
-            <li><a href="/Cinapex1/History">History</a></li>
-            <li><a href="/Cinapex1/personalList">Your Personalized List</a></li>
-            <li><a href="/Cinapex1/currentMovies">Current Movies Held</a></li>
-            <li><a href="#">Rate Your Movies</a></li>
-          </ul>
-        </li>
+      <c:if test="${loggedInUser eq null}">  
+          
+        <li><a href="/Cinapex1/Login">Login</a></li>
+        </c:if>
         
         
+ <c:if test="${personType eq 'Customer' }">       
+        
+         <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <strong>${loggedInUser.firstName}</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                        <table>
+                                        <tr>
+                                        <th>
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                            </th>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <th><p class="text-left" style="padding-left: 15px;"><strong>${loggedInUser.firstName}</strong></p>
+                                        <p class="text-left small" style="padding-left: 15px;">${loggedInUser.email}</p>
+                                        <p class="text-left">
+                                        </p>
+                                        </th>
+                                    </div>
+                                    </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider navbar-login-session-bg"></li>
+                         <li><a href="/Cinapex1/Settings">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Cinapex1/Queue">Queue <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Cinapex1/History">History<span class="glyphicon glyphicon-book pull-right"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Cinapex1/personalList">Your Personalized List <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Cinapex1/currentMovies">Current Movies Held <span class="glyphicon glyphicon-facetime-video pull-right"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="#">Rate Your Movies <span class="glyphicon glyphicon-thumbs-up pull-right"></span></a></li>
+            <li class="divider"></li>
+            
+            <li><a href="/Cinapex1/Logout">Logout<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                    </ul>
+                </li>
+                
+                
+      </c:if>  
+      
+   <c:if test="${(personType eq 'Employee')}">
+     		<li><a href="/Cinapex1/Logout">Logout</a></li>   
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Representatives<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -102,7 +167,7 @@ margin-bottom: 0px;
             <li><a href="/Cinapex1/RecordOrder">Record an Order</a></li>
           </ul>
         </li>
-        
+   
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -122,12 +187,15 @@ margin-bottom: 0px;
         </li>
         <li><a href="/Cinapex1/BestSellers">Help</a></li>
       </ul>
-
+</c:if>
    
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 Hello <b>${loggedInUser.firstName}!</b>
+
+
+
 <!-- Scripts -->	
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
