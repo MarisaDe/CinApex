@@ -47,13 +47,26 @@ public class DatabaseBacked extends HttpServlet {
 			
 			conn.setAutoCommit(false);
 			String path= request.getParameter("path");
-			System.out.println(path);
-			String cmd = "mysqldump" + "-u "+ user + " -p " + pass + " " + setUpConnection.DATABASENAME +">" + path + "backup.sql";
+			System.out.println(path);			
 			
-			System.out.println(cmd);
 			
-			//Runtime runtime = Runtime.getRuntime();
-			//runtime.exec(cmd);
+	        String cmd = "mysqldump -u " + user + " -p" + pass + setUpConnection.DATABASENAME + " -r " + path;
+	        System.out.println(cmd);
+	        
+	        Process runtimeProcess;
+	        try {
+	 
+	            runtimeProcess = Runtime.getRuntime().exec(cmd);
+	            int processComplete = runtimeProcess.waitFor();
+	 
+	            if (processComplete == 0) {
+	                System.out.println("Backup created successfully");
+	            } else {
+	                System.out.println("Could not create the backup");
+	            }
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
 	        
 	        
 			conn.commit();
