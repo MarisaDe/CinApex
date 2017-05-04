@@ -89,7 +89,7 @@ margin-bottom: 0px;
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>
 	      </form>
-	       </div>
+	       </div>     
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/Cinapex1/BestSellers">Best Sellers</a></li>
