@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img src="https://github.com/MarisaDe/CinApex/blob/master/CinApex/WebContent/CinApex.png">
+</p>
+
 TEAM : 
 Johnson Lu
 Marisa DePasquale 
